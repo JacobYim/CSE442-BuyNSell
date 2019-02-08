@@ -27,6 +27,10 @@ Before running our codes, we need to setup the below components.
 >```  
 > 5. Enjoy it.
 
+> # Heroku #
+> 1. Please signup for the Heroku.
+> 2. install heroku from [heroku website](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) with following the instruction. 
+
 # How to Run the Server with the Docker #
 
 > 1. Downloads the codes of this repository and move to the directory.  
@@ -45,4 +49,20 @@ Before running our codes, we need to setup the below components.
 > ```
 > 4. Approach [http://127.0.0.1:2000/](http://127.0.0.1:2000/) with Web Browser.
 > 5. When quit the server, press `control + C`
->   
+> 6. To connect with Heroku,
+> ```
+> heroku login
+> heroku container:login
+> heroku create
+> docker build -t registry.heroku.com/<your-app-number>/web .
+> docker push registry.heroku.com/<your-app-number>/web
+> heroku container:release web -a <your-app-number>
+> heroku open -a <your-app-number>
+> ```  
+
+> when stop the app,
+> ```
+> heroku ps:scale web=0
+> ```
+> restart,
+> heroku ps:scale web=1
