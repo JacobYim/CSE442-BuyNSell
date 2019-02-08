@@ -1,0 +1,38 @@
+#main-header{
+	background:#33445e;
+	color:white;
+}
+
+body{
+	background: #f4f4f4;
+	color:#555;
+	font-family: Roboto, Arial, san-serif;
+	line-height: 1.6em;
+	margin:0;
+}
+
+.container{
+	margin:auto;
+	overflow: hidden;
+}
+
+#navbar{
+	background: #ccc;
+	color:#fff;
+}
+
+#navbar ul{
+	padding:0;
+	list-style:none;
+}
+
+#navbar li{
+	display:inline;
+}
+
+#navbar a{
+	color:#000;
+	font-size:20px;
+	text-decoration: none;
+	padding-right:20px;
+}
