@@ -1,6 +1,19 @@
+@media(min-width:760px){
+	.container{
+	width:85%;
+	margin:auto;
+	overflow: hidden;
+	}
+}
+
 #main-header{
 	background:#33445e;
 	color:white;
+}
+
+#main-header h2{
+	text-align: right;
+	font-size:20px;
 }
 
 body{
@@ -9,11 +22,6 @@ body{
 	font-family: Roboto, Arial, san-serif;
 	line-height: 1.6em;
 	margin:0;
-}
-
-.container{
-	margin:auto;
-	overflow: hidden;
 }
 
 #navbar{
@@ -35,4 +43,17 @@ body{
 	font-size:20px;
 	text-decoration: none;
 	padding-right:20px;
+}
+
+.box1,.box2{
+	display:grid;
+	grid-template-columns: repeat(6,1fr);
+	grid-gap:1em;
+}
+
+.box1 > div, .box2 >div{
+	padding:1em;
+	border:1px solid #ddd;
+	width: 150px;
+	height:150px;
 }
