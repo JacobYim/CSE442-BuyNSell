@@ -5,7 +5,12 @@ const express = require('express');
 // Constants
 const PORT = 8080;
 
+// postgreSQL 
+const pg = require('pg');
+pg.connect('postgres://postgres:password@localhost:5432/practicedocker');
+
 // App
+
 const app = express();
 app.use(express.static(__dirname + '/public'));    // set static directory
 
