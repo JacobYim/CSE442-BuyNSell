@@ -37,25 +37,24 @@ Before running our codes, we need to setup the below components.
 > ```
 > git clone https://github.com/JacobYim/CSE442-BuyNSell.git
 > ```
-> 2. Builds the Dockerfile to image.
-> ```
-> `docker build -t buynsell .`
-> ```
 > Note: make sure that the Docker is running.
 >
-> 3. Run Docker Image at the port 2000.
+> 2. Run Docker Image at the port 8080.
 > ```
-> `docker run --rm -it -p 8080:8080 buynsell`
+> `docker-compose up -d`
 > ```
-> 4. Approach [http://0.0.0.0:8080](http://0.0.0.0:8080/) with Web Browser.
-> 5. When quit the server, press `control + C`
-> 6. If you want to run the image out of the consol, please type 
-> `docker docker run -p 8080:8080 -d buyNsell`  
-> When want to quit this container run,
+> 3. Approach [http://0.0.0.0:8080](http://0.0.0.0:8080/) with Web Browser.
+> 4. When want to quit this container run,
 > `docker stop <container id>`after get container ID with the code`docker ps`.
->
-> 7. When want to run shell of the server, type the command `docker exec -it <container id> /bin/bash`
-> 8. To connect with Heroku,
+> 
+> 5. When want to run shell of the server, type the command `docker exec -it <container id> /bin/bash`
+
+# How to access Databsase 
+After running the command `docker-compose up -d` (where `-d` tag make run in the background) and `docker ps`,
+use `docker exec -it <container name> -U postgres -W postgres`. And type the password.
+
+# How to connect with Heroku
+ To connect with Heroku,
 > ```
 > `heroku login`
 > `heroku container:login`
@@ -66,11 +65,11 @@ Before running our codes, we need to setup the below components.
 > `heroku open -a <your-app-number>`
 > ```  
 
-> when stop the app,
+When stop the app,
 > ```
 > `heroku ps:scale web=0`
 > ```
-> restart,
+Restart,
 > ```
 > `heroku ps:scale web=1`
 > ```

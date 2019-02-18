@@ -1,0 +1,18 @@
+version: "3"
+services:
+  buynsell: 
+    image: buynsell
+    ports: 
+      - 8080:8080
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; npm start'
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/buynsell
+      - PORT=3000   
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=buynsell
