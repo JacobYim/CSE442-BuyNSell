@@ -51,7 +51,7 @@ Before running our codes, we need to setup the below components.
 
 # How to access Databsase 
 After running the command `docker-compose up -d` (where `-d` tag make run in the background) and `docker ps`,
-use `docker exec -it <container name> -U postgres -W postgres`.
+use `docker exec -it <container name> -U postgres -W postgres`. And type the password.
 
 # How to connect with Heroku
  To connect with Heroku,
