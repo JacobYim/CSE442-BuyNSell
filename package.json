@@ -1,0 +1,13 @@
+{
+  "name": "buynsell",
+  "version": "1.0.0",
+  "description": "Webapplication for buyNsell",
+  "author": "Team 16 ",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
