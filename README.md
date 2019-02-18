@@ -64,13 +64,13 @@ use `docker exec -it <container name> -U postgres -W postgres`. And type the pas
 # How to connect with Heroku
  To connect with Heroku,
 > 
-> `heroku login`
-> `heroku container:login`
-> `heroku create`
-> `docker build -t registry.heroku.com/<your-app-number>/web .`
-> `docker push registry.heroku.com/<your-app-number>/web`
-> `heroku container:release web -a <your-app-number>`
-> `heroku open -a <your-app-number>`
+> `heroku login`  
+> `heroku container:login`  
+> `heroku create`  
+> `docker build -t registry.heroku.com/<your-app-number>/web .`  
+> `docker push registry.heroku.com/<your-app-number>/web`  
+> `heroku container:release web -a <your-app-number>`  
+> `heroku open -a <your-app-number>`  
 > 
 
 When stop the app,
