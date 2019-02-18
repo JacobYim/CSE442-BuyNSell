@@ -8,7 +8,7 @@ Hundreds of students graduate each year all having to get rid of their belonging
 
 Before running our codes, we need to setup the below components.
 
-- ## Docker ##
+## Docker ##
 
 # How to Install #
 
@@ -39,30 +39,38 @@ Before running our codes, we need to setup the below components.
 > ```
 > 2. Builds the Dockerfile to image.
 > ```
-> docker build -t buynsell .
+> `docker build -t buynsell .`
 > ```
 > Note: make sure that the Docker is running.
 >
 > 3. Run Docker Image at the port 2000.
 > ```
-> docker run --rm -it -p 2000:2000 buynsell
+> `docker run --rm -it -p 8080:8080 buynsell`
 > ```
-> 4. Approach [http://127.0.0.1:2000/](http://127.0.0.1:2000/) with Web Browser.
+> 4. Approach [http://0.0.0.0:8080](http://0.0.0.0:8080/) with Web Browser.
 > 5. When quit the server, press `control + C`
-> 6. To connect with Heroku,
+> 6. If you want to run the image out of the consol, please type 
+> `docker docker run -p 8080:8080 -d buyNsell`  
+> When want to quit this container run,
+> `docker stop <container id>`after get container ID with the code`docker ps`.
+>
+> 7. When want to run shell of the server, type the command `docker exec -it <container id> /bin/bash`
+> 8. To connect with Heroku,
 > ```
-> heroku login
-> heroku container:login
-> heroku create
-> docker build -t registry.heroku.com/<your-app-number>/web .
-> docker push registry.heroku.com/<your-app-number>/web
-> heroku container:release web -a <your-app-number>
-> heroku open -a <your-app-number>
+> `heroku login`
+> `heroku container:login`
+> `heroku create`
+> `docker build -t registry.heroku.com/<your-app-number>/web .`
+> `docker push registry.heroku.com/<your-app-number>/web`
+> `heroku container:release web -a <your-app-number>`
+> `heroku open -a <your-app-number>`
 > ```  
 
 > when stop the app,
 > ```
-> heroku ps:scale web=0
+> `heroku ps:scale web=0`
 > ```
 > restart,
-> heroku ps:scale web=1
+> ```
+> `heroku ps:scale web=1`
+> ```
