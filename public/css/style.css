@@ -76,7 +76,7 @@ header #main-logo a:hover{
 /* Showcase */
 #showcase{
 	min-height: 600px;
-	background-image: url(../img/showcase.jpg);
+	background-image: url(./img/showcase.jpg);
 	background-position: center;
 	text-align: center;
 }
