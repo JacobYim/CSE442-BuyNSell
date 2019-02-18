@@ -49,6 +49,14 @@ Before running our codes, we need to setup the below components.
 > 
 > 5. When want to run shell of the server, type the command `docker exec -it <container id> /bin/bash`
 
+> 6. If there is changes, type the below.
+> ```
+> docker stop <container id>
+> docker image rm -f buynsell
+> docker build -t buynsell .
+> docker-compose up -d
+> ```
+
 # How to access Databsase 
 After running the command `docker-compose up -d` (where `-d` tag make run in the background) and `docker ps`,
 use `docker exec -it <container name> -U postgres -W postgres`. And type the password.

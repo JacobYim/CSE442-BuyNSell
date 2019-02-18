@@ -9,7 +9,7 @@ services:
       - db
     environment:
       - DATABASE_URL=postgres://postgres:password@db:5432/buynsell
-      - PORT=3000   
+      - PORT=3000  
   db:
     image: postgres
     environment:
