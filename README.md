@@ -40,9 +40,9 @@ Before running our codes, we need to setup the below components.
 > Note: make sure that the Docker is running.
 >
 > 2. Run Docker Image at the port 8080.
-> ```
+> 
 > `docker-compose up -d`
-> ```
+> 
 > 3. Approach [http://0.0.0.0:8080](http://0.0.0.0:8080/) with Web Browser.
 > 4. When want to quit this container run,
 > `docker stop <container id>`after get container ID with the code`docker ps`.
@@ -63,7 +63,7 @@ use `docker exec -it <container name> -U postgres -W postgres`. And type the pas
 
 # How to connect with Heroku
  To connect with Heroku,
-> ```
+> 
 > `heroku login`
 > `heroku container:login`
 > `heroku create`
@@ -71,13 +71,13 @@ use `docker exec -it <container name> -U postgres -W postgres`. And type the pas
 > `docker push registry.heroku.com/<your-app-number>/web`
 > `heroku container:release web -a <your-app-number>`
 > `heroku open -a <your-app-number>`
-> ```  
+> 
 
 When stop the app,
-> ```
+> 
 > `heroku ps:scale web=0`
-> ```
+> 
 Restart,
-> ```
+> 
 > `heroku ps:scale web=1`
-> ```
+> 
