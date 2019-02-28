@@ -11,7 +11,7 @@ item_id serial primary key,
 time_post timestamp on default current_timestamp,
 description text,
 availability boolean not null default 't',
-post_by int(12) references ubid
+post_by int(12) references user_profile(ubid)
 );
 
 create table transaction(
