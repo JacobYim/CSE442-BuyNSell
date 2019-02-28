@@ -11,7 +11,7 @@ item_id serial primary key,
 time_post timestamp on default current_timestamp,
 description text,
 availability boolean not null default 't',
-post_by int(12) references ubid
+post_by int(12) references user_profile(ubid)
 );
 
 create table transaction(
@@ -38,3 +38,4 @@ insert into transaction(item, from_user, to_user)
 values (2, '501666666', '50217474');
 insert into transaction(item, from_user, to_user)
 values (3, '50187324', '50217474');
+
