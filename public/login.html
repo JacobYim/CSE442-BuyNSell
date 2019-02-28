@@ -1,51 +1,37 @@
-<!DOCTYPE html>
-<html lang = "en" dir = "ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>BuyNSell | Home</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-    </head>
-    <body>
-        <!--Header-->
-        <header>
-            <div class="container">
-                <span id="main-logo">
-                    <a href="./index.html">BuyNSell</a>
-                </span>
-                <nav class="navbar">
-                    <ul>
-                        <li><a href="./category.html">Category</a></li>
-                        <li class="current"><a href="./login.html">Login</a></li>
-                        <li><a href="./signup.html">Sign Up</a></li>
-                        <li><a href="./about.html">About</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
 
-        <!--Login Section-->
-        <section id="login">
-            <div class="container">
-                <form>
-                    <div>
-                        <label>ID</label>
-                        <input type="text" name="id" placeholder="Your id">
-                    </div>
-                    <div>
-                        <label>Password</label>
-                        <input type="Password" name="password" placeholder="Password">
-                    </div>
-                    <button class="button_1" type="submit">Login</button>
-                </form>
-            </div>
-        </section>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+    <title>BuyNSell | Login</title>
 
-        <div style="margin-top: 280px"></div>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css" >
 
-        <!--Footer-->
-        <footer>
-            <h2>Copyright &copy; reserved by BuyNSell, 2019.</h2>
-        </footer>
-    </body>
+    <!-- Custom styles for this template -->
+    <link href="./css/signin.css" rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+    <form class="form-signin">
+      <a href="./index.html"><img class="mb-4" src="./img/logo_72px.png" alt="" width="159" height="72"></a>
+      <h1 class="h3 mb-3 font-weight-bold">Login</h1>
+      <label for="inputEmail" class="sr-only">Email address</label>
+      <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required autofocus>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      Don't have an account? <a href="./signup.html">Sign Up</a>
+      <p class="mt-5 mb-3 text-muted">BuyNSell &copy; 2017-2018</p>
+    </form>
+  </body>
 </html>
