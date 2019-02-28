@@ -7,7 +7,7 @@ const PORT = 8080;
 
 // postgreSQL 
 const pg = require('pg');
-pg.connect('postgres://postgres:password@localhost:5432/practicedocker');
+pg.connect('postgres://postgres:password@localhost:5432/buynsell');
 
 // App
 

@@ -1,5 +1,13 @@
 version: "3"
 services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=buynsell
+    volumes:
+      - ./db/database.sql:/docker-entrypoint-initdb.d/dump.sql
   buynsell: 
     image: buynsell
     ports: 
@@ -9,10 +17,5 @@ services:
       - db
     environment:
       - DATABASE_URL=postgres://postgres:password@db:5432/buynsell
-      - PORT=3000  
-  db:
-    image: postgres
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=buynsell
+      # - PORT=3000  
+  
