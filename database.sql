@@ -39,6 +39,6 @@ insert into items(description, post_by)
 values ('i want to sell this shit', '50187324');
 
 insert into transaction(item, from_user, to_user)
-values (2, '501666666', '50217474');
+values (2, '50166666', '50217474');
 insert into transaction(item, from_user, to_user)
 values (3, '50187324', '50217474');
