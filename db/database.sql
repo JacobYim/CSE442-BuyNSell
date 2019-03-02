@@ -3,6 +3,7 @@ ubid varchar(12) unique not null primary key,
 email varchar(50) unique not null,
 username varchar(50) unique not null,
 password varchar(50) not null,
+age int not null
 );
 
 create table items(
