@@ -7,6 +7,10 @@
   "scripts": {
     "start": "node server.js"
   },
+  "repository": {
+    "private": true
+  },
+  "license": "SEE LICENSE IN <filename>",
   "dependencies": {
     "express": "^4.16.4",
     "pg": "6.2.2"
