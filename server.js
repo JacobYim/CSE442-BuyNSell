@@ -50,7 +50,7 @@ app.post('/login.html', (req,res) => {
   db.query('SELECT * FROM user_profile where email=\''+userId+'\' and password=\'' + userPw + '\'', function (err, rows, fields) {
     console.log(rows);
     if (!err) {
-        console.log(rows)
+        // console.log(rows)
         if (rows.rowCount ==1 ) {
             res.send('Congrate!! Login Success!!' +
                   '\n id : ' + rows.rows[0]['email'] +
@@ -70,5 +70,21 @@ app.post('/login.html', (req,res) => {
 app.get('/signup.html', (req,res) => {
   res.sendFile('signup.html');
 });
+app.post('/signup.html', (req,res) => {
+  var userId = req.body['name'];
+  var email = req.body['email'];
+  var password = req.body['password'];
+  var ubid = req.body['ubid'];
+
+  db.query('insert into user_profile(ubid, email, username, password) values(\''+ubid+'\',\''+email+'\',\''+userId+'\',\''+password+'\')', function (err, rows, fields) {
+    if (!err) {
+        console.log(rows)
+        res.send('success');
+        } else {
+        res.send('err : ' + err);
+    }
+  });
+});
+
 
 app.listen(PORT, () => console.log(`Running on ${PORT}`));
