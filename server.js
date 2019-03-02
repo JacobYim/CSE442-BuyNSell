@@ -6,8 +6,23 @@ const express = require('express');
 const PORT = 8080;
 
 // postgreSQL 
-const pg = require('pg');
-pg.connect('postgres://postgres:password@localhost:5432/practicedocker');
+const { Client } = require('pg')
+const client = new Client({
+  host: 'localhost', // server name or IP address;
+  user: 'postgres',
+  database: 'buynsell',
+  password: 'password',
+  port: 5432,
+})
+client.connect()
+
+client.query('SELECT version()', (err, {rows}) => {
+  console.log(err, rows[0].version)
+})
+
+client.query('SELECT * FROM user_profile;', (err, {rows}) => {
+  console.log(err, rows)
+})
 
 // App
 
