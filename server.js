@@ -1,32 +1,31 @@
 'use strict';
 
+const bodyParser = require('body-parser');                                                                     
 const express = require('express');
-
-// Constants
 const PORT = 8080;
-
+const app = express();
 // postgreSQL 
 const { Client } = require('pg')
-const client = new Client({
+const db = new Client({
   host: 'localhost', // server name or IP address;
   user: 'postgres',
   database: 'buynsell',
   password: 'password',
   port: 5432,
 })
-client.connect()
+db.connect();
 
-client.query('SELECT version()', (err, {rows}) => {
-  console.log(err, rows[0].version)
+db.query('SELECT version()', (err, {rows}) => {
+  console.log(err, rows[0].version);
 })
 
-client.query('SELECT * FROM user_profile;', (err, {rows}) => {
-  console.log(err, rows)
+db.query('SELECT * FROM user_profile;', (err, {rows}) => {
+  console.log(err, rows);
 })
 
 // App
-
-const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static(__dirname + '/public'));    // set static directory
 
 app.get('/', (req, res) => {
@@ -43,9 +42,33 @@ app.get('/category.html', (req, res) => {
 });
 app.get('/login.html', (req,res) => {
   res.sendFile('login.html');
-})
+});
+
+app.post('/login.html', (req,res) => {
+  var userId = req.body['email'];
+  var userPw = req.body['password'];
+  db.query('SELECT * FROM user_profile where email=\''+userId+'\' and password=\'' + userPw + '\'', function (err, rows, fields) {
+    console.log(rows);
+    if (!err) {
+        console.log(rows)
+        if (rows.rowCount ==1 ) {
+            res.send('Congrate!! Login Success!!' +
+                  '\n id : ' + rows.rows[0]['email'] +
+                  '\n pw : ' + rows.rows[0]['password']);
+            // res.redirect('/');
+        } else {
+            res.send('Login Failure');
+            // res.redirect('/');
+        }
+    } else {
+        res.send('error : ' + err);
+        // res.redirect('/');
+    }
+  });
+});
+
 app.get('/signup.html', (req,res) => {
   res.sendFile('signup.html');
-})
+});
 
 app.listen(PORT, () => console.log(`Running on ${PORT}`));
