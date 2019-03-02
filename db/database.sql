@@ -11,7 +11,7 @@ item_id serial primary key,
 time_post timestamp default current_timestamp,
 description text,
 availability boolean not null default 't',
-post_by int(12) references user_profile(ubid)
+post_by varchar(12) references user_profile(ubid)
 );
 
 create table transaction(
@@ -29,17 +29,17 @@ values ('50187324', 'something@buffalo.edu', 'something', 'randompassword', 21);
 insert into user_profile(ubid, email, username, password, age)
 values ('50217474', 'someoneelse@buffalo.edu', 'BuyEverything', 'anotherrandompassword', '20');
 
-
-insert into items(item_id, description, post_by)
-values (1, 'testing 123', '50166666');
-insert into items(item_id, description, post_by)
-values (2, 'test 123', '50187324');
 insert into items(description, post_by)
 values ('some 666666 item', '50166666');
 insert into items(description, post_by)
 values ('i want to sell this shit', '50187324');
 
-insert into transaction(item, from_user, to_user)
-values (2, '50166666', '50217474');
-insert into transaction(item, from_user, to_user)
-values (3, '50187324', '50217474');
+-- insert into items(description, post_by)
+-- values ('some 666666 item', '50166666');
+-- insert into items(description, post_by)
+-- values ('i want to sell this shit', '50187324');
+
+-- insert into transaction(item, from_user, to_user)
+-- values (2, '50166666', '50217474');
+-- insert into transaction(item, from_user, to_user)
+-- values (3, '50187324', '50217474');
