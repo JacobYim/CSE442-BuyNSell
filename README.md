@@ -31,7 +31,7 @@ Before running our codes, we need to setup the below components.
 > 1. Please signup for the Heroku.
 > 2. install heroku from [heroku website](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) with following the instruction. 
 
-# How to Run the Server with the Docker #
+# How to Run the Server #
 
 > 1. Downloads the codes of this repository and move to the directory.  
 > ```
@@ -40,19 +40,27 @@ Before running our codes, we need to setup the below components.
 > Note: make sure that the Docker is running.
 >
 > 2. Run Docker Image at the port 8080.
-> 
-> `docker-compose up -d`
+> ```
+> docker build -t buynsell .
+> docker-compose up -d
+> node server.js
+> ```
+> (Note : the `docker-compose` has components to make server docker, so it tries to the server docker at 8080. However it does not survive becuase the database connection is not set)
+>
+> If does not works, please type the following command at terminal: `npm install pg`.
 > 
 > 3. Approach [http://0.0.0.0:8080](http://0.0.0.0:8080/) with Web Browser.
-> 4. When want to quit this container run,
-> `docker stop <container id>`after get container ID with the code`docker ps`.
+> 
+> 4. When want to **quit the server** press `control + C` key on keyboad at the terminal typed `node server.js`  
+>    When want to **quit database** press `docker-compose down` on the terminal. 
 > 
 > 5. When want to run shell of the server, type the command `docker exec -it <container id> /bin/bash`
 
 > 6. If there is changes, type the below.
 > ```
-> docker stop <container id>
-> docker image rm -f buynsell
+> docker-compose down
+> docker images
+> docker image rm -f buynsell postgres
 > docker build -t buynsell .
 > docker-compose up -d
 > ```
