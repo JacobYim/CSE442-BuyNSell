@@ -12,6 +12,7 @@
   },
   "license": "SEE LICENSE IN <filename>",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "pg": "^6.2.2"
   }
