@@ -77,15 +77,16 @@ app.post('/signup.html', (req,res) => {
   var password = String(req.body['password']);
   var ubid = String(req.body['ubid']);
 
-  //secures password here
-  password = passowrdHasher(password);
-  console.log("Password is Secure.......................")
-
   console.log("Typed :",userId, email, password,ubid);
   if ((userId != '' && userId != ' ' && !userId.includes(';') && !userId.includes('.')&& !userId.includes('=')) &&
       (email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) && 
       (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=')) &&
       (ubid != '' && ubid != ' ' && ubid.length == 8 && !ubid.includes(';') && !ubid.includes('='))){
+    
+    // secures password here
+    password = passowrdHasher(password);
+    console.log("Password is Secure......................."+password)
+    
     db.query('insert into user_profile(ubid, email, username, password) values(\''+ubid+'\',\''+email+'\',\''+userId+'\',\''+password+'\')', function (err, rows, fields) {
       if (!err) {
           console.log(rows)
