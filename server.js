@@ -84,7 +84,7 @@ app.post('/signup.html', (req,res) => {
       (ubid != '' && ubid != ' ' && ubid.length == 8 && !ubid.includes(';') && !ubid.includes('='))){
     
     // secures password here
-    password = passowrdHasher(password);
+    password = passwordHasher(password);
     console.log("Password is Secure......................."+password)
     
     db.query('insert into user_profile(ubid, email, username, password) values(\''+ubid+'\',\''+email+'\',\''+userId+'\',\''+password+'\')', function (err, rows, fields) {
@@ -100,7 +100,7 @@ app.post('/signup.html', (req,res) => {
   }
 });
 
-function passowrdHasher(unsecure_password) {
+function passwordHasher(unsecure_password) {
   var secure_password = passwordHash.generate(unsecure_password);
   console.log("!!!Password is now secure!!!")
   //console.log("Hashed Passowrd = ",secure_password)
