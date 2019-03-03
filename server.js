@@ -2,6 +2,7 @@
 
 const bodyParser = require('body-parser');                                                                     
 const express = require('express');
+var passwordHash = require('password-hash');
 const PORT = 8080;
 const app = express();
 // postgreSQL 
@@ -75,6 +76,11 @@ app.post('/signup.html', (req,res) => {
   var email = String(req.body['email']);
   var password = String(req.body['password']);
   var ubid = String(req.body['ubid']);
+
+  //secures password here
+  password = passowrdHasher(password);
+  console.log("Password is Secure.......................")
+
   console.log("Typed :",userId, email, password,ubid);
   if ((userId != '' && userId != ' ' && !userId.includes(';') && !userId.includes('.')&& !userId.includes('=')) &&
       (email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) && 
@@ -92,6 +98,30 @@ app.post('/signup.html', (req,res) => {
     res.send('wrong approach');
   }
 });
+
+function passowrdHasher(unsecure_password) {
+  var secure_password = passwordHash.generate(unsecure_password);
+  console.log("!!!Password is now secure!!!")
+  //console.log("Hashed Passowrd = ",secure_password)
+
+  return secure_password
+}
+
+//verify funtion for later
+// function passwordValidater(userPassowrd) {
+//   passwordHash = require('./lib/password-hash');
+
+//   var hashedPassword = passwordHash.generate(userPassowrd)
+//   var postgreHashedPassword = 'USER_PASSWORD_FROM_POSTGRE';   //need postgre lookup
+  
+//   if (passwordHash.isHashed(hashedPassword)) {
+//     console.log('password hashed...')
+//     console.log('password_VERIFIED = ', passwordHash.verify(hashedPassword, postgreHashedPassword));
+//   } else {
+//     console.log('PASSWORD NOT HASHED...')
+//     console.log('password_VERIFIED = ', passwordHash.verify(hashedPassword, postgreHashedPassword)); 
+//   }
+// }
 
 
 app.listen(PORT, () => console.log(`Running on ${PORT}`));
