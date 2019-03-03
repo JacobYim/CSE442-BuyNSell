@@ -48,7 +48,7 @@ app.get('/login.html', (req,res) => {
 app.post('/login.html', (req,res) => {
   var email = req.body['email'];
   var password = req.body['password'];
-  if ((email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) && 
+  if ((email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.') && !email.includes("'" && !email.includes(';')) && 
       (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=') && !password.includes('(') && !password.includes(')')&& !password.includes("'"))){
     db.query('SELECT * FROM user_profile where email=\''+email+'\' and password=\'' + password + '\'', function (err, rows, fields) {
       console.log(rows);
