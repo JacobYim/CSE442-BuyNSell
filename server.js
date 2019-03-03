@@ -71,19 +71,26 @@ app.get('/signup.html', (req,res) => {
   res.sendFile('signup.html');
 });
 app.post('/signup.html', (req,res) => {
-  var userId = req.body['name'];
-  var email = req.body['email'];
-  var password = req.body['password'];
-  var ubid = req.body['ubid'];
-
-  db.query('insert into user_profile(ubid, email, username, password) values(\''+ubid+'\',\''+email+'\',\''+userId+'\',\''+password+'\')', function (err, rows, fields) {
-    if (!err) {
-        console.log(rows)
-        res.send('success');
-        } else {
-        res.send('err : ' + err);
-    }
-  });
+  var userId = String(req.body['name']);
+  var email = String(req.body['email']);
+  var password = String(req.body['password']);
+  var ubid = String(req.body['ubid']);
+  console.log("Typed :",userId, email, password,ubid);
+  if ((userId != '' && userId != ' ' && !userId.includes(';') && !userId.includes('.')&& !userId.includes('=')) &&
+      (email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) && 
+      (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=')) &&
+      (ubid != '' && ubid != ' ' && ubid.length == 8 && !ubid.includes(';') && !ubid.includes('='))){
+    db.query('insert into user_profile(ubid, email, username, password) values(\''+ubid+'\',\''+email+'\',\''+userId+'\',\''+password+'\')', function (err, rows, fields) {
+      if (!err) {
+          console.log(rows)
+          res.send('success');
+          } else {
+          res.send('err : ' + err);
+      }
+    });
+  }else{
+    res.send('wrong approach');
+  }
 });
 
 
