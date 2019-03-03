@@ -3,7 +3,7 @@ user_id serial primary key,
 ubid varchar(12) unique not null,
 email varchar(50) unique not null,
 username varchar(50) unique not null,
-password varchar(50) not null
+password varchar(60) not null
 );
 
 create table items(
