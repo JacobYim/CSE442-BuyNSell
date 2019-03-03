@@ -46,26 +46,29 @@ app.get('/login.html', (req,res) => {
 });
 
 app.post('/login.html', (req,res) => {
-  var userId = req.body['email'];
-  var userPw = req.body['password'];
-  db.query('SELECT * FROM user_profile where email=\''+userId+'\' and password=\'' + userPw + '\'', function (err, rows, fields) {
-    console.log(rows);
-    if (!err) {
-        // console.log(rows)
-        if (rows.rowCount ==1 ) {
-            res.send('Congrate!! Login Success!!' +
-                  '\n id : ' + rows.rows[0]['email'] +
-                  '\n pw : ' + rows.rows[0]['password']);
-            // res.redirect('/');
-        } else {
-            res.send('Login Failure');
-            // res.redirect('/');
-        }
-    } else {
-        res.send('error : ' + err);
-        // res.redirect('/');
-    }
-  });
+  var email = req.body['email'];
+  var password = req.body['password'];
+  if ((email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) && 
+      (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=') && !password.includes('(') && !password.includes(')')&& !password.includes("'"))){
+    db.query('SELECT * FROM user_profile where email=\''+email+'\' and password=\'' + password + '\'', function (err, rows, fields) {
+      console.log(rows);
+      if (!err) {
+          // console.log(rows)
+          if (rows.rowCount ==1 ) {
+              res.send('Congrate!! Login Success!!');
+              // res.redirect('/');
+          } else {
+              res.send('Login Failure');
+              // res.redirect('/');
+          }
+      } else {
+          res.send('error : ' + err);
+          // res.redirect('/');
+      }
+    }); 
+  }else{
+    res.send('invalid input')
+  }
 });
 
 app.get('/signup.html', (req,res) => {
@@ -77,15 +80,16 @@ app.post('/signup.html', (req,res) => {
   var password = String(req.body['password']);
   var ubid = String(req.body['ubid']);
 
-  //secures password here
-  password = passowrdHasher(password);
-  console.log("Password is Secure.......................")
-
   console.log("Typed :",userId, email, password,ubid);
   if ((userId != '' && userId != ' ' && !userId.includes(';') && !userId.includes('.')&& !userId.includes('=')) &&
       (email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) && 
       (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=')) &&
       (ubid != '' && ubid != ' ' && ubid.length == 8 && !ubid.includes(';') && !ubid.includes('='))){
+    
+    // secures password here
+    password = passwordHasher(password);
+    console.log("Password is Secure......................."+password)
+    
     db.query('insert into user_profile(ubid, email, username, password) values(\''+ubid+'\',\''+email+'\',\''+userId+'\',\''+password+'\')', function (err, rows, fields) {
       if (!err) {
           console.log(rows)
@@ -99,7 +103,7 @@ app.post('/signup.html', (req,res) => {
   }
 });
 
-function passowrdHasher(unsecure_password) {
+function passwordHasher(unsecure_password) {
   var secure_password = passwordHash.generate(unsecure_password);
   console.log("!!!Password is now secure!!!")
   //console.log("Hashed Passowrd = ",secure_password)
