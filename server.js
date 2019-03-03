@@ -46,26 +46,29 @@ app.get('/login.html', (req,res) => {
 });
 
 app.post('/login.html', (req,res) => {
-  var userId = req.body['email'];
-  var userPw = req.body['password'];
-  db.query('SELECT * FROM user_profile where email=\''+userId+'\' and password=\'' + userPw + '\'', function (err, rows, fields) {
-    console.log(rows);
-    if (!err) {
-        // console.log(rows)
-        if (rows.rowCount ==1 ) {
-            res.send('Congrate!! Login Success!!' +
-                  '\n id : ' + rows.rows[0]['email'] +
-                  '\n pw : ' + rows.rows[0]['password']);
-            // res.redirect('/');
-        } else {
-            res.send('Login Failure');
-            // res.redirect('/');
-        }
-    } else {
-        res.send('error : ' + err);
-        // res.redirect('/');
-    }
-  });
+  var email = req.body['email'];
+  var password = req.body['password'];
+  if ((email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.') && !email.includes("'" && !email.includes(';')) && 
+      (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=') && !password.includes('(') && !password.includes(')')&& !password.includes("'"))){
+    db.query('SELECT * FROM user_profile where email=\''+email+'\' and password=\'' + password + '\'', function (err, rows, fields) {
+      console.log(rows);
+      if (!err) {
+          // console.log(rows)
+          if (rows.rowCount ==1 ) {
+              res.send('Congrate!! Login Success!!');
+              // res.redirect('/');
+          } else {
+              res.send('Login Failure');
+              // res.redirect('/');
+          }
+      } else {
+          res.send('error : ' + err);
+          // res.redirect('/');
+      }
+    }); 
+  }else{
+    res.send('invalid input')
+  }
 });
 
 app.get('/signup.html', (req,res) => {
