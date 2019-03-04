@@ -76,6 +76,13 @@ su - postgres
 psql
 ```
 
+# Acceptance Test
+Acceptance test file for the feature listed below :
+- login
+- singin
+
+are in the test directory. Please read the README.md file in test directory to run acceptance test.
+
 # How to connect with Heroku
  To connect with Heroku,
 > 
