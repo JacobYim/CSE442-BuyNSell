@@ -46,20 +46,23 @@ app.get('/login.html', (req,res) => {
 });
 
 app.post('/login.html', (req,res) => {
-  var email = req.body['email'];
-  var password = req.body['password'];
-  if ((email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.') && !email.includes("'" && !email.includes(';')) && 
+  var email = String(req.body['email']);
+  var password = String(req.body['password']);
+  if ((email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.') && !email.includes("'" && !email.includes(';'))) && 
       (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=') && !password.includes('(') && !password.includes(')')&& !password.includes("'"))){
-    db.query('SELECT * FROM user_profile where email=\''+email+'\' and password=\'' + password + '\'', function (err, rows, fields) {
-      console.log(rows);
+      db.query('SELECT password FROM user_profile where email=\''+email+'\'', function (err, rows, fields) {
       if (!err) {
-          // console.log(rows)
-          if (rows.rowCount ==1 ) {
-              res.send('Congrate!! Login Success!!');
-              // res.redirect('/');
-          } else {
-              res.send('Login Failure');
-              // res.redirect('/');
+          console.log(rows)
+          try{
+            if (passwordHash.verify(password ,rows.rows[0].password)) {
+                res.send('Login Success!!');
+                // res.redirect('/');
+            } else {
+                res.send('Login Failure');
+                // res.redirect('/');
+            }
+          }catch(err){
+            res.send('user is not exist')
           }
       } else {
           res.send('error : ' + err);
@@ -86,14 +89,15 @@ app.post('/signup.html', (req,res) => {
       (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=')) &&
       (ubid != '' && ubid != ' ' && ubid.length == 8 && !ubid.includes(';') && !ubid.includes('='))){
     
+    
     // secures password here
     password = passwordHasher(password);
     console.log("Password is Secure......................."+password)
-    
     db.query('insert into user_profile(ubid, email, username, password) values(\''+ubid+'\',\''+email+'\',\''+userId+'\',\''+password+'\')', function (err, rows, fields) {
       if (!err) {
           console.log(rows)
           res.send('success');
+          console.log('signin success'+userId);
           } else {
           res.send('err : ' + err);
       }
@@ -105,27 +109,9 @@ app.post('/signup.html', (req,res) => {
 
 function passwordHasher(unsecure_password) {
   var secure_password = passwordHash.generate(unsecure_password);
+  console.log(passwordHash.verify(unsecure_password, secure_password));
   console.log("!!!Password is now secure!!!")
-  //console.log("Hashed Passowrd = ",secure_password)
-
   return secure_password
 }
-
-//verify funtion for later
-// function passwordValidater(userPassowrd) {
-//   passwordHash = require('./lib/password-hash');
-
-//   var hashedPassword = passwordHash.generate(userPassowrd)
-//   var postgreHashedPassword = 'USER_PASSWORD_FROM_POSTGRE';   //need postgre lookup
-  
-//   if (passwordHash.isHashed(hashedPassword)) {
-//     console.log('password hashed...')
-//     console.log('password_VERIFIED = ', passwordHash.verify(hashedPassword, postgreHashedPassword));
-//   } else {
-//     console.log('PASSWORD NOT HASHED...')
-//     console.log('password_VERIFIED = ', passwordHash.verify(hashedPassword, postgreHashedPassword)); 
-//   }
-// }
-
 
 app.listen(PORT, () => console.log(`Running on ${PORT}`));
