@@ -31,6 +31,10 @@
 
     <!-- Custom styles for this page -->
     <link href="./css/carousel.css" rel="stylesheet">
+
+    <!-- Custom user panel and product recommendation blocks styles for this page -->
+    <link href="./css/user-panel-product-recommend.css" rel="stylesheet">
+
   </head>
   <body>
 
@@ -127,30 +131,55 @@
       ================================================== -->
       <!-- Wrap the rest of the page in another container to center all the content. -->
 
-      <div class="container marketing">
+      <div class="container">
 
-        <!-- Three columns of text below the carousel -->
+        <!-- User panel -->
         <div class="row">
-          <div class="col-lg-4">
-            <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
-          <div class="col-lg-4">
-            <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-            <h2>Heading</h2>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
-          <div class="col-lg-4">
-            <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div><!-- /.col-lg-4 -->
+          <div class="col-4 big-box">
+            <div class="mx-4" id="userPanel">
+              <img class="rounded-circle" src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Generic placeholder image" width="170" height="170">
+              <h2 style="margin-top: 30px">Hi user!</h2>
+              <p>Your balance:</p>
+              <h4 id="userPanelBalance">"Balance goes here"</h4>
+              <br>
+              <p><a class="btn btn-danger" href="#" role="button">View account &raquo;</a></p>
+              <p><a class="btn btn-success" href="#" role="button">Resell &raquo;</a></p>
+              </div>
+          </div><!-- /.col-4 -->
+          <div class="col">
+            <div class="row">
+            <div class="col mini-box" id="recommendUser">
+              <h4>You might like:</h4>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="mx-4">
+                      <img class="rounded" src="https://target.scene7.com/is/image/Target/GUEST_f5d0cfc3-9d02-4ee0-a6c6-ed5dc09971d1?wid=488&hei=488&fmt=pjpeg" alt="Generic placeholder image" width="140" height="140">
+                      <h4 style="margin-top: 30px">Africa Banana</h4>
+                      <h5 id="recommendUserPrice">$ 14.99</h5>
+                      <p><a class="btn btn-info" href="#" role="button">More &raquo;</a></p>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mx-4">
+                      <img class="rounded" src="https://target.scene7.com/is/image/Target/GUEST_ea58179f-b17d-495d-820a-3c10c6cd3c36?wid=1400&fmt=webp" alt="Generic placeholder image" width="140" height="140">
+                      <h4 style="margin-top: 30px">Apple HomePod</h4>
+                      <h5 id="recommendUserPrice">$ 299.99</h5>
+                      <p><a class="btn btn-info" href="#" role="button">More &raquo;</a></p>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="mx-4">
+                      <img class="rounded" src="https://target.scene7.com/is/image/Target/GUEST_3b012d12-e7c3-4873-af37-d0fcca5d74a8?wid=1400&fmt=webp" alt="Generic placeholder image" width="140" height="140">
+                      <h4 style="margin-top: 30px">Franklin Bookcase</h4>
+                      <h5 id="recommendUserPrice">$ 59.99</h5>
+                      <p><a class="btn btn-info" href="#" role="button">More &raquo;</a></p>
+                    </div>
+                  </div>
+                </div>
+              </div><!--/. mini box -->
+            </div><!--/. row in col -->
+          </div><!-- /. entire col  -->
         </div><!-- /.row -->
-
 
         <!-- START THE FEATURETTES -->
 
@@ -200,7 +229,7 @@
       <!-- FOOTER -->
       <footer class="container">
         <p class="float-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2017-2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <p>&copy; 2017-2018 BuyNSell &copy; &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
       </footer>
     </main>
 
@@ -208,7 +237,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="./Javascript/bootstrap.min.js"></script>
   </body>
 </html>

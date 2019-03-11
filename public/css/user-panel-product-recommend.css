@@ -1,0 +1,25 @@
+/* CUSTOMIZE USER PANEL & PRODUCTS RECOMMENDATION 
+-------------------------------------------------- */
+
+/* User Panel */
+#userPanel{
+	background-color: white;
+	border: 1px #c7c8c9 solid;
+	padding: 30px;
+}
+
+/* User Panel Balance */
+#userPanelBalance{
+	font-weight: bold;
+}
+
+/* Product Recommendation blocks */
+#recommendUser{
+	border: 1px #c7c8c9 solid;
+	padding: 30px;
+}
+
+/* Product Recommendation pricing */
+#recommendUserPrice{
+	color: #30a54a;
+}
