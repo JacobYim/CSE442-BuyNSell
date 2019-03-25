@@ -115,13 +115,29 @@ body {
  * Orders
  */
 
+ #orders{
+  margin-top:1em;
+ }
+
  .row#ordersProduct{
-  margin-top: 2rem;
+  margin-top: .5rem;
   text-align: center;
   border: 1px solid #eee;
   padding: .75em;
  }
 
  .row#ordersProduct:hover{
-  border: .75px solid #1d83fb;
+  border: .75px solid #ccc;
+ }
+
+ .ordersItemDescription{
+  border-left: 1px solid #eee;
+ }
+
+ /*
+ * Products
+ */
+
+ #products{
+  margin-top: 1em;
  }
