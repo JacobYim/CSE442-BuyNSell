@@ -122,12 +122,6 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#password">
-                <span data-feather="file-text"></span>
-                Password
-              </a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="#help">
                 <span data-feather="file-text"></span>
                 Help
@@ -139,20 +133,10 @@
 
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
-      <!-- Dashboard Bar
+      <!-- Account Settings Header 
       ================================================== -->
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Dashboard</h1>
-          <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-            </div>
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-              <span data-feather="calendar"></span>
-              This week
-            </button>
-          </div>
+          <h1 class="h2">My Account</h1>
         </div>
 
       <!-- Basic Information Setting
@@ -170,10 +154,27 @@
             <hr class="featurette-divider">
 
             <form>
+              <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+                <small id="messageHelp" class="form-text text-muted">Username can be changed once.</small>
+              </div>
+              <!-- First & Last name -->
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputFirstName">First Name</label>
+                  <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputLastName">Last Name</label>
+                  <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                </div>
+              </div>
+              <!-- Email & Password -->
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputEmail4">Email</label>
-                  <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                  <input type="email" class="form-control" id="inputEmail4" placeholder="ubit@buffalo.edu">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputPassword4">Password</label>
@@ -205,19 +206,34 @@
                   <input type="text" class="form-control" id="inputZip">
                 </div>
               </div>
-              <div class="form-group">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="gridCheck">
-                  <label class="form-check-label" for="gridCheck">
-                    Check me out
-                  </label>
-                </div>
-              </div>
-              <button type="submit" class="btn btn-primary">Sign in</button>
+              
+              <button type="submit" class="btn btn-primary">Submit</button>
             </form>
 
           </div><!-- /. entire col  -->
         </div>
+
+      <!-- Help form
+      ================================================== -->
+        <div id="help">
+          <h1 class="h2">Feedback & Help</h1>
+          <hr class="featurette-divider">
+        </div>
+        <form>
+          <div class="form-group">
+            <textarea class="form-control" rows="3" placeholder="How can we help?"></textarea>
+            <small id="messageHelp" class="form-text text-muted">We will get back to you in 24 hours.</small>
+          </div>
+          <div style="margin-top: 30px"></div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+      <hr class="featurette-divider">
+
+      <!-- FOOTER -->
+      <footer class="container">
+        <p>BuyNSell &copy; 2019 &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
 
       </main>
     </div>
