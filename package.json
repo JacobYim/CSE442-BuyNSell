@@ -14,8 +14,10 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "nodemon": "^1.18.10",
     "password-hash": "^1.2.2",
-    "pg": "^6.2.2"
+    "pg": "^6.4.2"
   }
 }

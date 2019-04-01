@@ -32,24 +32,27 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static(__dirname + '/public'));    // set static directory
 app.use(cookieParser());
 
-app.get('/', (req, res) => {
-  console.log(req.cookies);
-  res.sendFile('index.html');
-});
-app.get('/index.html', (req, res) => {
-  res.sendFile('index.html');
-});
-app.get('/about.html', (req, res) => {
-  res.sendFile('about.html');
-});
-app.get('/category.html', (req, res) => {
-  res.sendFile('category.html');
-});
-app.get('/login.html', (req,res) => {
-  res.sendFile('login.html');
-});
+//routing engine
+app.set('view engine', 'ejs')
 
-app.post('/login.html', (req,res) => {
+//page routes
+app.get('/', function(req, res) {               //initial page
+     res.render('index')
+})
+app.get('/index', function(req, res) {    //index.ejs
+    res.render('index') 
+})
+app.get('/about', function(req, res) {    //index.ejs
+  res.render('about') 
+})
+app.get('/category', function(req, res) {    //index.ejs
+  res.render('category') 
+})
+app.get('/login', function(req, res) {    //index.ejs
+  res.render('login') 
+})
+
+app.post('/login', (req,res) => {
   var email = String(req.body['email']);
   var password = String(req.body['password']);
   if ((email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.') && !email.includes("'" && !email.includes(';'))) && 
@@ -83,11 +86,11 @@ app.post('/login.html', (req,res) => {
   }
 });
 
-app.get('/signup.html', (req,res) => {
-  res.clearCookie("login-session")
-  res.sendFile('signup.html');
+
+app.get('/signup', (req,res) => {
+  res.sendFile('signup');
 });
-app.post('/signup.html', (req,res) => {
+app.post('/signup.', (req,res) => {
   var userId = String(req.body['name']);
   var email = String(req.body['email']);
   var password = String(req.body['password']);
