@@ -114,11 +114,11 @@ app.post('/signup.', (req,res) => {
   }
 });
 
-// function passwordHasher(unsecure_password) {
-//   var secure_password = passwordHash.generate(unsecure_password);
-//   console.log(passwordHash.verify(unsecure_password, secure_password));
-//   console.log("!!!Password is now secure!!!")
-//   return secure_password
-// }
+function passwordHasher(unsecure_password) {
+  var secure_password = passwordHash.generate(unsecure_password);
+  console.log(passwordHash.verify(unsecure_password, secure_password));
+  console.log("!!!Password is now secure!!!")
+  return secure_password
+}
 
 app.listen(PORT, () => console.log(`Running on ${PORT}`));
