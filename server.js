@@ -30,16 +30,33 @@ db.query('SELECT * FROM user_profile;', (err, {rows}) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static(__dirname + '/public'));    // set static directory
-
+app.use(cookieParser())
 //routing engine
 app.set('view engine', 'ejs')
 
 //page routes
 app.get('/', function(req, res) {               //initial page
-     res.render('index')
+  console.log(req.cookies.logses);
+  if (req.cookies.logses != null){
+    console.log("cookie");
+    db.query('SELECT username FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+      if (!err) {
+          console.log(rows.rows[0].username)
+          res.render('index',{ username : rows.rows[0].username})
+      } else {
+          res.render('index',{ username : null })
+      }
+    }); 
+  } else {
+    res.render('index',{ username : null })
+  }
 })
 app.get('/index', function(req, res) {    //index.ejs
-    res.render('index') 
+  console.log(req.cookies.logses);
+  if (req.cookies.logses != null){
+    console.log("cookie");
+  }
+  res.render('index') 
 })
 app.get('/about', function(req, res) {    //index.ejs
   res.render('about') 
@@ -61,14 +78,17 @@ app.post('/login', (req,res) => {
           console.log(rows)
           try{
             if (passwordHash.verify(password ,rows.rows[0].password)) {
-                res.send('Login Success!!');
-                // res.redirect('/');
+              res.cookie("logses",rows.rows[0].password,{ maxAge: 60*60*1000,
+                httpOnly: true,
+                path:'/'});
+              // res.send('Login Success!!');
+              res.redirect('/');
             } else {
                 res.send('Login Failure');
                 // res.redirect('/');
             }
           }catch(err){
-            res.send('user is not exist')
+            res.send('user is not exist'+err)
 
           }
       } else {
@@ -82,9 +102,10 @@ app.post('/login', (req,res) => {
 });
 
 app.get('/signup', (req,res) => {
-  res.sendFile('signup');
+  res.render('signup');
 });
-app.post('/signup.', (req,res) => {
+
+app.post('/signup', (req,res) => {
   var userId = String(req.body['name']);
   var email = String(req.body['email']);
   var password = String(req.body['password']);
