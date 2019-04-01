@@ -3,6 +3,8 @@
 const bodyParser = require('body-parser');                                                                     
 const express = require('express');
 var passwordHash = require('password-hash');
+var cookieParser = require('cookie-parser');
+
 const PORT = 8080;
 const app = express();
 // postgreSQL 
@@ -14,7 +16,7 @@ const db = new Client({
   password: 'password',
   port: 5432,
 })
-// db.connect();
+db.connect();
 
 db.query('SELECT version()', (err, {rows}) => {
   console.log(err, rows[0].version);
@@ -48,20 +50,6 @@ app.get('/category', function(req, res) {    //index.ejs
 app.get('/login', function(req, res) {    //index.ejs
   res.render('login') 
 })
-
-
-// app.get('/index.html', (req, res) => {
-//   res.sendFile('index.html');
-// });
-// app.get('/about.html', (req, res) => {
-//   res.sendFile('about.html');
-// });
-// app.get('/category.html', (req, res) => {
-//   res.sendFile('category.html');
-// });
-// app.get('/login.html', (req,res) => {
-//   res.sendFile('login.html');
-// });
 
 app.post('/login', (req,res) => {
   var email = String(req.body['email']);
