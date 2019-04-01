@@ -149,16 +149,25 @@
               </div>
           </div><!-- /.col-4 -->
           <div class="col-8">
-            <h2 class="h5">Your balance: <span id="userPanelBalanceDashboard"> "Balance goes here" </span></h2>
+            <div class="row">
+              <div class="col-md-6">
+                <h2 class="h5">Your balance: <span id="userPanelBalanceDashboard"> "Balance" </span></h2>
+              </div>
+              <div class="col-md-6">
+                <div class="row no-gutters">
+                  <div class="col-md-8">
+                    <h2 class="h5">UBIT: 1234 5678</h2>
+                  </div>
+                  <div class="col-md-4">
+                    <button type="button" class="btn-sm btn-outline-primary">Change</button>
+                  </div><!-- /.col-md-4 -->
+                </div><!-- /.row -->
+              </div><!-- /.col-md-6 -->
+            </div><!-- /.row -->
 
             <hr class="featurette-divider">
 
             <form>
-              <div class="form-group">
-                <label for="inputUsername">Username</label>
-                <input type="text" class="form-control" id="inputUsername" placeholder="Username">
-                <small id="messageHelp" class="form-text text-muted">Username can be changed once.</small>
-              </div>
               <!-- First & Last name -->
               <div class="form-row">
                 <div class="form-group col-md-6">
@@ -174,7 +183,7 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputEmail4">Email</label>
-                  <input type="email" class="form-control" id="inputEmail4" placeholder="ubit@buffalo.edu">
+                  <input type="email" class="form-control" id="inputEmail4" placeholder="@buffalo.edu">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputPassword4">Password</label>
@@ -192,7 +201,7 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputCity">City</label>
-                  <input type="text" class="form-control" id="inputCity">
+                  <input type="text" class="form-control" id="inputCity" placeholder="City">
                 </div>
                 <div class="form-group col-md-4">
                   <label for="inputState">State</label>
@@ -203,7 +212,7 @@
                 </div>
                 <div class="form-group col-md-2">
                   <label for="inputZip">Zip</label>
-                  <input type="text" class="form-control" id="inputZip">
+                  <input type="text" class="form-control" id="inputZip" placeholder="Zip Code">
                 </div>
               </div>
               
@@ -238,10 +247,12 @@
       </main>
     </div>
   </div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-        <script src="dashboard.js"></script>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./Javascript/bootstrap.min.js"></script>
 </body>
 </html>

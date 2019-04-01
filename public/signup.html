@@ -12,33 +12,76 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="./css/bootstrap.min.css" >
 
-    <!-- Custom styles for this template -->
-    <link href="./css/signin.css" rel="stylesheet">
-  </head>
+    <!-- Custom signup CSS -->
+    <link href="./css/signup.css" rel="stylesheet">
+</head>
 
-  <body class="text-left">
-    <form class="form-signin" method="post">
-      <h1 class="h3 mb-3 font-weight-bold">Sign Up</h1>
-      <hr>
+<body>
+  <div class= "container">
+  <form method="post">
+    <h1 class="h3 mb-3 font-weight-bold">Sign Up</h1>
+    <hr class="featurette-divider">
 
-      <h1 class="h5 font-weight-light">Name</h1>
-      <label for="inputEmail" class="sr-only">Name</label>
-      <input type="text" class="form-control" name="name" placeholder="Name" required autofocus>
-      <br>
-      <h1 class="h5 font-weight-light">Email Address</h1>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email"  class="form-control" name="email" placeholder="Email address" required>
-      <br>
-      <h1 class="h5 font-weight-light">Password</h1>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password"  class="form-control" name="password" placeholder="Password" required>
-      <br>
-      <h1 class="h5 font-weight-light">UB ID</h1>
-      <label for="inputUbid" class="sr-only">Ubid</label>
-      <input type="number"  class="form-control" name="ubid" placeholder="UBID" required>
-      <br>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-      <p class="mt-5 mb-3 text-muted text-center"><a href="./index.html">BuyNSell</a> &copy; 2017-2018</p>
-    </form>
-  </body>
+      <!-- First & Last name -->
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputFirstName">First Name</label>
+          <input type="text" class="form-control" name="name" placeholder="First Name" autofocus required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputLastName">Last Name</label>
+          <input type="text" class="form-control" name="inputLastName" placeholder="Last Name" required>
+        </div>
+      </div>
+      <!-- UBID, Email & Password -->
+      <div class="form-group">
+        <label for="inputUBid">UBID</label>
+        <input type="text" class="form-control" name="ubid" placeholder="50123456" required>
+      </div>
+      <div class="form-group">
+        <label for="inputEmail">Email</label>
+        <input type="email" class="form-control" name="email" placeholder="@buffalo.edu" required>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword">Password</label>
+        <input type="password" class="form-control" name="password" placeholder="Password" required>
+      </div>
+      <!-- Address -->
+      <div class="form-group">
+        <label for="inputAddress">Address</label>
+        <input type="text" class="form-control" name="Address" placeholder="1234 Main St" required>
+      </div>
+      <div class="form-group">
+        <label for="inputAddress2">Address 2</label>
+        <input type="text" class="form-control" name="Address2" placeholder="Apartment, studio, or floor">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="inputCity">City</label>
+          <input type="text" class="form-control" name="City" placeholder="City" required>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputZip">Zip</label>
+          <input type="text" class="form-control" id="Zip" placeholder="Zip Code" required>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputState">State</label>
+          <select name="State" class="form-control">
+            <option selected>Choose...</option>
+            <option>...</option>
+          </select>
+        </div>
+      </div>
+    <br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+  </form>
+
+    <hr class="featurette-divider">
+
+    <!-- FOOTER -->
+    <footer>
+      <p style="text-align: center;"><a href="/index.html">BuyNSell</a> &copy; 2019 &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    </footer>
+  </div><!-- .container -->
+</body>
 </html>
