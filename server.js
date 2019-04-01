@@ -36,25 +36,22 @@ app.set('view engine', 'ejs')
 app.get('/', function(req, res) {               //initial page
      res.render('index')
 })
-app.get('/index', function(req, res) {    //index.ejs
-    res.render('index') 
-})
-app.get('/about', function(req, res) {    //index.ejs
+app.get('/about', function(req, res) {    //about.ejs
   res.render('about') 
 })
-app.get('/category', function(req, res) {    //index.ejs
+app.get('/category', function(req, res) {    //category.ejs
   res.render('category') 
 })
-app.get('/login', function(req, res) {    //index.ejs
+app.get('/login', function(req, res) {    //login.ejs
   res.render('login') 
 })
-app.get('/AccountSetting', function(req, res) {    //index.ejs
-  res.render('AccountSetting') 
+app.get('/accountsettings', function(req, res) {    //accountsettings.ejs
+  res.render('accountsettings') 
 })
-app.get('/Dashboard', function(req, res) {    //index.ejs
+app.get('/Dashboard', function(req, res) {    //Dashboard.ejs
   res.render('Dashboard') 
 })
-app.get('/signup', function(req, res) {    //index.ejs
+app.get('/signup', function(req, res) {    //signup.ejs
   res.render('signup') 
 })
 
