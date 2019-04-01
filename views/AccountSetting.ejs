@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BuyNSell | Dashboard</title>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css" >
+
+    <!-- Custom styles for this page -->
+    <link href="./css/dashboard.css" rel="stylesheet">
+
+    <!-- Custom user panel and product recommendation blocks styles for this page -->
+    <link href="./css/user-panel-product-recommend.css" rel="stylesheet">
+
+  <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="./index"><img src="./img/logo_62px.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="./index">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Shop by Category
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="category">All</a>
+                <a class="dropdown-item" href="category">Clothing</a>
+                <a class="dropdown-item" href="category">Electronics</a>
+                <a class="dropdown-item" href="category">Furnitures</a>
+                <a class="dropdown-item" href="category">Cars</a>
+              </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="about">Contact</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav" id="logOut">
+            <li class="nav-item">
+                <a class="nav-link" href="./index">Log Out</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+  </header>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="./Dashboard">
+                <span data-feather="home"></span>
+                Dashboard <span class="sr-only"></span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./Dashboard#orders">
+                <span data-feather="file"></span>
+                Orders
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./Dashboard#products">
+                <span data-feather="shopping-cart"></span>
+                Products
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./Dashboard#customers">
+                <span data-feather="users"></span>
+                Customers
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./Dashboard#report">
+                <span data-feather="bar-chart-2"></span>
+                Reports
+              </a>
+            </li>
+          </ul>
+
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Account settings</span>
+            <a class="d-flex align-items-center text-muted" href="#">
+              <span data-feather="plus-circle"></span>
+            </a>
+          </h6>
+          <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+              <a class="nav-link active" href="./AccountSetting">
+                <span data-feather="home"></span>
+                My Account
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#help">
+                <span data-feather="file-text"></span>
+                Help
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+      <!-- Account Settings Header 
+      ================================================== -->
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
+          <h1 class="h2">My Account</h1>
+        </div>
+
+      <!-- Basic Information Setting
+      ================================================== -->
+        <div class="row">
+          <div class="col-4 big-box">
+            <div class="mx-4" id="userPanelNoBorder">
+              <img class="rounded-circle" src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Generic placeholder image" width="170" height="170">
+              <h2>Hi user!</h2>
+              </div>
+          </div><!-- /.col-4 -->
+          <div class="col-8">
+            <div class="row">
+              <div class="col-md-6">
+                <h2 class="h5">Your balance: <span id="userPanelBalanceDashboard"> "Balance" </span></h2>
+              </div>
+              <div class="col-md-6">
+                <div class="row no-gutters">
+                  <div class="col-md-8">
+                    <h2 class="h5">UBIT: 1234 5678</h2>
+                  </div>
+                  <div class="col-md-4">
+                    <button type="button" class="btn-sm btn-outline-primary">Change</button>
+                  </div><!-- /.col-md-4 -->
+                </div><!-- /.row -->
+              </div><!-- /.col-md-6 -->
+            </div><!-- /.row -->
+
+            <hr class="featurette-divider">
+
+            <form>
+              <!-- First & Last name -->
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputFirstName">First Name</label>
+                  <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputLastName">Last Name</label>
+                  <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                </div>
+              </div>
+              <!-- Email & Password -->
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputEmail4">Email</label>
+                  <input type="email" class="form-control" id="inputEmail4" placeholder="@buffalo.edu">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputPassword4">Password</label>
+                  <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+              </div>
+              <div class="form-group">
+                <label for="inputAddress2">Address 2</label>
+                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputCity">City</label>
+                  <input type="text" class="form-control" id="inputCity" placeholder="City">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputState">State</label>
+                  <select id="inputState" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>...</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="inputZip">Zip</label>
+                  <input type="text" class="form-control" id="inputZip" placeholder="Zip Code">
+                </div>
+              </div>
+              
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+          </div><!-- /. entire col  -->
+        </div>
+
+      <!-- Help form
+      ================================================== -->
+        <div id="help">
+          <h1 class="h2">Feedback & Help</h1>
+          <hr class="featurette-divider">
+        </div>
+        <form>
+          <div class="form-group">
+            <textarea class="form-control" rows="3" placeholder="How can we help?"></textarea>
+            <small id="messageHelp" class="form-text text-muted">We will get back to you in 24 hours.</small>
+          </div>
+          <div style="margin-top: 30px"></div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+      <hr class="featurette-divider">
+
+      <!-- FOOTER -->
+      <footer class="container">
+        <p>BuyNSell &copy; 2019 &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+
+      </main>
+    </div>
+  </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./Javascript/bootstrap.min.js"></script>
+</body>
+</html>

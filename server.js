@@ -48,7 +48,15 @@ app.get('/category', function(req, res) {    //index.ejs
 app.get('/login', function(req, res) {    //index.ejs
   res.render('login') 
 })
-
+app.get('/AccountSetting', function(req, res) {    //index.ejs
+  res.render('AccountSetting') 
+})
+app.get('/Dashboard', function(req, res) {    //index.ejs
+  res.render('Dashboard') 
+})
+app.get('/signup', function(req, res) {    //index.ejs
+  res.render('signup') 
+})
 
 // app.get('/index.html', (req, res) => {
 //   res.sendFile('index.html');
