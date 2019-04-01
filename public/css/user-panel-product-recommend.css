@@ -23,3 +23,22 @@
 #recommendUserPrice{
 	color: #30a54a;
 }
+
+/* Dashboard css goes here
+-------------------------------------------------- */
+
+/* User Panel without border */
+#userPanelNoBorder{
+	background-color: white;
+	padding: 30px;
+	text-align: center;
+}
+
+#userPanelNoBorder h2{
+	margin-top: 30px
+}
+
+/* User Panel Balance */
+#userPanelBalanceDashboard{
+	color:#30a54a;
+}
