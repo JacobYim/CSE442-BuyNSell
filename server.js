@@ -55,9 +55,24 @@ app.get('/index', function(req, res) {    //index.ejs
   console.log(req.cookies.logses);
   if (req.cookies.logses != null){
     console.log("cookie");
+    db.query('SELECT username FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+      if (!err) {
+          console.log(rows.rows[0].username)
+          res.render('index',{ username : rows.rows[0].username})
+      } else {
+          res.render('index',{ username : null })
+      }
+    }); 
+  } else {
+    res.render('index',{ username : null })
   }
-  res.render('index') 
 })
+
+app.get('/logout', function(req, res) {    //index.ejs
+  res.clearCookie('logses');
+  res.render('index',{ username : null })
+})
+
 app.get('/about', function(req, res) {    //index.ejs
   res.render('about') 
 })
