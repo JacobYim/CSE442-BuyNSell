@@ -40,10 +40,10 @@ app.get('/', function(req, res) {               //initial page
   console.log(req.cookies.logses);
   if (req.cookies.logses != null){
     console.log("cookie");
-    db.query('SELECT username FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+    db.query('SELECT fname FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
       if (!err) {
-          console.log(rows.rows[0].username)
-          res.render('index',{ username : rows.rows[0].username})
+          console.log(rows.rows[0].fname)
+          res.render('index',{ username : rows.rows[0].fname})
       } else {
           res.render('index',{ username : null })
       }
@@ -56,10 +56,10 @@ app.get('/index', function(req, res) {    //index.ejs
   console.log(req.cookies.logses);
   if (req.cookies.logses != null){
     console.log("cookie");
-    db.query('SELECT username FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+    db.query('SELECT fname FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
       if (!err) {
-          console.log(rows.rows[0].username)
-          res.render('index',{ username : rows.rows[0].username})
+          console.log(rows.rows[0].fname)
+          res.render('index',{ username : rows.rows[0].fname})
       } else {
           res.render('index',{ username : null })
       }
@@ -123,18 +123,23 @@ app.post('/login', (req,res) => {
   }
 });
 
-
 app.get('/signup', (req,res) => {
   res.render('signup');
 });
 
 app.post('/signup', (req,res) => {
   var userId = String(req.body['name']);
+  var lastname = String(req.body['inputLastName']);
+  var ubid = String(req.body['ubid']);
   var email = String(req.body['email']);
   var password = String(req.body['password']);
-  var ubid = String(req.body['ubid']);
+  var address1 = String(req.body['Address']);
+  var address2 = String(req.body['Address2']);
+  var city = String(req.body['City']);
+  var zip = String(req.body['Zip']);
+  var state = String(req.body['State']);
 
-  console.log("Typed :",userId, email, password,ubid);
+  console.log("Typed :",userId, email, password,ubid, zip);
   if ((userId != '' && userId != ' ' && !userId.includes(';') && !userId.includes('.')&& !userId.includes('=')) &&
       (email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) &&
       (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=')) &&
@@ -144,10 +149,13 @@ app.post('/signup', (req,res) => {
     // secures password here
     password = passwordHasher(password);
     console.log("Password is Secure......................."+password)
-    db.query('insert into user_profile(ubid, email, username, password) values(\''+ubid+'\',\''+email+'\',\''+userId+'\',\''+password+'\')', function (err, rows, fields) {
+    db.query('insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path) values(\''+userId+'\',\''+lastname+'\',\''+ubid+'\',\''+ email +'\',\''+ password +'\',\''+ address1 +'\',\''+ address2 +'\',\''+ city +'\',\''+ zip +'\',\''+ state +'\',\''+ null+'\')', function (err, rows, fields) {
       if (!err) {
           console.log(rows)
-          res.send('success');
+          res.cookie("logses", password,{ maxAge: 60*60*1000,
+            httpOnly: true,
+            path:'/'});
+          res.render('index',{ username : userId })
           console.log('signin success'+userId);
           } else {
           res.send('err : ' + err);
