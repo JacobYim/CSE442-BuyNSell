@@ -3,6 +3,8 @@
 const bodyParser = require('body-parser');                                                                     
 const express = require('express');
 var passwordHash = require('password-hash');
+var cookieParser = require('cookie-parser');
+
 const PORT = 8080;
 const app = express();
 // postgreSQL 
@@ -28,24 +30,46 @@ db.query('SELECT * FROM user_profile;', (err, {rows}) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static(__dirname + '/public'));    // set static directory
+app.use(cookieParser());
 
-app.get('/', (req, res) => {
-  res.sendFile('index.html');
-});
-app.get('/index.html', (req, res) => {
-  res.sendFile('index.html');
-});
-app.get('/about.html', (req, res) => {
-  res.sendFile('about.html');
-});
-app.get('/category.html', (req, res) => {
-  res.sendFile('category.html');
-});
-app.get('/login.html', (req,res) => {
-  res.sendFile('login.html');
-});
+//routing engine
+app.set('view engine', 'ejs')
 
-app.post('/login.html', (req,res) => {
+//page routes
+app.get('/', function(req, res) {               //initial page
+  console.log(req.cookies.logses);
+  if (req.cookies.logses != null){
+    console.log("cookie");
+    db.query('SELECT username FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+      if (!err) {
+          console.log(rows.rows[0].username)
+          res.render('index',{ username : rows.rows[0].username})
+      } else {
+          res.render('index',{ username : null })
+      }
+    }); 
+  } else {
+    res.render('index',{ username : null })
+  }
+})
+app.get('/index', function(req, res) {    //index.ejs
+  console.log(req.cookies.logses);
+  if (req.cookies.logses != null){
+    console.log("cookie");
+  }
+  res.render('index') 
+})
+app.get('/about', function(req, res) {    //index.ejs
+  res.render('about') 
+})
+app.get('/category', function(req, res) {    //index.ejs
+  res.render('category') 
+})
+app.get('/login', function(req, res) {    //index.ejs
+  res.render('login') 
+})
+
+app.post('/login', (req,res) => {
   var email = String(req.body['email']);
   var password = String(req.body['password']);
   if ((email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.') && !email.includes("'" && !email.includes(';'))) && 
@@ -53,21 +77,24 @@ app.post('/login.html', (req,res) => {
       db.query('SELECT password FROM user_profile where email=\''+email+'\'', function (err, rows, fields) {
       if (!err) {
           console.log(rows)
+          console.log(passwordHash.verify(password ,rows.rows[0].password))
           try{
             if (passwordHash.verify(password ,rows.rows[0].password)) {
-                res.send('Login Success!!');
-                // res.redirect('/');
+              res.cookie("logses",rows.rows[0].password,{ maxAge: 60*60*1000,
+                httpOnly: true,
+                path:'/'});
+              // res.send('Login Success!!');
+              res.redirect('/');
             } else {
                 res.send('Login Failure');
-                // res.redirect('/');
+                // res.redirect('/login.html');
             }
           }catch(err){
-            res.send('user is not exist')
-
+            res.send('user is not exist'+err)
           }
       } else {
           res.send('error : ' + err);
-          // res.redirect('/');
+          // res.redirect('/login.html');
       }
     }); 
   }else{
@@ -75,10 +102,12 @@ app.post('/login.html', (req,res) => {
   }
 });
 
-app.get('/signup.html', (req,res) => {
-  res.sendFile('signup.html');
+
+app.get('/signup', (req,res) => {
+  res.render('signup');
 });
-app.post('/signup.html', (req,res) => {
+
+app.post('/signup', (req,res) => {
   var userId = String(req.body['name']);
   var email = String(req.body['email']);
   var password = String(req.body['password']);
