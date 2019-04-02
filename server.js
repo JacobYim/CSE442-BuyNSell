@@ -68,12 +68,10 @@ app.get('/index', function(req, res) {    //index.ejs
     res.render('index',{ username : null })
   }
 })
-
 app.get('/logout', function(req, res) {    //index.ejs
   res.clearCookie('logses');
   res.render('index',{ username : null })
 })
-
 app.get('/about', function(req, res) {    //index.ejs
   res.render('about')
 })
@@ -85,7 +83,20 @@ app.get('/login', function(req, res) {    //login.ejs
   res.render('login')
 })
 app.get('/accountsettings', function(req, res) {    //accountsettings.ejs
-  res.render('accountsettings')
+  if (req.cookies.logses != null){
+    console.log("cookie");
+    db.query('SELECT * FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+      if (!err) {
+          console.log(rows.rows[0])
+          res.render('accountsettings',{ user : rows.rows[0]})
+      } else {
+          res.render('index',{ username : null })
+      }
+    });
+  } else {
+    res.render('index',{ username : null })
+  }
+
 })
 app.get('/Dashboard', function(req, res) {    //Dashboard.ejs
   res.render('Dashboard')
@@ -94,7 +105,6 @@ app.get('/signup', function(req, res) {    //signup.ejs
   res.clearCookie('logses');
   res.render('signup')
 })
-
 app.post('/login', (req,res) => {
   var email = String(req.body['email']);
   var password = String(req.body['password']);
@@ -124,11 +134,9 @@ app.post('/login', (req,res) => {
     res.send('invalid input')
   }
 });
-
 app.get('/signup', (req,res) => {
   res.render('signup');
 });
-
 app.post('/signup', (req,res) => {
   var userId = String(req.body['name']);
   var lastname = String(req.body['inputLastName']);
@@ -168,11 +176,42 @@ app.post('/signup', (req,res) => {
   }
 });
 
+app.post('/change',(req,res) => {
+  var fname = String(req.body['inputFirstName']);
+  var lname = String(req.body['inputLastName']);
+  var email = String(req.body['inputEmail4']);
+  var password = String(req.body['inputPassword4']);
+  var add1 = String(req.body['inputAddress']);
+  var add2 = String(req.body['inputAddress2']);
+  var city = String(req.body['inputCity']);
+  var state = String(req.body['inputState']);
+  var zip = String(req.body['inputZip']);
+  console.log(email);
+  res.render('index',{ username : fname });
+});
+
+app.post('/help',(req,res) => {
+  var contents = String(req.body['contents']);
+  if (req.cookies.logses != null){
+    console.log("cookie");
+    db.query('SELECT * FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+      if (!err) {
+          console.log(rows.rows[0].fname)
+          console.log(contents);
+          res.render('index',{ username : rows.rows[0].fname });
+      } else {
+          res.render('index',{ username : null })
+      }
+    });
+  } else {
+    res.render('index',{ username : null })
+  }
+});
+
 function passwordHasher(unsecure_password) {
   var secure_password = passwordHash.generate(unsecure_password);
   console.log(passwordHash.verify(unsecure_password, secure_password));
   console.log("!!!Password is now secure!!!")
   return secure_password
 }
-
 app.listen(PORT, () => console.log(`Running on ${PORT}`));
