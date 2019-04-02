@@ -88,19 +88,18 @@ app.post('/login', (req,res) => {
   var password = String(req.body['password']);
   if ((email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.') && !email.includes("'" && !email.includes(';'))) && 
       (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=') && !password.includes('(') && !password.includes(')')&& !password.includes("'"))){
-      db.query('SELECT password FROM user_profile where email=\''+email+'\'', function (err, rows, fields) {
+      db.query('SELECT * FROM user_profile where email=\''+email+'\'', function (err, rows, fields) {
       if (!err) {
-          console.log(rows)
+          console.log(rows.rows[0])
           try{
             if (passwordHash.verify(password ,rows.rows[0].password)) {
               res.cookie("logses",rows.rows[0].password,{ maxAge: 60*60*1000,
                 httpOnly: true,
                 path:'/'});
-              // res.send('Login Success!!');
-              res.redirect('/');
+
+                res.render('index',{ username : rows.rows[0].username })
             } else {
                 res.send('Login Failure');
-                // res.redirect('/');
             }
           }catch(err){
             res.send('user is not exist'+err)
@@ -108,7 +107,6 @@ app.post('/login', (req,res) => {
           }
       } else {
           res.send('error : ' + err);
-          // res.redirect('/');
       }
     }); 
   }else{
