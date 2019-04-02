@@ -81,6 +81,7 @@ app.get('/category', function(req, res) {    //category.ejs
   res.render('category')
 })
 app.get('/login', function(req, res) {    //login.ejs
+  res.clearCookie('logses');
   res.render('login')
 })
 app.get('/accountsettings', function(req, res) {    //accountsettings.ejs
@@ -90,6 +91,7 @@ app.get('/Dashboard', function(req, res) {    //Dashboard.ejs
   res.render('Dashboard')
 })
 app.get('/signup', function(req, res) {    //signup.ejs
+  res.clearCookie('logses');
   res.render('signup')
 })
 
@@ -107,7 +109,7 @@ app.post('/login', (req,res) => {
                 httpOnly: true,
                 path:'/'});
 
-                res.render('index',{ username : rows.rows[0].username })
+              res.render('index',{ username : rows.rows[0].fname })
             } else {
                 res.send('Login Failure');
             }
