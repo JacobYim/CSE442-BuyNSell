@@ -30,7 +30,8 @@ db.query('SELECT * FROM user_profile;', (err, {rows}) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static(__dirname + '/public'));    // set static directory
-app.use(cookieParser())
+app.use(cookieParser());
+
 //routing engine
 app.set('view engine', 'ejs')
 
@@ -76,6 +77,7 @@ app.post('/login', (req,res) => {
       db.query('SELECT password FROM user_profile where email=\''+email+'\'', function (err, rows, fields) {
       if (!err) {
           console.log(rows)
+          console.log(passwordHash.verify(password ,rows.rows[0].password))
           try{
             if (passwordHash.verify(password ,rows.rows[0].password)) {
               res.cookie("logses",rows.rows[0].password,{ maxAge: 60*60*1000,
@@ -85,21 +87,21 @@ app.post('/login', (req,res) => {
               res.redirect('/');
             } else {
                 res.send('Login Failure');
-                // res.redirect('/');
+                // res.redirect('/login.html');
             }
           }catch(err){
             res.send('user is not exist'+err)
-
           }
       } else {
           res.send('error : ' + err);
-          // res.redirect('/');
+          // res.redirect('/login.html');
       }
     }); 
   }else{
     res.send('invalid input')
   }
 });
+
 
 app.get('/signup', (req,res) => {
   res.render('signup');
