@@ -92,19 +92,6 @@ app.get('/signup', function(req, res) {    //signup.ejs
   res.render('signup')
 })
 
-// app.get('/index.html', (req, res) => {
-//   res.sendFile('index.html');
-// });
-// app.get('/about.html', (req, res) => {
-//   res.sendFile('about.html');
-// });
-// app.get('/category.html', (req, res) => {
-//   res.sendFile('category.html');
-// });
-// app.get('/login.html', (req,res) => {
-//   res.sendFile('login.html');
-// });
-
 app.post('/login', (req,res) => {
   var email = String(req.body['email']);
   var password = String(req.body['password']);
