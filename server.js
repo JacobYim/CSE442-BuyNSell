@@ -1,13 +1,13 @@
 'use strict';
 
-const bodyParser = require('body-parser');                                                                     
+const bodyParser = require('body-parser');
 const express = require('express');
 var passwordHash = require('password-hash');
 var cookieParser = require('cookie-parser');
 
 const PORT = 8080;
 const app = express();
-// postgreSQL 
+// postgreSQL
 const { Client } = require('pg')
 const db = new Client({
   host: 'localhost', // server name or IP address;
@@ -46,7 +46,7 @@ app.get('/', function(req, res) {               //initial page
       } else {
           res.render('index',{ username : null })
       }
-    }); 
+    });
   } else {
     res.render('index',{ username : null })
   }
@@ -62,7 +62,7 @@ app.get('/index', function(req, res) {    //index.ejs
       } else {
           res.render('index',{ username : null })
       }
-    }); 
+    });
   } else {
     res.render('index',{ username : null })
   }
@@ -74,19 +74,41 @@ app.get('/logout', function(req, res) {    //index.ejs
 })
 
 app.get('/about', function(req, res) {    //index.ejs
-  res.render('about') 
+  res.render('about')
 })
-app.get('/category', function(req, res) {    //index.ejs
-  res.render('category') 
+app.get('/category', function(req, res) {    //category.ejs
+  res.render('category')
 })
-app.get('/login', function(req, res) {    //index.ejs
-  res.render('login') 
+app.get('/login', function(req, res) {    //login.ejs
+  res.render('login')
 })
+app.get('/accountsettings', function(req, res) {    //accountsettings.ejs
+  res.render('accountsettings')
+})
+app.get('/Dashboard', function(req, res) {    //Dashboard.ejs
+  res.render('Dashboard')
+})
+app.get('/signup', function(req, res) {    //signup.ejs
+  res.render('signup')
+})
+
+// app.get('/index.html', (req, res) => {
+//   res.sendFile('index.html');
+// });
+// app.get('/about.html', (req, res) => {
+//   res.sendFile('about.html');
+// });
+// app.get('/category.html', (req, res) => {
+//   res.sendFile('category.html');
+// });
+// app.get('/login.html', (req,res) => {
+//   res.sendFile('login.html');
+// });
 
 app.post('/login', (req,res) => {
   var email = String(req.body['email']);
   var password = String(req.body['password']);
-  if ((email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.') && !email.includes("'" && !email.includes(';'))) && 
+  if ((email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.') && !email.includes("'" && !email.includes(';'))) &&
       (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=') && !password.includes('(') && !password.includes(')')&& !password.includes("'"))){
       db.query('SELECT * FROM user_profile where email=\''+email+'\'', function (err, rows, fields) {
       if (!err) {
@@ -108,7 +130,7 @@ app.post('/login', (req,res) => {
       } else {
           res.send('error : ' + err);
       }
-    }); 
+    });
   }else{
     res.send('invalid input')
   }
@@ -126,11 +148,11 @@ app.post('/signup', (req,res) => {
 
   console.log("Typed :",userId, email, password,ubid);
   if ((userId != '' && userId != ' ' && !userId.includes(';') && !userId.includes('.')&& !userId.includes('=')) &&
-      (email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) && 
+      (email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) &&
       (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=')) &&
       (ubid != '' && ubid != ' ' && ubid.length == 8 && !ubid.includes(';') && !ubid.includes('='))){
-    
-    
+
+
     // secures password here
     password = passwordHasher(password);
     console.log("Password is Secure......................."+password)
