@@ -30,7 +30,8 @@ db.query('SELECT * FROM user_profile;', (err, {rows}) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static(__dirname + '/public'));    // set static directory
-app.use(cookieParser())
+app.use(cookieParser());
+
 //routing engine
 app.set('view engine', 'ejs')
 
@@ -112,7 +113,6 @@ app.post('/login', (req,res) => {
             }
           }catch(err){
             res.send('user is not exist'+err)
-
           }
       } else {
           res.send('error : ' + err);
@@ -122,6 +122,7 @@ app.post('/login', (req,res) => {
     res.send('invalid input')
   }
 });
+
 
 app.get('/signup', (req,res) => {
   res.render('signup');
