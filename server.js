@@ -106,7 +106,19 @@ app.get('/accountsettings', function(req, res) {    //accountsettings.ejs
 
 })
 app.get('/Dashboard', function(req, res) {    //Dashboard.ejs
-  res.render('Dashboard')
+  if (req.cookies.logses != null){
+    console.log("cookie");
+    db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+      if (!err) {
+          console.log(rows.rows[0])
+          res.render('Dashboard',{ user : rows.rows[0]})
+      } else {
+          res.render('index',{ username : null })
+      }
+    });
+  } else {
+    res.render('index',{ username : null })
+  }
 })
 app.get('/signup', function(req, res) {    //signup.ejs
   res.clearCookie('logses');
