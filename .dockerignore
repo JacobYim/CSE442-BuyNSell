@@ -3,4 +3,5 @@ npm-debug.log
 .DS_Store
 .git 
 test
-README.md 
+README.md
+public/uploads
