@@ -4,6 +4,10 @@ const bodyParser = require('body-parser');
 const express = require('express');
 var passwordHash = require('password-hash');
 var cookieParser = require('cookie-parser');
+var multer = require('multer');
+var upload = multer({dest: 'public/uploads/'});
+var fs = require('fs');
+
 
 const PORT = 8080;
 const app = express();
@@ -147,7 +151,9 @@ app.post('/login', (req,res) => {
 app.get('/signup', (req,res) => {
   res.render('signup');
 });
-app.post('/signup', (req,res) => {
+
+app.post('/signup', upload.any(),(req,res) => {
+  console.log(req.files.length != 0);  // checking image is inputted or not
   var userId = String(req.body['name']);
   var lastname = String(req.body['inputLastName']);
   var ubid = String(req.body['ubid']);
@@ -158,7 +164,12 @@ app.post('/signup', (req,res) => {
   var city = String(req.body['City']);
   var zip = String(req.body['Zip']);
   var state = String(req.body['State']);
-
+  var file;
+  if (req.files.length != 0){
+    file = "./uploads/"+req.files[0].filename;
+  }else{
+    file = null;
+  }
   console.log("Typed :",userId, email, password,ubid, zip);
   if ((userId != '' && userId != ' ' && !userId.includes(';') && !userId.includes('.')&& !userId.includes('=')) &&
       (email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) &&
@@ -169,7 +180,7 @@ app.post('/signup', (req,res) => {
     // secures password here
     password = passwordHasher(password);
     console.log("Password is Secure......................."+password)
-    db.query('insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path, available) values(\''+userId+'\',\''+lastname+'\',\''+ubid+'\',\''+ email +'\',\''+ password +'\',\''+ address1 +'\',\''+ address2 +'\',\''+ city +'\',\''+ zip +'\',\''+ state +'\',\''+ null+ '\',\'' + "1" + '\')', function (err, rows, fields) {
+    db.query('insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path, available) values(\''+userId+'\',\''+lastname+'\',\''+ubid+'\',\''+ email +'\',\''+ password +'\',\''+ address1 +'\',\''+ address2 +'\',\''+ city +'\',\''+ zip +'\',\''+ state +'\',\''+ file+ '\',\'' + "1" + '\')', function (err, rows, fields) {
       if (!err) {
           console.log(rows)
           res.cookie("logses", password,{ maxAge: 60*60*1000,

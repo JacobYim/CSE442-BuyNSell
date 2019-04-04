@@ -144,7 +144,11 @@
         <div class="row">
           <div class="col-4 big-box">
             <div class="mx-4" id="userPanelNoBorder">
-              <img class="rounded-circle" src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Generic placeholder image" width="170" height="170">
+                <% if(user.file_path == 'null'){ %>
+                  <img class="rounded-circle" src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Generic placeholder image" width="170" height="170">
+                <% }else{ %>
+                  <img class="rounded-circle" src= <%= user.file_path %> width="170" height="170">
+                <% }%>
               <input type = "file" class="form-control" name = "user_image" />
               <h2>Hi <%= user.fname %>!</h2>
               </div>
