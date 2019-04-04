@@ -1,9 +1,16 @@
 create table user_profile(
-user_id serial primary key,
-ubid varchar(12) unique not null,
-email varchar(50) unique not null,
-username varchar(50) unique not null,
-password varchar(60) not null
+    user_id serial primary key,
+    fname varchar(24) not null,
+    lname varchar(12) not null,
+    ubid varchar(12) unique not null,
+    email varchar(50) unique not null,
+    password varchar(60) not null,
+    address1 varchar(60) not null,
+    address2 varchar(60),
+    city varchar(60),
+    zip int not null,
+    states varchar(2) not null,
+    file_path varchar(60)
 );
 
 create table items(
@@ -22,12 +29,12 @@ transaction_date timestamp default current_timestamp
 );
 
 --some random input data--
-insert into user_profile(ubid, email, username, password)
-values ('50166666', 'mrliu@buffalo.edu', 'mr666', '666666');
-insert into user_profile(ubid, email, username, password)
-values ('50187324', 'something@buffalo.edu', 'something', 'randompassword');
-insert into user_profile(ubid, email, username, password)
-values ('50217474', 'someoneelse@buffalo.edu', 'BuyEverything', 'anotherrandompassword');
+insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path)
+values ('Chulsoo', 'Lim', 'limch', 'limch@buffalo.edu','sha1$f0e604d8$1$d7ae3e858408c66a29af59862a55e94183fc7260','277 American Campus Drive',null,'Amherst',12345,'NY','resource/images/member/limch.jpg');
+-- insert into user_profile(ubid, email, username, password)
+-- values ('50187324', 'something@buffalo.edu', 'something', 'randompassword');
+-- insert into user_profile(ubid, email, username, password)
+-- values ('50217474', 'someoneelse@buffalo.edu', 'BuyEverything', 'anotherrandompassword');
 
 --ignore this part for now, work on it until we start working on item database
 --insert into items(item_id, description, post_by)
