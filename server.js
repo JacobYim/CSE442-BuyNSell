@@ -78,6 +78,9 @@ app.get('/about', function(req, res) {    //index.ejs
 app.get('/category', function(req, res) {    //category.ejs
   res.render('category')
 })
+app.get('/product', function(req, res) {    //category.ejs
+  res.render('product')
+})
 app.get('/login', function(req, res) {    //login.ejs
   res.clearCookie('logses');
   res.render('login')
