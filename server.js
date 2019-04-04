@@ -108,6 +108,13 @@ app.get('/signup', function(req, res) {    //signup.ejs
   res.clearCookie('logses');
   res.render('signup')
 })
+
+app.get('/modifyPassword', function(req, res) {    //modifyPassword.ejs
+  res.render('modifyPassword')
+})
+app.get('/changeUBIT', function(req, res) {    //changeUBIT.ejs
+  res.render('changeUBIT')
+})
 app.post('/login', (req,res) => {
   var email = String(req.body['email']);
   var password = String(req.body['password']);
