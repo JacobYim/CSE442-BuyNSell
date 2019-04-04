@@ -196,7 +196,26 @@ app.post('/change',(req,res) => {
   var city = String(req.body['inputCity']);
   var state = String(req.body['inputState']);
   var zip = String(req.body['inputZip']);
-  console.log(email);
+  
+  if (req.cookies.logses != null){
+    console.log("cookie");
+    db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+      if (!err && rows.rowCount != 0) {
+          var ubid = rows.rows[0].ubid;
+          console.log("Typed :",fname, lname, email, password, rows.rows[0].ubid, add1, add2, city, state, zip);
+          if (passwordHash.verify(password ,req.cookies.logses)) {
+            console.log(rows.rows[0].fname)
+            db.query('UPDATE user_profile SET fname = \''+ fname+'\', lname = \''+ lname +'\', email = \''+ email +'\', address1 = \''+add1 +'\', address2 = \''+ add2 +'\', city = \''+ city +'\', zip = \''+ zip +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
+              console.log(rows1)
+            });
+          }else{
+            res.send('wrong password');
+          }
+      } else {
+          res.render('index',{ username : null })
+      }
+    });
+  }
   res.render('index',{ username : fname });
 });
 
