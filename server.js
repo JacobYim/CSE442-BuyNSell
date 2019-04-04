@@ -159,7 +159,7 @@ app.post('/signup', (req,res) => {
   var zip = String(req.body['Zip']);
   var state = String(req.body['State']);
 
-  console.log("Typed :",userId, email, password,ubid, zip);
+  console.log("Typed :",userId, email, password,ubid, address1 ,zip);
   if ((userId != '' && userId != ' ' && !userId.includes(';') && !userId.includes('.')&& !userId.includes('=')) &&
       (email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) &&
       (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=')) &&
@@ -217,6 +217,10 @@ app.post('/help',(req,res) => {
     res.render('index',{ username : null })
   }
 });
+
+app.get('/upload_product', function(req, res) {    //upload_product.ejs
+  res.render('upload_product')
+})
 
 function passwordHasher(unsecure_password) {
   var secure_password = passwordHash.generate(unsecure_password);
