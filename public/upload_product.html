@@ -9,31 +9,10 @@
 
     <title>BuyNSell | UPLOAD</title>
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="./css/bootstrap.min.css" >
 
-    <!-- Custom styles for this page -->
-    <link href="./css/dashboard.css" rel="stylesheet">
-
-    <!-- Custom user panel and product recommendation blocks styles for this page -->
-    <link href="./css/user-panel-product-recommend.css" rel="stylesheet">
   </head>
 
   <header>
@@ -73,9 +52,9 @@
   </header>
 
   <body>
-    <form class="form-horizontal" enctype="multipart/form-data">
+    <form class="form-horizontal" enctype="multipart/form-data"
+    style="margin-top: 100px">
       <div class="form-group">
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         <div class="form-group">
           <label class="control-label col-sm-2">Upload Pic:</label>
           <div class="col-xs-3">
@@ -88,11 +67,21 @@
         </div>
         <label class="control-label col-sm-2">Price:</label>
         <div class="col-xs-4">
-          <input type="text" class="form-control" name="profilepicname" id="productPrice" />
+          <input type="text" class="form-control" name="profilepicprice" id="productPrice" />
+        </div>
+        <label class="control-label col-sm-2">Product Category:</label>
+        <div class="col-xs-4">
+          <input type="text" class="form-control" name="profilepiccategory" id="productDesc" />
         </div>
         <label class="control-label col-sm-2">Product Description:</label>
         <div class="col-xs-4">
-          <input type="text" class="form-control" name="profilepicname" id="productDesc" />
+          <input type="text" class="form-control" name="profilepicdesc" id="productDesc" />
+        </div>
+
+        <br>
+
+        <div>
+          <button type="button" class="btn btn-sm btn-outline-secondary">Submit</button> 
         </div>
       </div> <!-- form-group -->
     </form>
