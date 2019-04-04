@@ -23,11 +23,11 @@ const db = new Client({
 db.connect();
 
 db.query('SELECT version()', (err, {rows}) => {
-  console.log(err, rows[0].version);
+	console.log(err, rows[0].version);
 })
 
 db.query('SELECT * FROM user_profile;', (err, {rows}) => {
-  console.log(err, rows);
+	console.log(err, rows);
 })
 
 // App
@@ -41,135 +41,135 @@ app.set('view engine', 'ejs')
 
 //page routes
 app.get('/', function(req, res) {               //initial page
-  console.log(req.cookies.logses);
-  if (req.cookies.logses != null){
-    console.log("cookie");
-    db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-      if (!err && rows.rowCount != 0) {
-          console.log(rows.rows[0].fname)
-          res.render('index',{ username : rows.rows[0].fname})
-      } else {
-          res.render('index',{ username : null })
-      }
-    });
-  } else {
-    res.render('index',{ username : null })
-  }
+	console.log(req.cookies.logses);
+	if (req.cookies.logses != null){
+		console.log("cookie");
+		db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+			if (!err && rows.rowCount != 0) {
+				console.log(rows.rows[0].fname)
+				res.render('index',{ username : rows.rows[0].fname})
+			} else {
+				res.render('index',{ username : null })
+			}
+		});
+	} else {
+		res.render('index',{ username : null })
+	}
 })
 
 app.get('/index', function(req, res) {    //index.ejs
-  console.log(req.cookies.logses);
-  if (req.cookies.logses != null){
-    console.log("cookie");
-    db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-      if (!err) {
-          console.log(rows.rows[0].fname)
-          res.render('index',{ username : rows.rows[0].fname})
-      } else {
-          res.render('index',{ username : null })
-      }
-    });
-  } else {
-    res.render('index',{ username : null })
-  }
+	console.log(req.cookies.logses);
+	if (req.cookies.logses != null){
+		console.log("cookie");
+		db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+			if (!err) {
+				console.log(rows.rows[0].fname)
+				res.render('index',{ username : rows.rows[0].fname})
+			} else {
+				res.render('index',{ username : null })
+			}
+		});
+	} else {
+		res.render('index',{ username : null })
+	}
 })
 
 app.get('/logout', function(req, res) {    //index.ejs
-  res.clearCookie('logses');
-  res.render('index',{ username : null })
+	res.clearCookie('logses');
+	res.render('index',{ username : null })
 })
 app.get('/about', function(req, res) {    //index.ejs
-  res.render('about')
+	res.render('about')
 })
 app.get('/category', function(req, res) {    //category.ejs
-  res.render('category')
+	res.render('category')
 })
 app.get('/product', function(req, res) {    //category.ejs
-  res.render('product')
+	res.render('product')
 })
 app.get('/login', function(req, res) {    //login.ejs
-  res.clearCookie('logses');
-  res.render('login')
+	res.clearCookie('logses');
+	res.render('login')
 })
 app.get('/accountsettings', function(req, res) {    //accountsettings.ejs
-  if (req.cookies.logses != null){
-    console.log("cookie");
-    db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-      if (!err) {
-          console.log(rows.rows[0])
-          res.render('accountsettings',{ user : rows.rows[0]})
-      } else {
-          res.render('index',{ username : null })
-      }
-    });
-  } else {
-    res.render('index',{ username : null })
-  }
+	if (req.cookies.logses != null){
+		console.log("cookie");
+		db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+			if (!err) {
+				console.log(rows.rows[0])
+				res.render('accountsettings',{ user : rows.rows[0]})
+			} else {
+				res.render('index',{ username : null })
+			}
+		});
+	} else {
+		res.render('index',{ username : null })
+	}
 
 })
 app.get('/Dashboard', function(req, res) {    //Dashboard.ejs
-  if (req.cookies.logses != null){
-    console.log("cookie");
-    db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-      if (!err) {
-          console.log(rows.rows[0])
-          res.render('Dashboard',{ user : rows.rows[0]})
-      } else {
-          res.render('index',{ username : null })
-      }
-    });
-  } else {
-    res.render('index',{ username : null })
-  }
+	if (req.cookies.logses != null){
+		console.log("cookie");
+		db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+			if (!err) {
+				console.log(rows.rows[0])
+				res.render('Dashboard',{ user : rows.rows[0]})
+			} else {
+				res.render('index',{ username : null })
+			}
+		});
+	} else {
+		res.render('index',{ username : null })
+	}
 })
 app.get('/signup', function(req, res) {    //signup.ejs
-  res.clearCookie('logses');
-  res.render('signup')
+	res.clearCookie('logses');
+	res.render('signup')
 })
 
 app.get('/modifyPassword', function(req, res) {    //modifyPassword.ejs
-  res.render('modifyPassword')
+	res.render('modifyPassword')
 })
 app.get('/changeUBIT', function(req, res) {    //changeUBIT.ejs
-  res.render('changeUBIT')
+	res.render('changeUBIT')
 })
 app.post('/login', (req,res) => {
-  var email = String(req.body['email']);
-  var password = String(req.body['password']);
-  if ((email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.') && !email.includes("'" && !email.includes(';'))) &&
-      (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=') && !password.includes('(') && !password.includes(')')&& !password.includes("'"))){
-      db.query('SELECT * FROM user_profile where available = true AND email=\''+email+'\'', function (err, rows, fields) {
-      if (!err && rows.rowCount == 1) {
-          console.log(rows)
-          try{
-            if (passwordHash.verify(password ,rows.rows[0].password)) {
-              res.cookie("logses",rows.rows[0].password,{ maxAge: 60*60*1000,
-                httpOnly: true,
-                path:'/'});
+	var email = String(req.body['email']);
+	var password = String(req.body['password']);
+	if ((email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.') && !email.includes("'" && !email.includes(';'))) &&
+		(password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=') && !password.includes('(') && !password.includes(')')&& !password.includes("'"))){
+		db.query('SELECT * FROM user_profile where available = true AND email=\''+email+'\'', function (err, rows, fields) {
+			if (!err && rows.rowCount == 1) {
+				console.log(rows)
+				try{
+					if (passwordHash.verify(password ,rows.rows[0].password)) {
+						res.cookie("logses",rows.rows[0].password,{ maxAge: 60*60*1000,
+							httpOnly: true,
+							path:'/'});
 
-              res.render('index',{ username : rows.rows[0].fname })
-            } else {
-                res.send('Login Failure');
-            }
-          }catch(err){
-            res.send('user is not exist'+err)
-          }
-      } else {
-          res.send('error : ' + err);
-      }
-    });
-  }else{
-    res.send('invalid input')
-  }
+						res.render('index',{ username : rows.rows[0].fname })
+					} else {
+						res.send('Login Failure');
+					}
+				}catch(err){
+					res.send('user is not exist'+err)
+				}
+			} else {
+				res.send('error : ' + err);
+			}
+		});
+	}else{
+		res.send('invalid input')
+	}
 });
 app.get('/signup', (req,res) => {
-  res.render('signup');
+	res.render('signup');
 });
 
 app.post('/signup', upload.any(),(req,res) => {
   console.log(req.files.length != 0);  // checking image is inputted or not
-  var userId = String(req.body['name']);
-  var lastname = String(req.body['inputLastName']);
+  var fname = String(req.body['name']);
+  var lname = String(req.body['inputLastName']);
   var ubid = String(req.body['ubid']);
   var email = String(req.body['email']);
   var password = String(req.body['password']);
@@ -181,135 +181,165 @@ app.post('/signup', upload.any(),(req,res) => {
 
   var file;
   if (req.files.length != 0){
-    file = "./uploads/"+req.files[0].filename;
+  	file = "./uploads/"+req.files[0].filename;
   }else{
-    file = null;
+  	file = null;
   }
-  console.log("Typed :",userId, email, password,ubid, zip);
+  console.log("Typed :",fname, lname, email, password,ubid, address1, city, zip);
 
-  if ((userId != '' && userId != ' ' && !userId.includes(';') && !userId.includes('.')&& !userId.includes('=')) &&
-      (email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) &&
-      (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=')) &&
-      (ubid != '' && ubid != ' ' && ubid.length == 8 && !ubid.includes(';') && !ubid.includes('='))){
+  if ((fname != '' && fname != ' ' && !fname.includes(';') && !fname.includes('.')&& !fname.includes('=')) &&
+  	  (lname != '' && lname != ' ' && !lname.includes(';') && !lname.includes('.')&& !lname.includes('=')) &&
+  	  (email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) &&
+  	  (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=')) &&
+  	  (ubid != '' && ubid != ' ' && ubid.length == 8 && !ubid.includes(';') && !ubid.includes('='))){
 
 
     // secures password here
     password = passwordHasher(password);
     console.log("Password is Secure......................."+password)
-    db.query('insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path, available) values(\''+userId+'\',\''+lastname+'\',\''+ubid+'\',\''+ email +'\',\''+ password +'\',\''+ address1 +'\',\''+ address2 +'\',\''+ city +'\',\''+ zip +'\',\''+ state +'\',\''+ file+ '\',\'' + "1" + '\')', function (err, rows, fields) {
-      if (!err) {
-          console.log(rows)
-          res.cookie("logses", password,{ maxAge: 60*60*1000,
-            httpOnly: true,
-            path:'/'});
-          res.render('index',{ username : userId })
-          console.log('signin success'+userId);
-          } else {
-          res.send('err : ' + err);
-      }
+    db.query('insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path, available) values(\''+fname+'\',\''+lname+'\',\''+ubid+'\',\''+ email +'\',\''+ password +'\',\''+ address1 +'\',\''+ address2 +'\',\''+ city +'\',\''+ zip +'\',\''+ state +'\',\''+ file+ '\',\'' + "1" + '\')', function (err, rows, fields) {
+    	if (!err) {
+    		console.log(rows)
+    		res.cookie("logses", password,{ maxAge: 60*60*1000,
+    			httpOnly: true,
+    			path:'/'});
+    		res.render('index',{ username : fname })
+    		console.log('signin success'+ fname);
+    	} 
+    	else {
+    		res.send('err : ' + err);
+    	}
     });
-  }else{
-    res.send('wrong approach');
-  }
+}else{
+	res.send('wrong approach');
+}
 });
 
 app.post('/change', upload.any(), (req,res) => {
-  var fname = String(req.body['inputFirstName']);
-  var lname = String(req.body['inputLastName']);
-  var email = String(req.body['inputEmail4']);
-  var password = String(req.body['inputPassword4']);
-  var add1 = String(req.body['inputAddress']);
-  var add2 = String(req.body['inputAddress2']);
-  var city = String(req.body['inputCity']);
-  var state = String(req.body['inputState']);
-  var zip = String(req.body['inputZip']);
-  var file;
-  if (req.files.length != 0){
-    file = "./uploads/"+req.files[0].filename;
-  }else{
-    file = null;
-  }
-  if (req.cookies.logses != null){
-    console.log("cookie");
-    db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-      if (!err && rows.rowCount != 0) {
-          var ubid = rows.rows[0].ubid;
-          console.log("Typed :",fname, lname, email, password, rows.rows[0].ubid, add1, add2, city, state, zip);
-          if (passwordHash.verify(password ,req.cookies.logses)) {
-            console.log(rows.rows[0].fname)
-            db.query('UPDATE user_profile SET fname = \''+ fname+'\', lname = \''+ lname +'\', email = \''+ email +'\', address1 = \''+add1 +'\', address2 = \''+ add2 +'\', city = \''+ city +'\', zip = \''+ zip +'\', file_path = \''+ file +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
-              console.log(rows1)
-            });
-          }else{
-            res.send('wrong password');
-          }
-      } else {
-          res.render('index',{ username : null })
-      }
-    });
-  }
-  res.render('index',{ username : fname });
+	var fname = String(req.body['inputFirstName']);
+	var lname = String(req.body['inputLastName']);
+	var email = String(req.body['inputEmail4']);
+	var password = String(req.body['inputPassword4']);
+	var add1 = String(req.body['inputAddress']);
+	var add2 = String(req.body['inputAddress2']);
+	var city = String(req.body['inputCity']);
+	var state = String(req.body['inputState']);
+	var zip = String(req.body['inputZip']);
+	var file;
+	if (req.files.length != 0){
+		file = "./uploads/"+req.files[0].filename;
+	}else{
+		file = null;
+	}
+	if (req.cookies.logses != null){
+		console.log("cookie");
+		db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+			if (!err && rows.rowCount != 0) {
+				var ubid = rows.rows[0].ubid;
+				console.log("Typed :",fname, lname, email, password, rows.rows[0].ubid, add1, add2, city, state, zip);
+				if (passwordHash.verify(password ,req.cookies.logses)) {
+					console.log(rows.rows[0].fname)
+					db.query('UPDATE user_profile SET fname = \''+ fname+'\', lname = \''+ lname +'\', email = \''+ email +'\', address1 = \''+add1 +'\', address2 = \''+ add2 +'\', city = \''+ city +'\', zip = \''+ zip +'\', file_path = \''+ file +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
+						console.log(rows1)
+					});
+				}else{
+					res.send('wrong password');
+				}
+			} else {
+				res.render('index',{ username : null })
+			}
+		});
+	}
+	res.render('index',{ username : fname });
 });
 
 app.post('/help',(req,res) => {
-  var contents = String(req.body['contents']);
-  if (req.cookies.logses != null){
-    console.log("cookie");
-    db.query('SELECT * FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-      if (!err) {
-          console.log(rows.rows[0].fname)
-          console.log(contents);
-          res.render('index',{ username : rows.rows[0].fname });
-      } else {
-          res.render('index',{ username : null })
-      }
-    });
-  } else {
-    res.render('index',{ username : null })
-  }
+	var contents = String(req.body['contents']);
+	if (req.cookies.logses != null){
+		console.log("cookie");
+		db.query('SELECT * FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+			if (!err) {
+				console.log(rows.rows[0].fname)
+				console.log(contents);
+				res.render('index',{ username : rows.rows[0].fname });
+			} else {
+				res.render('index',{ username : null })
+			}
+		});
+	} else {
+		res.render('index',{ username : null })
+	}
 });
 
-
-app.get('/uploadForm', function(req, res) {    //uploadForm.ejs
-  res.render('uploadForm')
-})
-
 app.post('/modifyPassword',(req, res) => {    //modifyPassword.ejs
-  var oldPassword = String(req.body['oldPassword']);
-  var newPassword = String(req.body['newPassword']);
-  var newPassword2 = String(req.body['newPassword2']);
+	var oldPassword = String(req.body['oldPassword']);
+	var newPassword = String(req.body['newPassword']);
+	var newPassword2 = String(req.body['newPassword2']);
 
-  if (newPassword == newPassword2){
-    if (passwordHash.verify(oldPassword ,req.cookies.logses)) {
-      db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-        if (!err && rows.rowCount == 1) {
-            var password = passwordHasher(newPassword);
-            db.query('UPDATE user_profile SET password = \''+ password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
-              console.log(rows1)
-              res.render('index',{ username : rows.rows[0].fname });
-            });
-        }else{
-          res.redirect('/wrongapproach');
-        }
-      });
-    }else{
+	if (newPassword == newPassword2){
+		if (passwordHash.verify(oldPassword ,req.cookies.logses)) {
+			db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+				if (!err && rows.rowCount == 1) {
+					var password = passwordHasher(newPassword);
+					db.query('UPDATE user_profile SET password = \''+ password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
+						console.log(rows1)
+						res.render('index',{ username : rows.rows[0].fname });
+					});
+				}else{
+					res.redirect('/wrongapproach');
+				}
+			});
+		}else{
 
-    }
-  }else{
-    res.redirect('/wrongapproach');
-  }
+		}
+	}else{
+		res.redirect('/wrongapproach');
+	}
 
 });
 
 app.get('/wrongapproach',(req, res) => {    //modifyPassword.ejs
-  res.send('<script type="text/javascript">alert("오류발생");</script>');
+	res.send('<script type="text/javascript">alert("오류발생");</script>');
 });
 
+app.get('/uploadForm', function(req, res) {    //uploadForm.ejs
+	res.render('uploadForm')
+})
 
-function passwordHasher(unsecure_password) {
-  var secure_password = passwordHash.generate(unsecure_password);
-  console.log(passwordHash.verify(unsecure_password, secure_password));
-  console.log("!!!Password is now secure!!!")
-  return secure_password
-}
-app.listen(PORT, () => console.log(`Running on ${PORT}`));
+app.post('/uploadForm', upload.any(),(req, res) => {
+	console.log('form connected')
+	var item_name = String(req.body['item_name']);
+	var description = String(req.body['description']);
+	var price = String(req.body['price']);
+	var category = String(req.body['category']);
+	// if (req.files.length != 0){
+ //    	file = "./uploads/"+req.files[0].filename;
+ //  	}else{
+ //    	file = null;
+ //    	console.log("Please insert an image!")
+ //  	}
+ 	console.log("Typed :", item_name, description, price);
+ 	if (item_name != '' && item_name != ' ' && !item_name.includes(';') && !item_name.includes('.')&& !item_name.includes('=')){
+ 		db.query('insert into items(item_name, description, availability, price) values(\''+item_name+'\',\''+description+'\', \''+ 1+ '\',\''+price+'\')', function (err, rows, fields){
+ 			if (!err) {
+	 			console.log(rows)
+	 			res.render('Dashboard', {})
+	 			console.log('item upload success '+ item_name);
+		 	} 
+		 	else {
+		 		res.send('err : ' + err);
+			}
+		});
+	}
+	else{
+		es.send('wrong approach');
+	}
+});
+
+ function passwordHasher(unsecure_password) {
+ 	var secure_password = passwordHash.generate(unsecure_password);
+ 	console.log(passwordHash.verify(unsecure_password, secure_password));
+ 	console.log("!!!Password is now secure!!!")
+ 	return secure_password
+ }
+ app.listen(PORT, () => console.log(`Running on ${PORT}`));
