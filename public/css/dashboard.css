@@ -166,3 +166,13 @@ body {
  #help{
   margin-top: 1em;
  }
+
+
+ /* Modify password
+-------------------------------------------------- */
+
+ #changePassword{
+  margin-top: 1em;
+  box-sizing: border-box;
+  width: 30%;
+ }

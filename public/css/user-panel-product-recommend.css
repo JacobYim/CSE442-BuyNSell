@@ -8,22 +8,6 @@
 	padding: 30px;
 }
 
-/* User Panel Balance */
-#userPanelBalance{
-	font-weight: bold;
-}
-
-/* Product Recommendation blocks */
-#recommendUser{
-	border: 1px #c7c8c9 solid;
-	padding: 30px;
-}
-
-/* Product Recommendation pricing */
-#recommendUserPrice{
-	color: #30a54a;
-}
-
 /* Dashboard css goes here
 -------------------------------------------------- */
 
@@ -36,9 +20,4 @@
 
 #userPanelNoBorder h2{
 	margin-top: 30px
-}
-
-/* User Panel Balance */
-#userPanelBalanceDashboard{
-	color:#30a54a;
 }

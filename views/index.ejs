@@ -45,24 +45,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/">Home</a>
-            </li>
+            <!-- when the login is valid-->
             <% if(username != null){ %>
-
-                        <!-- when the login is valid-->
             <li>
-                <a class="nav-link" href="./accountsettings"> <%= username %> </a>
+                <a class="nav-link font-weight-bold" href="./dashboard"> Hi, <%= username %></a>
             </li>
             <% } %>
+            <!-- when the login is not valid-->
             <li class="nav-item">
-
-                          <!-- when the login is valid-->
-              <% if(username != null){ %>
-              <a class="nav-link" href="./logout">Log out</a>
-
-                          <!-- when the login is not valid-->
-              <%} else {%>
+              <% if(username == null){ %>
               <a class="nav-link" href="./login">Login/Sign Up</a>
               <% } %>
             </li>
@@ -80,6 +71,16 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="./about">Contact</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-4">
+            <li class="nav-item">
+              <% if(username != null){ %>
+              <a class="nav-link" href="./logout">Log out</a>
+              <!-- when logged in-->
+              <%} else {%>
+              <p></p>
+              <% } %>
             </li>
           </ul>
           <form class="form-inline mt-2 mt-md-0">

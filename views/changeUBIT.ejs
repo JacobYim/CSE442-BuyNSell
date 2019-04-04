@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>BuyNSell | Settings</title>
+    <title>BuyNSell | Change UBIT</title>
 
     <style>
       .bd-placeholder-img {
@@ -30,9 +30,6 @@
 
     <!-- Custom styles for this page -->
     <link href="./css/dashboard.css" rel="stylesheet">
-
-    <!-- Custom user panel and product recommendation blocks styles for this page -->
-    <link href="./css/user-panel-product-recommend.css" rel="stylesheet">
 
   <header>
       <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -136,117 +133,25 @@
       <!-- Account Settings Header 
       ================================================== -->
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
-          <h1 class="h2">My Account</h1>
+          <h1 class="h2">Change UBIT</h1>
         </div>
 
-      <!-- Basic Information Setting
+      <!-- Modify UBIT, CSS inherited from modify password
       ================================================== -->
-        <div class="row">
-          <div class="col-4 big-box">
-            <div class="mx-4" id="userPanelNoBorder">
-              <img class="rounded-circle" src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Generic placeholder image" width="170" height="170">
-              <h2>Hi user!</h2>
-              </div>
-          </div><!-- /.col-4 -->
-          <div class="col-8">
-            <div class="row">
-              <!-- UBIT -->
-              <div class="col-md-6">
-                <div class="row no-gutters">
-                  <div class="col-md-8">
-                    <h2 class="h5">UBID: 1234 5678</h2>
-                  </div>
-                  <div class="col-md-4">
-                    <a href="/changeUBIT"><button type="button" class="btn-sm btn-primary">Change</button></a>
-                  </div><!-- /.col-md-4 -->
-                </div><!-- /.row -->
-              </div><!-- /.col-md-6 -->
-
-              <!-- Password -->
-              <div class="col-md-6">
-                <div class="row no-gutters">
-                  <div class="col-md-8">
-                    <h2 class="h5">Change Password</h2>
-                  </div>
-                  <div class="col-md-4">
-                    <a href="/modifyPassword"><button type="button" class="btn-sm btn-primary">Change</button></a>
-                  </div><!-- /.col-md-4 -->
-                </div><!-- /.row -->
-              </div><!-- /.col-md-6 -->
-            </div><!-- /.row -->
-
-            <hr class="featurette-divider">
-
-            <form>
-              <!-- First & Last name -->
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputFirstName">First Name</label>
-                  <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputLastName">Last Name</label>
-                  <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
-                </div>
-              </div>
-              <!-- Email & address -->
-              <div class="form-group">
-                <label for="inputEmail4">Email</label>
-                <input type="email" class="form-control" id="inputEmail4" placeholder="@buffalo.edu">
-              </div>
-              <div class="form-group">
-                <label for="inputAddress">Address</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-              </div>
-              <div class="form-group">
-                <label for="inputAddress2">Address 2</label>
-                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputCity">City</label>
-                  <input type="text" class="form-control" id="inputCity" placeholder="City">
-                </div>
-                <div class="form-group col-md-4">
-                  <label for="inputState">State</label>
-                  <select id="inputState" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-2">
-                  <label for="inputZip">Zip</label>
-                  <input type="text" class="form-control" id="inputZip" placeholder="Zip Code">
-                </div>
-              </div>
-              
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-
-          </div><!-- /. entire col  -->
-        </div>
-
-      <!-- Help form
-      ================================================== -->
-        <div id="help">
-          <h1 class="h2">Feedback & Help</h1>
-          <hr class="featurette-divider">
-        </div>
         <form>
-          <div class="form-group">
-            <textarea class="form-control" rows="3" placeholder="How can we help?"></textarea>
-            <small id="messageHelp" class="form-text text-muted">We will get back to you in 24 hours.</small>
+          <div id="changePassword" class="form-group">
+            <label for="oldUBIT">Old UBID</label>
+            <input type="text" class="form-control" name="oldUBID" autofocus required>
           </div>
-          <div style="margin-top: 30px"></div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <div id="changePassword" class="form-group">
+            <label for="newUBIT">New UBID</label>
+            <input type="text" class="form-control" name="newUBID" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Change</button>
+          <br>
         </form>
 
       <hr class="featurette-divider">
-
-      <!-- FOOTER -->
-      <footer>
-        <p>BuyNSell &copy; 2019 &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-      </footer>
 
       </main>
     </div>
