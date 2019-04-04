@@ -40,10 +40,10 @@ app.get('/', function(req, res) {               //initial page
   console.log(req.cookies.logses);
   if (req.cookies.logses != null){
     console.log("cookie");
-    db.query('SELECT fname FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+    db.query('SELECT username FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
       if (!err) {
-          console.log(rows.rows[0].fname)
-          res.render('index',{ username : rows.rows[0].fname})
+          console.log(rows.rows[0].username)
+          res.render('index',{ username : rows.rows[0].username})
       } else {
           res.render('index',{ username : null })
       }
@@ -56,10 +56,10 @@ app.get('/index', function(req, res) {    //index.ejs
   console.log(req.cookies.logses);
   if (req.cookies.logses != null){
     console.log("cookie");
-    db.query('SELECT fname FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+    db.query('SELECT username FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
       if (!err) {
-          console.log(rows.rows[0].fname)
-          res.render('index',{ username : rows.rows[0].fname})
+          console.log(rows.rows[0].username)
+          res.render('index',{ username : rows.rows[0].username})
       } else {
           res.render('index',{ username : null })
       }
@@ -68,10 +68,12 @@ app.get('/index', function(req, res) {    //index.ejs
     res.render('index',{ username : null })
   }
 })
+
 app.get('/logout', function(req, res) {    //index.ejs
   res.clearCookie('logses');
   res.render('index',{ username : null })
 })
+
 app.get('/about', function(req, res) {    //index.ejs
   res.render('about')
 })
@@ -82,32 +84,24 @@ app.get('/product', function(req, res) {    //category.ejs
   res.render('product')
 })
 app.get('/login', function(req, res) {    //login.ejs
-  res.clearCookie('logses');
   res.render('login')
 })
 app.get('/accountsettings', function(req, res) {    //accountsettings.ejs
-  if (req.cookies.logses != null){
-    console.log("cookie");
-    db.query('SELECT * FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-      if (!err) {
-          console.log(rows.rows[0])
-          res.render('accountsettings',{ user : rows.rows[0]})
-      } else {
-          res.render('index',{ username : null })
-      }
-    });
-  } else {
-    res.render('index',{ username : null })
-  }
-
+  res.render('accountsettings')
 })
 app.get('/Dashboard', function(req, res) {    //Dashboard.ejs
   res.render('Dashboard')
 })
 app.get('/signup', function(req, res) {    //signup.ejs
-  res.clearCookie('logses');
   res.render('signup')
 })
+app.get('/modifyPassword', function(req, res) {    //modifyPassword.ejs
+  res.render('modifyPassword')
+})
+app.get('/changeUBIT', function(req, res) {    //changeUBIT.ejs
+  res.render('changeUBIT')
+})
+
 app.post('/login', (req,res) => {
   var email = String(req.body['email']);
   var password = String(req.body['password']);
@@ -122,7 +116,7 @@ app.post('/login', (req,res) => {
                 httpOnly: true,
                 path:'/'});
 
-              res.render('index',{ username : rows.rows[0].fname })
+                res.render('index',{ username : rows.rows[0].username })
             } else {
                 res.send('Login Failure');
             }
@@ -137,38 +131,43 @@ app.post('/login', (req,res) => {
     res.send('invalid input')
   }
 });
+
+
 app.get('/signup', (req,res) => {
   res.render('signup');
 });
+
 app.post('/signup', (req,res) => {
-  var userId = String(req.body['name']);
+  var firstname = String(req.body['firstname']);
   var lastname = String(req.body['inputLastName']);
   var ubid = String(req.body['ubid']);
   var email = String(req.body['email']);
   var password = String(req.body['password']);
   var address1 = String(req.body['Address']);
-  var address2 = String(req.body['Address2']);
+  // var address2 = String(req.body['Address2']);
   var city = String(req.body['City']);
-  var zip = String(req.body['Zip']);
-  var state = String(req.body['State']);
+  // var zip = String(req.body['Zip']);
+  // var state = String(req.body['State']);
 
-  console.log("Typed :",userId, email, password,ubid, zip);
-  if ((userId != '' && userId != ' ' && !userId.includes(';') && !userId.includes('.')&& !userId.includes('=')) &&
+  console.log("Typed :",firstname, lastname, email, password,ubid, address1, city);
+  if ((firstname != '' && firstname != ' ' && !firstname.includes(';') && !firstname.includes('.')&& !firstname.includes('=')) &&
+      (lastname != '' && lastname != ' ' && !lastname.includes(';') && !lastname.includes('.')&& !lastname.includes('=')) &&
       (email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) &&
       (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=')) &&
-      (ubid != '' && ubid != ' ' && ubid.length == 8 && !ubid.includes(';') && !ubid.includes('='))){
+      (ubid != '' && ubid != ' ' && ubid.length == 8 && !ubid.includes(';') && !ubid.includes('=')) &&
+      (address1 != '' && address1 != ' ' && address1.length == 8 && !address1.includes(';') && !address1.includes('=')) &&
+      (city != '' && city != ' ' && city.length == 8 && !city.includes(';') && !city.includes('=')) &&
+      (zip != '' && zip != ' ' && zip.length == 8 && !zip.includes(';') && !zip.includes('='))
+      ){
 
 
     // secures password here
     password = passwordHasher(password);
     console.log("Password is Secure......................."+password)
-    db.query('insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path) values(\''+userId+'\',\''+lastname+'\',\''+ubid+'\',\''+ email +'\',\''+ password +'\',\''+ address1 +'\',\''+ address2 +'\',\''+ city +'\',\''+ zip +'\',\''+ state +'\',\''+ null+'\')', function (err, rows, fields) {
+    db.query('insert into user_profile(ubid, email, fname, lname, password, address1, city, zip) values(\''+ubid+'\',\''+email+'\',\''+firstname+'\',\''+lastname+'\',\''+password+'\', \''+address1+'\', \''+city+'\', \''+zip+'\')', function (err, rows, fields) {
       if (!err) {
           console.log(rows)
-          res.cookie("logses", password,{ maxAge: 60*60*1000,
-            httpOnly: true,
-            path:'/'});
-          res.render('index',{ username : userId })
+          res.send('success');
           console.log('signin success'+userId);
           } else {
           res.send('err : ' + err);
@@ -179,42 +178,11 @@ app.post('/signup', (req,res) => {
   }
 });
 
-app.post('/change',(req,res) => {
-  var fname = String(req.body['inputFirstName']);
-  var lname = String(req.body['inputLastName']);
-  var email = String(req.body['inputEmail4']);
-  var password = String(req.body['inputPassword4']);
-  var add1 = String(req.body['inputAddress']);
-  var add2 = String(req.body['inputAddress2']);
-  var city = String(req.body['inputCity']);
-  var state = String(req.body['inputState']);
-  var zip = String(req.body['inputZip']);
-  console.log(email);
-  res.render('index',{ username : fname });
-});
-
-app.post('/help',(req,res) => {
-  var contents = String(req.body['contents']);
-  if (req.cookies.logses != null){
-    console.log("cookie");
-    db.query('SELECT * FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-      if (!err) {
-          console.log(rows.rows[0].fname)
-          console.log(contents);
-          res.render('index',{ username : rows.rows[0].fname });
-      } else {
-          res.render('index',{ username : null })
-      }
-    });
-  } else {
-    res.render('index',{ username : null })
-  }
-});
-
 function passwordHasher(unsecure_password) {
   var secure_password = passwordHash.generate(unsecure_password);
   console.log(passwordHash.verify(unsecure_password, secure_password));
   console.log("!!!Password is now secure!!!")
   return secure_password
 }
+
 app.listen(PORT, () => console.log(`Running on ${PORT}`));
