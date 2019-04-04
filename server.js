@@ -197,7 +197,7 @@ app.post('/signup', upload.any(),(req,res) => {
   }
 });
 
-app.post('/change',(req,res) => {
+app.post('/change', upload.any(), (req,res) => {
   var fname = String(req.body['inputFirstName']);
   var lname = String(req.body['inputLastName']);
   var email = String(req.body['inputEmail4']);
@@ -207,7 +207,12 @@ app.post('/change',(req,res) => {
   var city = String(req.body['inputCity']);
   var state = String(req.body['inputState']);
   var zip = String(req.body['inputZip']);
-  
+  var file;
+  if (req.files.length != 0){
+    file = "./uploads/"+req.files[0].filename;
+  }else{
+    file = null;
+  }
   if (req.cookies.logses != null){
     console.log("cookie");
     db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
@@ -216,7 +221,7 @@ app.post('/change',(req,res) => {
           console.log("Typed :",fname, lname, email, password, rows.rows[0].ubid, add1, add2, city, state, zip);
           if (passwordHash.verify(password ,req.cookies.logses)) {
             console.log(rows.rows[0].fname)
-            db.query('UPDATE user_profile SET fname = \''+ fname+'\', lname = \''+ lname +'\', email = \''+ email +'\', address1 = \''+add1 +'\', address2 = \''+ add2 +'\', city = \''+ city +'\', zip = \''+ zip +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
+            db.query('UPDATE user_profile SET fname = \''+ fname+'\', lname = \''+ lname +'\', email = \''+ email +'\', address1 = \''+add1 +'\', address2 = \''+ add2 +'\', city = \''+ city +'\', zip = \''+ zip +'\', file_path = \''+ file +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
               console.log(rows1)
             });
           }else{
