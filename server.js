@@ -252,17 +252,22 @@ app.post('/modifyPassword',(req, res) => {    //modifyPassword.ejs
               res.render('index',{ username : rows.rows[0].fname });
             });
         }else{
-          res.send('wrong approach');
+          res.redirect('/wrongapproach');
         }
       });
     }else{
 
     }
   }else{
-    res.send('new passwords are not matched');
+    res.redirect('/wrongapproach');
   }
 
 });
+
+app.get('/wrongapproach',(req, res) => {    //modifyPassword.ejs
+  res.send('<script type="text/javascript">alert("오류발생");</script>');
+});
+
 
 function passwordHasher(unsecure_password) {
   var secure_password = passwordHash.generate(unsecure_password);
