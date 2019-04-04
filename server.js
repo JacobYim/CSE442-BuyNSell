@@ -40,8 +40,8 @@ app.get('/', function(req, res) {               //initial page
   console.log(req.cookies.logses);
   if (req.cookies.logses != null){
     console.log("cookie");
-    db.query('SELECT fname FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-      if (!err) {
+    db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+      if (!err && rows.rowCount != 0) {
           console.log(rows.rows[0].fname)
           res.render('index',{ username : rows.rows[0].fname})
       } else {
@@ -56,7 +56,7 @@ app.get('/index', function(req, res) {    //index.ejs
   console.log(req.cookies.logses);
   if (req.cookies.logses != null){
     console.log("cookie");
-    db.query('SELECT fname FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+    db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
       if (!err) {
           console.log(rows.rows[0].fname)
           res.render('index',{ username : rows.rows[0].fname})
@@ -88,7 +88,7 @@ app.get('/login', function(req, res) {    //login.ejs
 app.get('/accountsettings', function(req, res) {    //accountsettings.ejs
   if (req.cookies.logses != null){
     console.log("cookie");
-    db.query('SELECT * FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+    db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
       if (!err) {
           console.log(rows.rows[0])
           res.render('accountsettings',{ user : rows.rows[0]})
@@ -120,9 +120,9 @@ app.post('/login', (req,res) => {
   var password = String(req.body['password']);
   if ((email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.') && !email.includes("'" && !email.includes(';'))) &&
       (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=') && !password.includes('(') && !password.includes(')')&& !password.includes("'"))){
-      db.query('SELECT * FROM user_profile where email=\''+email+'\'', function (err, rows, fields) {
-      if (!err) {
-          console.log(rows.rows[0])
+      db.query('SELECT * FROM user_profile where available = true AND email=\''+email+'\'', function (err, rows, fields) {
+      if (!err && rows.rowCount == 1) {
+          console.log(rows)
           try{
             if (passwordHash.verify(password ,rows.rows[0].password)) {
               res.cookie("logses",rows.rows[0].password,{ maxAge: 60*60*1000,
@@ -169,7 +169,7 @@ app.post('/signup', (req,res) => {
     // secures password here
     password = passwordHasher(password);
     console.log("Password is Secure......................."+password)
-    db.query('insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path) values(\''+userId+'\',\''+lastname+'\',\''+ubid+'\',\''+ email +'\',\''+ password +'\',\''+ address1 +'\',\''+ address2 +'\',\''+ city +'\',\''+ zip +'\',\''+ state +'\',\''+ null+'\')', function (err, rows, fields) {
+    db.query('insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path, available) values(\''+userId+'\',\''+lastname+'\',\''+ubid+'\',\''+ email +'\',\''+ password +'\',\''+ address1 +'\',\''+ address2 +'\',\''+ city +'\',\''+ zip +'\',\''+ state +'\',\''+ null+ '\',\'' + "1" + '\')', function (err, rows, fields) {
       if (!err) {
           console.log(rows)
           res.cookie("logses", password,{ maxAge: 60*60*1000,
@@ -196,7 +196,26 @@ app.post('/change',(req,res) => {
   var city = String(req.body['inputCity']);
   var state = String(req.body['inputState']);
   var zip = String(req.body['inputZip']);
-  console.log(email);
+  
+  if (req.cookies.logses != null){
+    console.log("cookie");
+    db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+      if (!err && rows.rowCount != 0) {
+          var ubid = rows.rows[0].ubid;
+          console.log("Typed :",fname, lname, email, password, rows.rows[0].ubid, add1, add2, city, state, zip);
+          if (passwordHash.verify(password ,req.cookies.logses)) {
+            console.log(rows.rows[0].fname)
+            db.query('UPDATE user_profile SET fname = \''+ fname+'\', lname = \''+ lname +'\', email = \''+ email +'\', address1 = \''+add1 +'\', address2 = \''+ add2 +'\', city = \''+ city +'\', zip = \''+ zip +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
+              console.log(rows1)
+            });
+          }else{
+            res.send('wrong password');
+          }
+      } else {
+          res.render('index',{ username : null })
+      }
+    });
+  }
   res.render('index',{ username : fname });
 });
 
