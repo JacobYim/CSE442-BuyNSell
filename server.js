@@ -56,6 +56,7 @@ app.get('/', function(req, res) {               //initial page
     res.render('index',{ username : null })
   }
 })
+
 app.get('/index', function(req, res) {    //index.ejs
   console.log(req.cookies.logses);
   if (req.cookies.logses != null){
@@ -72,6 +73,7 @@ app.get('/index', function(req, res) {    //index.ejs
     res.render('index',{ username : null })
   }
 })
+
 app.get('/logout', function(req, res) {    //index.ejs
   res.clearCookie('logses');
   res.render('index',{ username : null })
@@ -176,6 +178,7 @@ app.post('/signup', upload.any(),(req,res) => {
   var city = String(req.body['City']);
   var zip = String(req.body['Zip']);
   var state = String(req.body['State']);
+
   var file;
   if (req.files.length != 0){
     file = "./uploads/"+req.files[0].filename;
@@ -183,6 +186,7 @@ app.post('/signup', upload.any(),(req,res) => {
     file = null;
   }
   console.log("Typed :",userId, email, password,ubid, zip);
+
   if ((userId != '' && userId != ' ' && !userId.includes(';') && !userId.includes('.')&& !userId.includes('=')) &&
       (email != '' && email != ' ' && !email.includes(';') && !email.includes('=') && email.includes('@') && email.includes('.')) &&
       (password != '' && password != ' ' && !password.includes(';') && !password.includes('.') && !password.includes('=')) &&
@@ -264,6 +268,11 @@ app.post('/help',(req,res) => {
     res.render('index',{ username : null })
   }
 });
+
+
+app.get('/uploadForm', function(req, res) {    //uploadForm.ejs
+  res.render('uploadForm')
+})
 
 app.post('/modifyPassword',(req, res) => {    //modifyPassword.ejs
   var oldPassword = String(req.body['oldPassword']);
