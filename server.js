@@ -52,22 +52,7 @@ app.get('/', function(req, res) {               //initial page
     res.render('index',{ username : null })
   }
 })
-app.get('/index', function(req, res) {    //index.ejs
-  console.log(req.cookies.logses);
-  if (req.cookies.logses != null){
-    console.log("cookie");
-    db.query('SELECT fname FROM user_profile where password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-      if (!err) {
-          console.log(rows.rows[0].fname)
-          res.render('index',{ username : rows.rows[0].fname})
-      } else {
-          res.render('index',{ username : null })
-      }
-    });
-  } else {
-    res.render('index',{ username : null })
-  }
-})
+
 app.get('/logout', function(req, res) {    //index.ejs
   res.clearCookie('logses');
   res.render('index',{ username : null })
@@ -218,8 +203,8 @@ app.post('/help',(req,res) => {
   }
 });
 
-app.get('/upload_product', function(req, res) {    //upload_product.ejs
-  res.render('upload_product')
+app.get('/uploadForm', function(req, res) {    //uploadForm.ejs
+  res.render('uploadForm')
 })
 
 function passwordHasher(unsecure_password) {
