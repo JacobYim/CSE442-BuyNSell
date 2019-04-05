@@ -122,7 +122,7 @@ app.get('/Dashboard', function(req, res) {    //Dashboard.ejs
     res.render('index',{ username : null })
   }
 })
-app.get('/selling', function(req, res) {    //selling.ejs
+app.get('/selling', function(req, res) {    //selling.ejs h
   res.render('selling')
 })
 app.get('/signup', function(req, res) {    //signup.ejs
