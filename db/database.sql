@@ -16,10 +16,13 @@ create table user_profile(
 
 create table items(
 item_id serial primary key,
+item_name varchar(50) not null,
 time_post timestamp default current_timestamp,
 description text,
 availability boolean not null default 't',
+price int not null,
 post_by int references user_profile(user_id)
+--item_category varchar(20) references categories(category_id)
 );
 
 create table transaction(
