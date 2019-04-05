@@ -91,7 +91,16 @@ app.get('/about', function(req, res) {    //index.ejs
 	res.render('about')
 })
 app.get('/category', function(req, res) {    //category.ejs
-	res.render('category')
+
+	db.query('SELECT * FROM items;', (err, {rows}) => {
+		if (!err){
+			res.render('category', {items : rows});
+		}else{
+			res.send('please try next time');
+		}
+	});
+
+	
 })
 app.get('/product', function(req, res) {    //category.ejs
 	res.render('product')
