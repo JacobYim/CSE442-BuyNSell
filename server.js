@@ -30,6 +30,14 @@ db.query('SELECT * FROM user_profile;', (err, {rows}) => {
 	console.log(err, rows);
 })
 
+db.query('SELECT * FROM items;', (err, {rows}) => {
+	console.log(err, rows);
+})
+
+db.query('SELECT * FROM categories;', (err, {rows}) => {
+	console.log(err, rows);
+})
+
 // App
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
@@ -308,10 +316,10 @@ app.get('/uploadForm', function(req, res) {    //uploadForm.ejs
 
 app.post('/uploadForm', upload.any(),(req, res) => {
 	console.log('form connected')
-	var item_name = String(req.body['item_name']);
-	var description = String(req.body['description']);
-	var price = String(req.body['price']);
-	var category = String(req.body['category']);
+	var item_name = String(req.body['productName']);
+	var description = String(req.body['productDescription']);
+	var price = String(req.body['productPrice']);
+	var category = String(req.body['productCategory']);
 	// if (req.files.length != 0){
  //    	file = "./uploads/"+req.files[0].filename;
  //  	}else{
@@ -319,21 +327,22 @@ app.post('/uploadForm', upload.any(),(req, res) => {
  //    	console.log("Please insert an image!")
  //  	}
  	console.log("Typed :", item_name, description, price);
- 	if (item_name != '' && item_name != ' ' && !item_name.includes(';') && !item_name.includes('.')&& !item_name.includes('=')){
- 		db.query('insert into items(item_name, description, availability, price) values(\''+item_name+'\',\''+description+'\', \''+ 1+ '\',\''+price+'\')', function (err, rows, fields){
- 			if (!err) {
-	 			console.log(rows)
-	 			res.render('Dashboard', {})
-	 			console.log('item upload success '+ item_name);
-		 	} 
-		 	else {
-		 		res.send('err : ' + err);
-			}
-		});
-	}
-	else{
-		es.send('wrong approach');
-	}
+ 	// if (item_name != '' && item_name != ' ' && !item_name.includes(';') && !item_name.includes('.')&& !item_name.includes('=')){
+ 	// 	db.query('insert into items(item_name, description, availability, price) values(\''+item_name+'\',\''+description+'\', \''+ 1+ '\',\''+price+'\')', function (err, rows, fields){
+ 	// 		if (!err) {
+	//  			console.log(rows)
+	//  			res.render('Dashboard', {})
+	//  			console.log('item upload success '+ item_name);
+	// 	 	} 
+	// 	 	else {
+	// 	 		res.send('err : ' + err);
+	// 		}
+	// 	});
+	// }
+	// else{
+	// 	res.send('wrong approach');
+	// }
+	res.send("Typed :", item_name, description, price);
 });
 
  function passwordHasher(unsecure_password) {
