@@ -10,7 +10,7 @@ create table user_profile(
     city varchar(60),
     zip int not null,
     states varchar(2) not null,
-    file_path varchar(60),
+    file_path varchar(60) default null,
     available BOOLEAN not null
 );
 
@@ -129,6 +129,7 @@ time_post timestamp default current_timestamp,
 description text,
 availability boolean not null default 't',
 price int not null,
+file_path varchar(60) default null,
 post_by int references user_profile(user_id),
 item_category int references categories(category_id)
 );

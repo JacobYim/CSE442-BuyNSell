@@ -6,6 +6,7 @@ var passwordHash = require('password-hash');
 var cookieParser = require('cookie-parser');
 var multer = require('multer');
 var upload = multer({dest: 'public/uploads/'});
+var items_path = multer({dest: 'public/items/'});
 var fs = require('fs');
 
 
@@ -314,35 +315,59 @@ app.get('/uploadForm', function(req, res) {    //uploadForm.ejs
 	res.render('uploadForm')
 })
 
-app.post('/uploadForm', upload.any(),(req, res) => {
+app.post('/uploadForm', items_path.any(),(req, res) => {
 	console.log('form connected')
 	var item_name = String(req.body['productName']);
 	var description = String(req.body['productDescription']);
 	var price = String(req.body['productPrice']);
 	var category = String(req.body['productCategory']);
-	// if (req.files.length != 0){
- //    	file = "./uploads/"+req.files[0].filename;
- //  	}else{
- //    	file = null;
- //    	console.log("Please insert an image!")
- //  	}
- 	console.log("Typed :", item_name, description, price);
- 	// if (item_name != '' && item_name != ' ' && !item_name.includes(';') && !item_name.includes('.')&& !item_name.includes('=')){
- 	// 	db.query('insert into items(item_name, description, availability, price) values(\''+item_name+'\',\''+description+'\', \''+ 1+ '\',\''+price+'\')', function (err, rows, fields){
- 	// 		if (!err) {
-	//  			console.log(rows)
-	//  			res.render('Dashboard', {})
-	//  			console.log('item upload success '+ item_name);
-	// 	 	} 
-	// 	 	else {
-	// 	 		res.send('err : ' + err);
-	// 		}
-	// 	});
-	// }
-	// else{
-	// 	res.send('wrong approach');
-	// }
-	res.send("Typed :", item_name, description, price);
+	var file = null;
+	console.log(req.files);
+	try{
+		if (req.files.length != 0){
+				file = "./items/"+req.files[0].filename;
+				// file = "./items/"+category+"/"+req.files[0].filename;
+			}else{
+				file = null;
+				console.log("Please insert an image!")
+			}
+		}catch{
+			file = null;
+	}
+	 console.log("Typed :", item_name, description, price);
+	 db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+		if (!err && rows.rowCount == 1) {
+			var user_id =rows.rows[0].user_id;
+			var user= rows.rows[0];
+			db.query('SELECT * FROM categories where category_name = \''+category +'\'', function (err, rows, fields) {
+				if (!err && rows.rowCount == 1) {
+					category = rows.rows[0].category_id;
+					db.query('insert into items(item_name,description,price,post_by,item_category,file_path) values(\''+item_name+'\',\''+description+'\', \''+ price + '\',\''+user_id+ '\',\''+ category + '\',\''+file +'\')', function (err, rows, fields){
+					if (!err) {
+						console.log(rows)
+						res.render('Dashboard', {user : user})
+						console.log('item upload success '+ item_name);
+					} 
+					else {
+						res.send('err : ' + err);
+				}
+					});
+				}
+		});
+
+		}else{
+			res.redirect('/wrongapproach');
+		}
+	});
+
+
+ 	// // if (item_name != '' && item_name != ' ' && !item_name.includes(';') && !item_name.includes('.')&& !item_name.includes('=')){
+ 		
+	// // }
+	// // else{
+	// // 	res.send('wrong approach');
+	// // }
+	// res.send("Typed :", item_name, description, price);
 });
 
  function passwordHasher(unsecure_password) {
