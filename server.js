@@ -82,7 +82,6 @@ app.get('/index', function(req, res) {    //index.ejs
 		res.render('index',{ username : null })
 	}
 })
-
 app.get('/logout', function(req, res) {    //index.ejs
 	res.clearCookie('logses');
 	res.render('index',{ username : null })
@@ -91,10 +90,22 @@ app.get('/about', function(req, res) {    //index.ejs
 	res.render('about')
 })
 app.get('/category', function(req, res) {    //category.ejs
-
 	db.query('SELECT * FROM items;', (err, {rows}) => {
+		var item_info = rows;
 		if (!err){
-			res.render('category', {items : rows});
+			if (req.cookies.logses != null){
+				console.log("cookie");
+				db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+					if (!err) {
+						console.log(rows.rows[0].fname)
+						res.render('category', {items : item_info, username : rows.rows[0].fname})
+					} else {
+						res.render('category',{ items : item_info, username : null })
+					}
+				});
+			} else {
+				res.render('category',{ items : item_info, username : null })
+			}
 		}else{
 			res.send('please try next time');
 		}
@@ -144,7 +155,6 @@ app.get('/signup', function(req, res) {    //signup.ejs
 	res.clearCookie('logses');
 	res.render('signup')
 })
-
 app.get('/modifyPassword', function(req, res) {    //modifyPassword.ejs
 	res.render('modifyPassword')
 })
