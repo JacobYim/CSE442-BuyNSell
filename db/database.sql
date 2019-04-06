@@ -147,5 +147,3 @@ values ('Chulsoo', 'Lim', 'limch', 'limch@buffalo.edu','sha1$f0e604d8$1$d7ae3e85
 
 insert into items(item_name,description,price,post_by,item_category)
 values ('Laptop Computer','This is pretty clean status',200,1,2);
-
-
