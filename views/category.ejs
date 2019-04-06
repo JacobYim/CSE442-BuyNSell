@@ -25,13 +25,19 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/login">Login/Sign Up</a>
-            </li>
+            <ul class="navbar-nav mr-auto">
+                <!-- when the login is valid-->
+                <% if(username != null){ %>
+                <li>
+                    <a class="nav-link font-weight-bold" href="./dashboard"> Hi, <%= username %></a>
+                </li>
+                <% } %>
+                <!-- when the login is not valid-->
+                <li class="nav-item">
+                    <% if(username == null){ %>
+                    <a class="nav-link" href="./login">Login/Sign Up</a>
+                    <% } %>
+                </li>
             <li class="nav-item dropdown active">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Shop by Category
@@ -48,22 +54,31 @@
                 <a class="nav-link" href="/about">Contact</a>
             </li>
           </ul>
-
-                <form class="form-inline my-2 my-lg-0">
-                    <div class="input-group input-group-sm">
-                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-secondary btn-number">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </div>
+          <ul class="navbar-nav mr-4">
+                <li class="nav-item">
+                  <% if(username != null){ %>
+                  <a class="nav-link" href="./logout">Log out</a>
+                  <!-- when logged in-->
+                  <%} else {%>
+                  <p></p>
+                  <% } %>
+                </li>
+              </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-secondary btn-number">
+                            <i class="fa fa-search"></i>
+                        </button>
                     </div>
-                    <a class="btn btn-success btn-sm ml-3" href="cart.html">
-                        <i class="fa fa-shopping-cart"></i> Cart
-                        <span class="badge badge-light">3</span>
-                    </a>
-                </form>
-            </div>
+                </div>
+                <a class="btn btn-success btn-sm ml-3" href="cart.html">
+                <i class="fa fa-shopping-cart"></i> Cart
+                <span class="badge badge-light">3</span>
+                </a>
+            </form>
+        </div>
         </nav>
     </header>
 
@@ -102,15 +117,23 @@
             </div>
             <div class="col">
                 <div class="row">
+
+                    <% if (items.length <= 6){  var iter_num = items.length; }else{var iter_num = 6;} %>                 
+                    <% for (var i = 0; i < iter_num; i++ ){  %>    
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="card">
-                            <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
+                            <% if(items[i].file_path == null){ %>
+                                <img class="card-img-top" src= "https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
+                            <% }else{ %>
+                                <img class="card-img-top" src= <%= items[i].file_path %> alt="Card image cap">
+                            <% }%>       
+                            
                             <div class="card-body">
-                                <h4 class="card-title"><a href="product" title="View Product">Product title</a></h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <h4 class="card-title"><a href="product" title="View Product"><%= items[i].item_name %></a></h4>
+                                <p class="card-text"><%= items[i].description %></p>
                                 <div class="row">
                                     <div class="col">
-                                        <p class="btn btn-danger btn-block">99.00 $</p>
+                                        <p class="btn btn-danger btn-block">$<%= items[i].price %></p>
                                     </div>
                                     <div class="col">
                                         <a href="#" class="btn btn-success btn-block">Add to cart</a>
@@ -119,91 +142,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card">
-                            <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title"><a href="product" title="View Product">Product title</a></h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <div class="row">
-                                    <div class="col">
-                                        <p class="btn btn-danger btn-block">99.00 $</p>
-                                    </div>
-                                    <div class="col">
-                                        <a href="#" class="btn btn-success btn-block">Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card">
-                            <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title"><a href="product" title="View Product">Product title</a></h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <div class="row">
-                                    <div class="col">
-                                        <p class="btn btn-danger btn-block">99.00 $</p>
-                                    </div>
-                                    <div class="col">
-                                        <a href="#" class="btn btn-success btn-block">Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card">
-                            <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title"><a href="product" title="View Product">Product title</a></h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <div class="row">
-                                    <div class="col">
-                                        <p class="btn btn-danger btn-block">99.00 $</p>
-                                    </div>
-                                    <div class="col">
-                                        <a href="#" class="btn btn-success btn-block">Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card">
-                            <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title"><a href="product" title="View Product">Product title</a></h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <div class="row">
-                                    <div class="col">
-                                        <p class="btn btn-danger btn-block">99.00 $</p>
-                                    </div>
-                                    <div class="col">
-                                        <a href="#" class="btn btn-success btn-block">Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card">
-                            <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
-                            <div class="card-body">
-                                <h4 class="card-title"><a href="product" title="View Product">Product title</a></h4>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <div class="row">
-                                    <div class="col">
-                                        <p class="btn btn-danger btn-block">99.00 $</p>
-                                    </div>
-                                    <div class="col">
-                                        <a href="#" class="btn btn-success btn-block">Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <% } %>
+
                     <div class="col-12">
                         <nav aria-label="...">
                             <ul class="pagination">
