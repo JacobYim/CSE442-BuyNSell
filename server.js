@@ -90,7 +90,7 @@ app.get('/about', function(req, res) {    //index.ejs
 	res.render('about')
 })
 app.get('/category', function(req, res) {    //category.ejs
-	db.query('SELECT * FROM items;', (err, {rows}) => {
+	db.query('SELECT * FROM items where availability = true ORDER BY time_post DESC;;', (err, {rows}) => {
 		var item_info = rows;
 		if (!err){
 			if (req.cookies.logses != null){
