@@ -121,7 +121,7 @@
                     <% if (items.length <= 6){  var iter_num = items.length; }else{var iter_num = 6;} %>                 
                     <% for (var i = 0; i < iter_num; i++ ){  %>    
                     <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card">
+                        <div class="card" id = <%= "item"+String(i) %> >
                             <% if(items[i].file_path == null){ %>
                                 <img class="card-img-top" src= "https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
                             <% }else{ %>
@@ -129,11 +129,11 @@
                             <% }%>       
                             
                             <div class="card-body">
-                                <h4 class="card-title"><a href="product" title="View Product"><%= items[i].item_name %></a></h4>
-                                <p class="card-text"><%= items[i].description %></p>
+                                <h4 class="card-title"><a id = "<%= 'item_name' + String(i) %>" href="product" title="View Product"><%= items[i].item_name %></a></h4>
+                                <p class="card-text" id = "<%= "item_desc"+String(i) %>" </p> <%= items[i].description %></p>
                                 <div class="row">
                                     <div class="col">
-                                        <p class="btn btn-danger btn-block">$<%= items[i].price %></p>
+                                        <p class="btn btn-danger btn-block" id = "<%= "item_price"+String(i) %>"> $<%= items[i].price %></p>
                                     </div>
                                     <div class="col">
                                         <a href="#" class="btn btn-success btn-block">Add to cart</a>
