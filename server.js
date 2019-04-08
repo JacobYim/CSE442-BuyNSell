@@ -349,11 +349,13 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 		if (req.files.length != 0){
 				file = "./items/"+req.files[0].filename;
 				// file = "./items/"+category+"/"+req.files[0].filename;
-			}else{
+		}
+    else{
 				file = null;
 				console.log("Please insert an image!")
-			}
-		}catch{
+		}
+	}
+  catch(err){
 			file = null;
 	}
 	 console.log("Typed :", item_name, description, price);
