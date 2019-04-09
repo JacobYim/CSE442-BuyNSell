@@ -2,13 +2,15 @@
 
 const bodyParser = require('body-parser');
 const express = require('express');
+const Resize = require('./Resize');
+
 var passwordHash = require('password-hash');
 var cookieParser = require('cookie-parser');
 var multer = require('multer');
 var upload = multer({dest: 'public/uploads/'});
+
 var items_path = multer({dest: 'public/items/'});
 var fs = require('fs');
-
 
 const PORT = 8080;
 const app = express();
@@ -113,9 +115,20 @@ app.get('/category', function(req, res) {    //category.ejs
 
 	
 })
-app.get('/product', function(req, res) {    //category.ejs
-	res.render('product')
+app.get('/product', function(req, res) {    //product.ejs
+  res.render('product')
 })
+
+app.post('/product', upload.single('image'), async function (req, res){
+  const imagePath = path.join(__dirname, '/public/items');
+  const fileUpload = new Resize(imagePath);
+  if(!req.file){
+  	res.status(401).json({error: 'Please provide an image'});
+  }
+  const filename = await fileUpload.save(req.file.buffer);
+  return res.status(200).json({name: filename});
+})
+
 app.get('/login', function(req, res) {    //login.ejs
 	res.clearCookie('logses');
 	res.render('login')
@@ -355,7 +368,7 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 				console.log("Please insert an image!")
 		}
 	}
-  catch(err){
+  	catch(err){
 			file = null;
 	}
 	 console.log("Typed :", item_name, description, price);
@@ -374,7 +387,7 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 					} 
 					else {
 						res.send('err : ' + err);
-				}
+					}	
 					});
 				}
 		});
