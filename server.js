@@ -391,7 +391,7 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 					});
 				}
 		});
-
+			res.redirect('/Dashboard')
 		}else{
 			res.redirect('/wrongapproach');
 		}
