@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BuyNSell | Change Password</title>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css" >
+
+    <!-- Custom styles for this page -->
+    <link href="./css/dashboard.css" rel="stylesheet">
+
+  <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="/"><img src="./img/logo_62px.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Shop by Category
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="category">All</a>
+                <a class="dropdown-item" href="category">Clothing</a>
+                <a class="dropdown-item" href="category">Electronics</a>
+                <a class="dropdown-item" href="category">Furnitures</a>
+                <a class="dropdown-item" href="category">Cars</a>
+              </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="about">Contact</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav" id="logOut">
+            <li class="nav-item">
+                <a class="nav-link" href="logout">Log Out</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+  </header>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="./Dashboard">
+                <span data-feather="home"></span>
+                Dashboard <span class="sr-only"></span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="./Dashboard#orders">
+                <span data-feather="file"></span>
+                Orders
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./Dashboard#products">
+                <a class="nav-link active" href="./selling">
+                <span data-feather="shopping-cart"></span>
+                Products
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./Dashboard#customers">
+                <span data-feather="users"></span>
+                Customers
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./Dashboard#report">
+                <span data-feather="bar-chart-2"></span>
+                Reports
+              </a>
+            </li>
+          </ul>
+
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Account settings</span>
+            <a class="d-flex align-items-center text-muted" href="#">
+              <span data-feather="plus-circle"></span>
+            </a>
+          </h6>
+          <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+              <a class="nav-link" href="./accountsettings">
+                <span data-feather="home"></span>
+                My Account
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./accountsettings#help">
+                <span data-feather="file-text"></span>
+                Help
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+        <div class="container mt-5" style="margin-top: 0">
+            <div class="card-deck">
+              <!--
+                Lloyd
+              -->
+              <div class="card border-primary text-white bg-secondary mb-3">
+                  <img class="card-img-top" src="./img/item_one Cropped.jpg" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                        Item One
+                    </h5>
+                    <p class="card-text">This is a description of a sample item. Its probably gonna be around 2 sentances long.</p>
+                  </div>
+                  <div class="col">
+                    <p class="btn btn-danger btn-block">0 Likes</p>
+                  </div> 
+                </div>
+              <!--
+                Edwin
+              -->
+              <div class="card border-primary text-white bg-secondary mb-3">
+                <img class="card-img-top" src="./img/item_two.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Item Two
+                  </h5>
+                  <p class="card-text">This is a description of a sample item. Its probably gonna be around 2 sentances long.</p>
+                  <!-- <a href="#" class="btn btn-primary">Contact</a> -->
+                </div>
+                <div class="col">
+                    <p class="btn btn-danger btn-block">0 Likes</p>
+                  </div>              
+                </div>
+              <!--
+                Orion
+              -->
+              <div class="card border-primary text-white bg-secondary mb-3">
+                <img class="card-img-top" src="./img/item_three Cropped.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Item Three
+                  </h5>
+                  <p class="card-text">This is a description of a sample item. Its probably gonna be around 2 sentances long.</p>
+                  <!-- <a href="#" class="btn btn-primary">Contact</a> -->
+                </div>
+                <div class="col">
+                    <p class="btn btn-danger btn-block">0 Likes</p>
+                  </div>              </div>
+              <!--
+                Jamie
+              -->
+              <div class="card border-primary text-white bg-secondary mb-3">
+                  <img class="card-img-top" src="./img/item_three Cropped.jpg" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      Item Four
+                    </h5>
+                    <p class="card-text">This is a description of a sample item. Its probably gonna be around 2 sentances long.</p>
+                    <!-- <a href="#" class="btn btn-primary">Contact</a> -->
+                  </div>
+                  <div class="col">
+                    <p class="btn btn-danger btn-block">0 Likes</p>
+                  </div>              </div>
+            <div>
+          </div>
+          <div class="container mt-5" style="margin-top: 0">
+            <div class="card-deck">
+              <!--
+                Lloyd
+              -->
+              <div class="card border-primary text-white bg-secondary mb-3">
+                  <img class="card-img-top" src="./img/item_one Cropped.jpg" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                        Item One
+                    </h5>
+                    <p class="card-text">This is a description of a sample item. Its probably gonna be around 2 sentances long.</p>
+                  </div>
+                  <div class="col">
+                    <p class="btn btn-danger btn-block">0 Likes</p>
+                  </div>                   
+                </div>
+              <!--
+                Edwin
+              -->
+              <div class="card border-primary text-white bg-secondary mb-3">
+                <img class="card-img-top" src="./img/item_two.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Item Two
+                  </h5>
+                  <p class="card-text">This is a description of a sample item. Its probably gonna be around 2 sentances long.</p>
+                  <!-- <a href="#" class="btn btn-primary">Contact</a> -->
+                </div>
+                <div class="col">
+                    <p class="btn btn-danger btn-block">0 Likes</p>
+                  </div>
+              </div>
+              <!--
+                Orion
+              -->
+              <div class="card border-primary text-white bg-secondary mb-3">
+                <img class="card-img-top" src="./img/item_three Cropped.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Item Three
+                  </h5>
+                  <p class="card-text">This is a description of a sample item. Its probably gonna be around 2 sentances long.</p>
+                  <!-- <a href="#" class="btn btn-primary">Contact</a> -->
+                </div>
+                <div class="col">
+                    <p class="btn btn-danger btn-block">0 Likes</p>
+                  </div>              </div>
+              <!--
+                Jamie
+              -->
+              <div class="card border-primary text-white bg-secondary mb-3">
+                  <img class="card-img-top" src="./img/item_three Cropped.jpg" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      Item Four
+                    </h5>
+                    <p class="card-text">This is a description of a sample item. Its probably gonna be around 2 sentances long.</p>
+                    <!-- <a href="#" class="btn btn-primary">Contact</a> -->
+                  </div>
+                  <div class="col">
+                    <p class="btn btn-danger btn-block">0 Likes</p>
+                  </div>
+              </div>
+            <div>
+          </div>
+          <!-- <div class="container-fluid" style="margin-top: 5% ;background-color: lightblue; margin-top: -47%; width: 100%">
+              <div class="container marketing" style="margin-top: 75pt">
+              </div>
+          </div> -->
+    
+
+      <hr class="featurette-divider">
+
+      </main>
+    </div>
+  </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./Javascript/bootstrap.min.js"></script>
+</body>
+</html>
