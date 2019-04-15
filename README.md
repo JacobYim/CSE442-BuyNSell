@@ -80,6 +80,13 @@ psql
 Acceptance test file for the feature listed below :
 - login
 - singin
+- add item
+- show item in category
+- add user image
+- change user image and information
+- change password
+- user-session
+- logout
 
 are in the test directory. Please read the README.md file in test directory to run acceptance test.
 
