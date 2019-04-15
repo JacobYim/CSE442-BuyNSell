@@ -56,5 +56,5 @@ Before running sprint2-test.p, run the server and database.
 
    At terminal 2 (test),
    ```
-    python3 signin_acceptance_test.py
+    python3 sprint2-test.py
     ```
