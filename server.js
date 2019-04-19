@@ -81,9 +81,26 @@ app.get('/logout', function(req, res) {    //index.ejs
 app.get('/about', function(req, res) {    //index.ejs
   res.render('about')
 })
+
 app.get('/category', function(req, res) {    //category.ejs
   res.render('category')
 })
+app.get('/category_all', function(req, res) {    //category.ejs
+  res.render('category_all')
+})
+app.get('/category_clothing', function(req, res) {    //category.ejs
+  res.render('category_clothing')
+})
+app.get('/category_electronics', function(req, res) {    //category.ejs
+  res.render('category_electronics')
+})
+app.get('/category_furnitures', function(req, res) {    //category.ejs
+  res.render('category_furnitures')
+})
+app.get('/category_cars', function(req, res) {    //category.ejs
+  res.render('category_cars')
+})
+
 app.get('/product', function(req, res) {    //category.ejs
   res.render('product')
 })
