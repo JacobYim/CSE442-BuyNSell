@@ -101,6 +101,10 @@ app.get('/category_cars', function(req, res) {    //category.ejs
   res.render('category_cars')
 })
 
+app.get('/message_to_seller', function(req, res) {    //message_to_seller.ejs
+  res.render('message_to_seller')
+})
+
 app.get('/product', function(req, res) {    //category.ejs
   res.render('product')
 })
