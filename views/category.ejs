@@ -15,6 +15,8 @@
       <link rel="stylesheet" href="./css/products-grid-category.css">
 
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+      <script src="../server.js"></script>
     </head>
     
     <body>
@@ -129,7 +131,7 @@
                             <% }%>       
                             
                             <div class="card-body">
-                                <h4 class="card-title"><a id = "<%= 'item_name' + String(i) %>" href="product" title="View Product"><%= items[i].item_name %></a></h4>
+                                <h4 class="card-title"><a id = "<%= 'item_name' + String(i) %>" href="product" title="View Product" onclick="clicked_prod=items[i].item_name"><%= items[i].item_name %></a></h4>
                                 <p class="card-text" id = "<%= "item_desc"+String(i) %>" </p> <%= items[i].description %></p>
                                 <div class="row">
                                     <div class="col">

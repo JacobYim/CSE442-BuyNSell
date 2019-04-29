@@ -9,6 +9,9 @@ var upload = multer({dest: 'public/uploads/'});
 var items_path = multer({dest: 'public/items/'});
 var fs = require('fs');
 
+// Check that user clicked a Product
+var clicked_prod = null;
+
 
 const PORT = 8080;
 const app = express();
@@ -113,8 +116,13 @@ app.get('/category', function(req, res) {    //category.ejs
 
 	
 })
-app.get('/product', function(req, res) {    //category.ejs
-	res.render('product')
+
+if (document.getElementsByClassName('click_item').clicked == true) {
+	clicked_prod = this.id;
+};
+
+app.get('/product', function(req, res) {    //product.ejs
+	res.render('product', {clicked_prod : clicked_prod})
 })
 app.get('/login', function(req, res) {    //login.ejs
 	res.clearCookie('logses');
