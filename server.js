@@ -8,6 +8,15 @@ var multer = require('multer');
 var upload = multer({dest: 'public/uploads/'});
 var fs = require('fs');
 
+var nodemailer = require('nodemailer')
+var transporter = nodemailer.createTransport({
+ service: 'gmail',
+ auth: {
+        user: 'ubbuynsell@gmail.com',
+        pass: 'buynsellgmail'
+    }
+});
+
 
 const PORT = 8080;
 const app = express();
@@ -146,7 +155,9 @@ app.get('/signup', function(req, res) {    //signup.ejs
   res.clearCookie('logses');
   res.render('signup')
 })
-
+app.get('/forgot_password', function(req, res) {    //forgotPassword.ejs
+  res.render('forgot_password')
+})
 app.get('/modifyPassword', function(req, res) {    //modifyPassword.ejs
   res.render('modifyPassword')
 })
@@ -184,6 +195,46 @@ app.post('/login', (req,res) => {
 });
 app.get('/signup', (req,res) => {
   res.render('signup');
+});
+
+app.post('/forgot_password',(req, res) => {                                                                   //forgot password
+                                                                                                              //need to access user's database with email
+  var email = String(req.body['inputEmail']);
+  var generator = require('generate-password');
+  var password = generator.generate({
+      length: 10,
+      numbers: true
+  });
+
+  const mailOptions = {
+    // from: 'sender@email.com', // sender address
+    from: 'ubbuynsell@gmail.com', // sender address
+
+    to: email, // list of receivers   //email recipient
+    subject: 'Subject of your email', // Subject listen                    
+    html: '<p>Stop Forgetting your password!</p> <p>Password:</p> password <img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'                      
+    };
+    transporter.sendMail(mailOptions, function (err, info) {
+       if(err)
+         console.log(err)
+       else
+         console.log(info);
+  });
+
+  password = passwordHasher(password);
+  console.log("Password is Secure......................."+password)
+  db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+    if (!err && rows.rowCount == 1) {
+        var password = passwordHasher(newPassword);
+        db.query('UPDATE user_profile SET password = \''+ password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
+          console.log(rows1)
+          res.render('index',{ username : rows.rows[0].fname });
+        });
+    }else{
+      res.redirect('/wrongapproach');
+    }
+  });
+  
 });
 
 app.post('/signup', upload.any(),(req,res) => {
@@ -224,9 +275,26 @@ app.post('/signup', upload.any(),(req,res) => {
             path:'/'});
           res.render('index',{ username : userId })
           console.log('signin success'+userId);
-          } else {
-          res.send('err : ' + err);
-      }
+
+              //sign up email here                                                                                            //signup email here
+              const mailOptions = {
+                // from: 'sender@email.com', // sender address
+                from: 'ubbuynsell@gmail.com', // sender address
+
+                to: email, // list of receivers                            //email recipient
+                subject: 'Subject of your email', // Subject listen                     //subject
+                html: '<p>Thanks for signing up for BuyNSell!</p> <p>Now you can sell your stuff\n</p> <p>Make Some Money!!! \n</p> <img src="https://ci.memecdn.com/4341709.jpg" alt="Cheetah!" />'                      //html
+                };
+                transporter.sendMail(mailOptions, function (err, info) {
+                   if(err)
+                     console.log(err)
+                   else
+                     console.log(info);
+                });
+
+                  } else {
+                  res.send('err : ' + err);
+                }
     });
   }else{
     res.send('wrong approach');
