@@ -206,24 +206,24 @@ app.post('/forgot_password',(req, res) => {                                     
       numbers: true
   });
 
-  const mailOptions = {
-    // from: 'sender@email.com', // sender address
-    from: 'ubbuynsell@gmail.com', // sender address
+  // const mailOptions = {
+  //   // from: 'sender@email.com', // sender address
+  //   from: 'ubbuynsell@gmail.com', // sender address
 
-    to: email, // list of receivers   //email recipient
-    subject: 'Subject of your email', // Subject listen                    
-    html: '<p>Stop Forgetting your password!</p> <p>Password:</p> password <img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'                      
-    };
-    transporter.sendMail(mailOptions, function (err, info) {
-       if(err)
-         console.log(err)
-       else
-         console.log(info);
-  });
+  //   to: email, // list of receivers   //email recipient
+  //   subject: 'Subject of your email', // Subject listen                    
+  //   html: '<p>Stop Forgetting your password!</p> <p>Password:</p> password <img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'                      
+  //   };
+  //   transporter.sendMail(mailOptions, function (err, info) {
+  //      if(err)
+  //        console.log(err)
+  //      else
+  //        console.log(info);
+  // });
 
   password = passwordHasher(password);
   console.log("Password is Secure......................."+password)
-  db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+  db.query('SELECT * FROM user_profile where available = true AND email=\''+email+'\'', function (err, rows, fields) {
     if (!err && rows.rowCount == 1) {
         var password = passwordHasher(newPassword);
         db.query('UPDATE user_profile SET password = \''+ password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
