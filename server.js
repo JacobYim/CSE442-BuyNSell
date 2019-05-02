@@ -156,6 +156,7 @@ app.get('/signup', function(req, res) {    //signup.ejs
   res.render('signup')
 })
 app.get('/forgot_password', function(req, res) {    //forgotPassword.ejs
+  res.clearCookie('logses');
   res.render('forgot_password')
 })
 app.get('/modifyPassword', function(req, res) {    //modifyPassword.ejs
@@ -199,36 +200,41 @@ app.get('/signup', (req,res) => {
 
 app.post('/forgot_password',(req, res) => {                                                                   //forgot password
                                                                                                               //need to access user's database with email
-  var email = String(req.body['inputEmail']);
+  var email = String(req.body['email']);
+  console.log(email)
+
   var generator = require('generate-password');
   var password = generator.generate({
       length: 10,
       numbers: true
   });
 
-  // const mailOptions = {
-  //   // from: 'sender@email.com', // sender address
-  //   from: 'ubbuynsell@gmail.com', // sender address
+  const mailOptions = {
+    // from: 'sender@email.com', // sender address
+    from: 'ubbuynsell@gmail.com', // sender address
 
-  //   to: email, // list of receivers   //email recipient
-  //   subject: 'Subject of your email', // Subject listen                    
-  //   html: '<p>Stop Forgetting your password!</p> <p>Password:</p> password <img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'                      
-  //   };
-  //   transporter.sendMail(mailOptions, function (err, info) {
-  //      if(err)
-  //        console.log(err)
-  //      else
-  //        console.log(info);
-  // });
+    to: 'lloydtan@buffalo.edu', // list of receivers   //email recipient
+    subject: 'Forgot Your Password :D', // Subject listen                    
+    html: '<p>Stop Forgetting your password!\n</p></p> \npassword <img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'                      
+    };
+    transporter.sendMail(mailOptions, function (err, info) {
+       if(err)
+         console.log(err)
+       else
+         console.log(info);
+  });
 
   password = passwordHasher(password);
   console.log("Password is Secure......................."+password)
+
+  console.log(email)
   db.query('SELECT * FROM user_profile where available = true AND email=\''+email+'\'', function (err, rows, fields) {
+      // console.log(rows)
     if (!err && rows.rowCount == 1) {
-        var password = passwordHasher(newPassword);
+        var password = passwordHasher(email);
         db.query('UPDATE user_profile SET password = \''+ password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
-          console.log(rows1)
-          res.render('index',{ username : rows.rows[0].fname });
+          // console.log(rows1)
+          res.render('login');
         });
     }else{
       res.redirect('/wrongapproach');
