@@ -213,7 +213,7 @@ app.post('/forgot_password',(req, res) => {                                     
     // from: 'sender@email.com', // sender address
     from: 'ubbuynsell@gmail.com', // sender address
 
-    to: 'lloydtan@buffalo.edu', // list of receivers   //email recipient
+    to: email.toString(), // list of receivers   //email recipient
     subject: 'Forgot Your Password :D', // Subject listen                    
     html: '<p>Stop Forgetting your password!\n</p></p> \npassword <img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'                      
     };
