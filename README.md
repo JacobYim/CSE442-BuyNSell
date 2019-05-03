@@ -27,9 +27,8 @@ Before running our codes, we need to setup the below components.
 >```  
 > 5. Enjoy it.
 
-> # Heroku (not now)#
-> 1. Please signup for the Heroku.
-> 2. install heroku from [heroku website](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) with following the instruction. 
+> #AWS
+> webpage: http://ec2-18-191-33-50.us-east-2.compute.amazonaws.com:8080
 
 # How to Run the Server #
 
