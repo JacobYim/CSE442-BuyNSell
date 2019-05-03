@@ -321,8 +321,8 @@ app.post('/modifyPassword',(req, res) => {    //modifyPassword.ejs
 				if (!err && rows.rowCount == 1) {
 					var password = passwordHasher(newPassword);
 					db.query('UPDATE user_profile SET password = \''+ password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
-						console.log(rows1)
-						res.render('index',{ username : rows.rows[0].fname });
+            console.log(rows1)
+						res.render('login');
 					});
 				}else{
 					res.redirect('/wrongapproach');
@@ -395,6 +395,7 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 });
 
 app.get('/forgot_password', function(req, res) {    //forgotPassword.ejs
+  res.clearCookie('logses');
   res.render('forgot_password')
 })
 app.post('/forgot_password',(req, res) => {                                                                   //forgot password
