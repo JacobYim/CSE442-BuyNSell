@@ -9,6 +9,14 @@ var upload = multer({dest: 'public/uploads/'});
 var items_path = multer({dest: 'public/items/'});
 var fs = require('fs');
 
+var nodemailer = require('nodemailer')
+var transporter = nodemailer.createTransport({
+ service: 'gmail',
+ auth: {
+        user: 'ubbuynsell@gmail.com',
+        pass: 'buynsellgmail'
+    }
+});
 
 const PORT = 8080;
 const app = express();
@@ -384,15 +392,52 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 		}
 	});
 
-
- 	// // if (item_name != '' && item_name != ' ' && !item_name.includes(';') && !item_name.includes('.')&& !item_name.includes('=')){
- 		
-	// // }
-	// // else{
-	// // 	res.send('wrong approach');
-	// // }
-	// res.send("Typed :", item_name, description, price);
 });
+
+app.get('/forgot_password', function(req, res) {    //forgotPassword.ejs
+  res.render('forgot_password')
+})
+app.post('/forgot_password',(req, res) => {                                                                   //forgot password
+  //need to access user's database with email
+var email = String(req.body['inputEmail']);
+var generator = require('generate-password');
+var password = generator.generate({
+length: 10,
+numbers: true
+});
+
+console.log(password)
+var hash_password = passwordHasher(password);
+console.log("Password is Secure......................."+hash_password)
+console.log(hash_password) 
+db.query('SELECT * FROM user_profile where available = true AND email=\''+email+'\'', function (err, rows, fields) {
+// console.log(rows)
+if (!err && rows.rowCount == 1) {
+db.query('UPDATE user_profile SET password = \''+ hash_password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
+// console.log(rows1)
+const mailOptions = {
+// from: 'sender@email.com', // sender address
+from: 'ubbuynsell@gmail.com', // sender address
+
+to: email, // list of receivers   //email recipient
+subject: 'Subject of your email', // Subject listen                    
+html: '<p>Stop Forgetting your password!</p> <p>Password:</p>'+password+'<img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'                      
+};
+transporter.sendMail(mailOptions, function (err, info) {
+if(err)
+console.log(err)
+else
+console.log(info);
+});
+res.render('login');
+});
+}else{
+res.redirect('/wrongapproach');
+}
+});
+
+});
+
 
  function passwordHasher(unsecure_password) {
  	var secure_password = passwordHash.generate(unsecure_password);
