@@ -141,12 +141,18 @@
 
       <!-- Basic Information Setting
       ================================================== -->
+      <form action = "/change" method = "post" enctype="multipart/form-data">
         <div class="row">
           <div class="col-4 big-box">
             <div class="mx-4" id="userPanelNoBorder">
-              <img class="rounded-circle" src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Generic placeholder image" width="170" height="170">
+                <% if(user.file_path == 'null'){ %>
+                  <img class="rounded-circle" src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Generic placeholder image" width="170" height="170">
+                <% }else{ %>
+                  <img class="rounded-circle" src= <%= user.file_path %> width="170" height="170">
+                <% }%>
+              <input type = "file" class="form-control" name = "user_image" />
               <h2>Hi <%= user.fname %>!</h2>
-              </div>
+            </div>
           </div><!-- /.col-4 -->
           <div class="col-8">
             <div class="row">
@@ -154,11 +160,9 @@
               <div class="col-md-6">
                 <div class="row no-gutters">
                   <div class="col-md-8">
-                    <h2 class="h5">UBID: 1234 5678</h2>
+                    <h2 class="h5">UBID <%=user.ubid %></h2>
                   </div>
-                  <div class="col-md-4">
-                    <a href="/changeUBIT"><button type="button" class="btn-sm btn-primary">Change</button></a>
-                  </div><!-- /.col-md-4 -->
+                  
                 </div><!-- /.row -->
               </div><!-- /.col-md-6 -->
 
@@ -177,7 +181,7 @@
 
             <hr class="featurette-divider">
 
-            <form action = "/change" method = "post">
+            
               <!-- First & Last name -->
               <div class="form-row">
                 <div class="form-group col-md-6">
@@ -197,7 +201,7 @@
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputPassword4">Password</label>
-                  <input type="password" class="form-control" name="inputPassword4" value="Password">
+                  <input type="password" class="form-control" name="inputPassword4" placeholder="Please type your password">
                   <small id="messageHelp" class="form-text text-muted">password is required to change user profile.</small>
                 </div>
               </div>
@@ -228,10 +232,11 @@
               </div>
               
               <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            
 
           </div><!-- /. entire col  -->
         </div>
+      </form>
 
       <!-- Help form
       ================================================== -->
