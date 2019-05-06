@@ -27,7 +27,7 @@ Before running our codes, we need to setup the below components.
 >```  
 > 5. Enjoy it.
 
-> # Heroku #
+> # Heroku (not now)#
 > 1. Please signup for the Heroku.
 > 2. install heroku from [heroku website](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) with following the instruction. 
 
@@ -80,6 +80,13 @@ psql
 Acceptance test file for the feature listed below :
 - login
 - singin
+- add item
+- show item in category
+- add user image
+- change user image and information
+- change password
+- user-session
+- logout
 
 are in the test directory. Please read the README.md file in test directory to run acceptance test.
 
