@@ -100,29 +100,7 @@ app.get('/about', function(req, res) {    //index.ejs
 })
 
 app.get('/category', function(req, res) {    //category.ejs
-	db.query('SELECT * FROM items where availability = true ORDER BY time_post DESC;', (err, {rows}) => {
-		var item_info = rows;
-		if (!err){
-			if (req.cookies.logses != null){
-				console.log("cookie");
-				db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-					if (!err) {
-						console.log(rows.rows[0].fname)
-						res.render('category', {items : item_info, username : rows.rows[0].fname})
-					} else {
-						res.render('category',{ items : item_info, username : null })
-					}
-				});
-			} else {
-				res.render('category',{ items : item_info, username : null })
-			}
-		}else{
-			res.send('please try next time');
-		}
-		// res.redirect('/category/1');
-	});
-
-
+	res.redirect('/category/1');
 });
 
 app.get('/category/:page', function(req, res) {    //category.ejs
@@ -151,8 +129,10 @@ app.get('/category/:page', function(req, res) {    //category.ejs
 				pageSize : pageSize,
 				startPage : startPage,
 				endPage : endPage,
-				totalPage : totalPage
+				totalPage : totalPage,
+				current : page
 			};
+			console.log(datas);
 			if (req.cookies.logses != null){
 				console.log("cookie");
 				db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
@@ -160,37 +140,14 @@ app.get('/category/:page', function(req, res) {    //category.ejs
 						console.log(rows.rows[0].fname)
 						res.render('category', {items : data_item, username : rows.rows[0].fname, page_info : datas})
 					} else {
-						res.render('category',{ items : data_item, username : null })
+						res.render('category',{ items : data_item, username : null , page_info : datas})
 					}
 				});
 			} else {
-				res.render('category',{ items : rows.rows, username : null })
+				res.render('category',{ items : rows.rows, username : null , page_info : datas})
 			}
 		});
 	});
-
-
-	// db.query('SELECT * FROM items where availability = true ORDER BY time_post DESC;', (err, {rows}) => {
-	// 	var item_info = rows;
-	// 	if (!err){
-	// 		if (req.cookies.logses != null){
-	// 			console.log("cookie");
-	// 			db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-	// 				if (!err) {
-	// 					console.log(rows.rows[0].fname)
-	// 					res.render('category', {items : item_info, username : rows.rows[0].fname})
-	// 				} else {
-	// 					res.render('category',{ items : item_info, username : null })
-	// 				}
-	// 			});
-	// 		} else {
-	// 			res.render('category',{ items : item_info, username : null })
-	// 		}
-	// 	}else{
-	// 		res.send('please try next time');
-	// 	}
-	// });
-
 
 });
 
