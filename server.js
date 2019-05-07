@@ -474,13 +474,13 @@ app.get('/forgot_password', function(req, res) {    //forgotPassword.ejs
 })
 app.post('/forgot_password',(req, res) => {                                                                   //forgot password
   //need to access user's database with email
-  var email = String(req.body['inputEmail']);
+  var email = String(req.body['email']);
   var generator = require('generate-password');
   var password = generator.generate({
     length: 10,
     numbers: true
   });
-
+	console.log(email)
   console.log(password)
   var hash_password = passwordHasher(password);
   console.log("Password is Secure......................."+hash_password)
