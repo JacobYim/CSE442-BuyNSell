@@ -86,3 +86,33 @@ values ('Laptop Computer9','This is pretty clean status',200,1,2);
 insert into items(item_name,description,price,post_by,item_category)
 values ('Laptop Computer10','This is pretty clean status',200,1,2);
 
+insert into items(item_name,description,price,post_by,item_category)
+values ('Sofa1','This is pretty clean status',200,1,3);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Sofa2','This is pretty clean status',200,1,3);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Sofa3','This is pretty clean status',200,1,3);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Sofa4','This is pretty clean status',200,1,3);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Sofa5','This is pretty clean status',200,1,3);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Jacket6','This is pretty clean status',200,1,1);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Jacket7','This is pretty clean status',200,1,1);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Jacket8','This is pretty clean status',200,1,1);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Jacket9','This is pretty clean status',200,1,1);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Jacket10','This is pretty clean status',200,1,1);
+
