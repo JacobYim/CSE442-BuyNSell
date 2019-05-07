@@ -125,8 +125,8 @@ app.get('/category/:page', function(req, res) {    //category.ejs
 	// res.send(page)
 
 	// getiing posting numbers from database
-	db.query('SELECT COUNT (*) FROM items where availability = true;', function (err, rows, fields) {
-		var cnt = rows.rows[0].count	// total number of item
+	db.query('SELECT COUNT (*) FROM items where availability = true;', function (err, row, fields) {
+		var cnt = row.rows[0].count	// total number of item
 		var totalPage = Math.ceil(cnt/size); // total page numbers
 		var pageSize = 6;
 		var startPage = Math.floor((page-1)/pageSize)*pageSize +1;
@@ -135,8 +135,9 @@ app.get('/category/:page', function(req, res) {    //category.ejs
 			endPage = totalPage
 		}
 		
-		db.query('SELECT item_id, item_name, price, description, file_path FROM items where availability = true ORDER BY time_post DESC LIMIT 6 OFFSET \''+begin +'\';', function (err, rows, fields) {
-			var data_item = rows.rows;
+		db.query('SELECT item_id, item_name, price, description, file_path FROM items where availability = true ORDER BY time_post DESC LIMIT 6 OFFSET \''+begin +'\';', function (err, item, fields) {
+			var data_item = item.rows;
+			console.log(item.command)
 			var datas = {
 				pageSize : pageSize,
 				startPage : startPage,
@@ -156,11 +157,10 @@ app.get('/category/:page', function(req, res) {    //category.ejs
 					}
 				});
 			} else {
-				res.render('category',{ items : rows.rows, username : null , page_info : datas})
+				res.render('category',{ items : data_item, username : null , page_info : datas})
 			}
 		});
 	});
-
 });
 
 
@@ -581,6 +581,7 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 			db.query('SELECT * FROM categories where category_name = \''+category +'\'', function (err, rows, fields) {
 				if (!err && rows.rowCount == 1) {
 					category = rows.rows[0].category_id;
+					if (file != null){ 
 					db.query('insert into items(item_name,description,price,post_by,item_category,file_path) values(\''+item_name+'\',\''+description+'\', \''+ price + '\',\''+user_id+ '\',\''+ category + '\',\''+file +'\')', function (err, rows, fields){
 					if (!err) {
 						console.log(rows)
@@ -591,6 +592,18 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 						res.send('err : ' + err);
 				}
 					});
+				}else{
+					db.query('insert into items(item_name,description,price,post_by,item_category) values(\''+item_name+'\',\''+description+'\', \''+ price + '\',\''+user_id+ '\',\''+ category + '\')', function (err, rows, fields){
+						if (!err) {
+							console.log(rows)
+							res.render('Dashboard', {user : user})
+							console.log('item upload success '+ item_name);
+						} 
+						else {
+							res.send('err : ' + err);
+					}
+						});
+				}
 				}
 		});
 
