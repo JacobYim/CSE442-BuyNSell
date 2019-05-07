@@ -341,7 +341,7 @@ app.post('/signup', upload.any(),(req,res) => {
 
   var file;
   if (req.files.length != 0){
-  	file = "./uploads/"+req.files[0].filename;
+  	file = "/uploads/"+req.files[0].filename;
   }else{
   	file = null;
   }
@@ -403,7 +403,7 @@ app.post('/change', upload.any(), (req,res) => {
 	var zip = String(req.body['inputZip']);
 	var file;
 	if (req.files.length != 0){
-		file = "./uploads/"+req.files[0].filename;
+		file = "/uploads/"+req.files[0].filename;
 	}else{
 		file = null;
 	}
@@ -563,7 +563,7 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 	console.log(req.files);
 	try{
 		if (req.files.length != 0){
-				file = "./items/"+req.files[0].filename;
+				file = "/items/"+req.files[0].filename;
 				// file = "./items/"+category+"/"+req.files[0].filename;
 		}
     else{
