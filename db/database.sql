@@ -146,4 +146,32 @@ insert into user_profile(fname, lname, ubid, email, password, address1, address2
 values ('Chulsoo', 'Lim', 'limch', 'limch@buffalo.edu','sha1$f0e604d8$1$d7ae3e858408c66a29af59862a55e94183fc7260','277 American Campus Drive',null,'Amherst',12345,'NY','resource/images/member/limch.jpg','1');
 
 insert into items(item_name,description,price,post_by,item_category)
-values ('Laptop Computer','This is pretty clean status',200,1,2);
+values ('Laptop Computer1','This is pretty clean status',200,1,2);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Laptop Computer2','This is pretty clean status',200,1,2);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Laptop Computer3','This is pretty clean status',200,1,2);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Laptop Computer4','This is pretty clean status',200,1,2);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Laptop Computer5','This is pretty clean status',200,1,2);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Laptop Computer6','This is pretty clean status',200,1,2);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Laptop Computer7','This is pretty clean status',200,1,2);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Laptop Computer8','This is pretty clean status',200,1,2);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Laptop Computer9','This is pretty clean status',200,1,2);
+
+insert into items(item_name,description,price,post_by,item_category)
+values ('Laptop Computer10','This is pretty clean status',200,1,2);
+
