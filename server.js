@@ -95,7 +95,7 @@ app.get('/logout', function(req, res) {    //index.ejs
 	res.clearCookie('logses');
 	res.render('index',{ username : null })
 })
-app.get('/about', function(req, res) {    //about.ejs
+app.get('/about', function(req, res) {    //index.ejs
 	console.log(req.cookies.logses);
 	if (req.cookies.logses != null) {
 		console.log("cookie");
@@ -198,6 +198,7 @@ app.get('/signup', function(req, res) {    //signup.ejs
 	res.render('signup')
 })
 app.get('/forgot_password', function(req, res) {    //forgotPassword.ejs
+  res.clearCookie('logses');
   res.render('forgot_password')
 })
 app.get('/modifyPassword', function(req, res) {    //modifyPassword.ejs
@@ -241,13 +242,29 @@ app.get('/signup', (req,res) => {
 
 app.post('/forgot_password',(req, res) => {                                                                   //forgot password
                                                                                                               //need to access user's database with email
-  var email = String(req.body['inputEmail']);
+  var email = String(req.body['email']);
+  console.log(email)
+
   var generator = require('generate-password');
   var password = generator.generate({
       length: 10,
       numbers: true
   });
 
+  const mailOptions = {
+    // from: 'sender@email.com', // sender address
+    from: 'ubbuynsell@gmail.com', // sender address
+
+    to: email.toString(), // list of receivers   //email recipient
+    subject: 'Forgot Your Password :D', // Subject listen
+    html: '<p>Stop Forgetting your password!\n</p></p> \npassword <img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'
+    };
+    transporter.sendMail(mailOptions, function (err, info) {
+       if(err)
+         console.log(err)
+       else
+         console.log(info);
+  });
   console.log(password)
   var hash_password = passwordHasher(password);
   console.log("Password is Secure......................."+hash_password)
@@ -311,14 +328,14 @@ app.post('/signup', upload.any(),(req,res) => {
     // secures password here
     password = passwordHasher(password);
     console.log("Password is Secure......................."+password)
-    db.query('insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path, available) values(\''+userId+'\',\''+lastname+'\',\''+ubid+'\',\''+ email +'\',\''+ password +'\',\''+ address1 +'\',\''+ address2 +'\',\''+ city +'\',\''+ zip +'\',\''+ state +'\',\''+ file+ '\',\'' + "1" + '\')', function (err, rows, fields) {
+    db.query('insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path, available) values(\''+fname+'\',\''+lname+'\',\''+ubid+'\',\''+ email +'\',\''+ password +'\',\''+ address1 +'\',\''+ address2 +'\',\''+ city +'\',\''+ zip +'\',\''+ state +'\',\''+ file+ '\',\'' + "1" + '\')', function (err, rows, fields) {
       if (!err) {
           console.log(rows)
           res.cookie("logses", password,{ maxAge: 60*60*1000,
             httpOnly: true,
             path:'/'});
-          res.render('index',{ username : userId })
-          console.log('signin success'+userId);
+          res.render('index',{ username : fname })
+          console.log('signin success'+fname);
 
               //sign up email here                                                                                            //signup email here
               const mailOptions = {
@@ -433,7 +450,7 @@ app.get('/wrongapproach',(req, res) => {    //modifyPassword.ejs
 });
 
 app.get('/uploadForm', function(req, res) {    //uploadForm.ejs
-	res.render('uploadForm');
+	res.render('uploadForm')
 })
 
 app.post('/modifyPassword',(req, res) => {    //modifyPassword.ejs
@@ -453,10 +470,14 @@ app.post('/modifyPassword',(req, res) => {    //modifyPassword.ejs
               res.render('login');
             });
         }else{
-					res.redirect('/wrongapproach');
-				}
-			});
+			res.redirect('/wrongapproach');
 		}
+	});
+		}else{
+			res.redirect('/wrongapproach');
+		}
+	}else{
+		res.redirect('/wrongapproach');
 	}
 });
 
@@ -466,13 +487,13 @@ app.get('/forgot_password', function(req, res) {    //forgotPassword.ejs
 })
 app.post('/forgot_password',(req, res) => {                                                                   //forgot password
   //need to access user's database with email
-  var email = String(req.body['inputEmail']);
+  var email = String(req.body['email']);
   var generator = require('generate-password');
   var password = generator.generate({
     length: 10,
     numbers: true
   });
-
+	console.log(email)
   console.log(password)
   var hash_password = passwordHasher(password);
   console.log("Password is Secure......................."+hash_password)
