@@ -185,6 +185,7 @@ app.get('/signup', function(req, res) {    //signup.ejs
 	res.render('signup')
 })
 app.get('/forgot_password', function(req, res) {    //forgotPassword.ejs
+  res.clearCookie('logses');
   res.render('forgot_password')
 })
 app.get('/modifyPassword', function(req, res) {    //modifyPassword.ejs
@@ -228,13 +229,29 @@ app.get('/signup', (req,res) => {
 
 app.post('/forgot_password',(req, res) => {                                                                   //forgot password
                                                                                                               //need to access user's database with email
-  var email = String(req.body['inputEmail']);
+  var email = String(req.body['email']);
+  console.log(email)
+
   var generator = require('generate-password');
   var password = generator.generate({
       length: 10,
       numbers: true
   });
 
+  const mailOptions = {
+    // from: 'sender@email.com', // sender address
+    from: 'ubbuynsell@gmail.com', // sender address
+
+    to: email.toString(), // list of receivers   //email recipient
+    subject: 'Forgot Your Password :D', // Subject listen
+    html: '<p>Stop Forgetting your password!\n</p></p> \npassword <img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'
+    };
+    transporter.sendMail(mailOptions, function (err, info) {
+       if(err)
+         console.log(err)
+       else
+         console.log(info);
+  });
   console.log(password)
   var hash_password = passwordHasher(password);
   console.log("Password is Secure......................."+hash_password)
