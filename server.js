@@ -315,14 +315,14 @@ app.post('/signup', upload.any(),(req,res) => {
     // secures password here
     password = passwordHasher(password);
     console.log("Password is Secure......................."+password)
-    db.query('insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path, available) values(\''+userId+'\',\''+lastname+'\',\''+ubid+'\',\''+ email +'\',\''+ password +'\',\''+ address1 +'\',\''+ address2 +'\',\''+ city +'\',\''+ zip +'\',\''+ state +'\',\''+ file+ '\',\'' + "1" + '\')', function (err, rows, fields) {
+    db.query('insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path, available) values(\''+fname+'\',\''+lname+'\',\''+ubid+'\',\''+ email +'\',\''+ password +'\',\''+ address1 +'\',\''+ address2 +'\',\''+ city +'\',\''+ zip +'\',\''+ state +'\',\''+ file+ '\',\'' + "1" + '\')', function (err, rows, fields) {
       if (!err) {
           console.log(rows)
           res.cookie("logses", password,{ maxAge: 60*60*1000,
             httpOnly: true,
             path:'/'});
-          res.render('index',{ username : userId })
-          console.log('signin success'+userId);
+          res.render('index',{ username : fname })
+          console.log('signin success'+fname);
 
               //sign up email here                                                                                            //signup email here
               const mailOptions = {
@@ -460,6 +460,12 @@ app.post('/modifyPassword',(req, res) => {    //modifyPassword.ejs
 			res.redirect('/wrongapproach');
 		}
 	});
+		}else{
+			res.redirect('/wrongapproach');
+		}
+	}else{
+		res.redirect('/wrongapproach');
+	}
 });
 
 app.get('/forgot_password', function(req, res) {    //forgotPassword.ejs
