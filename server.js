@@ -136,7 +136,6 @@ app.get('/category/:page', function(req, res) {    //category.ejs
 		}
 		
 		db.query('SELECT item_id, item_name, price, description, file_path FROM items where availability = true ORDER BY time_post DESC LIMIT 6 OFFSET \''+begin +'\';', function (err, rows, fields) {
-			console.log(rows.rows)
 			var data_item = rows.rows;
 			var datas = {
 				pageSize : pageSize,
