@@ -16,8 +16,7 @@
 
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     </head>
-
-
+    
     <body>
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -44,11 +43,11 @@
                 Shop by Category
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item active" href="/category">All</a>
-                <a class="dropdown-item" href="/category_clothing">Clothing</a>
-                <a class="dropdown-item" href="/category_electronics">Electronics</a>
-                <a class="dropdown-item" href="/category_furnitures">Furnitures</a>
-                <a class="dropdown-item" href="/category_cars">Cars</a>
+                <a class="dropdown-item" href="/category">All</a>
+                <a class="dropdown-item" href="/category">Clothing</a>
+                <a class="dropdown-item" href="/category">Electronics</a>
+                <a class="dropdown-item" href="/category">Furnitures</a>
+                <a class="dropdown-item" href="/category">Cars</a>
               </div>
             </li>
             <li class="nav-item">
@@ -96,7 +95,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index">Home</a></li>
                         <li class="breadcrumb-item"><a href="category">Category</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">All</li>
+                        <li class="breadcrumb-item active" aria-current="page">Sub-category</li>
                     </ol>
                 </nav>
             </div>
@@ -108,27 +107,27 @@
                 <div class="card bg-light mb-3">
                     <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
                     <ul class="list-group category_block">
-                        <li class="list-group-item active"><a href="/category">All</a></li>
-                        <li class="list-group-item"><a href="/category_clothing">Clothing</a></li>
-                        <li class="list-group-item"><a href="/category_electronics">Electronics</a></li>
-                        <li class="list-group-item"><a href="/category_furnitures">Furnitures</a></li>
-                        <li class="list-group-item"><a href="/category_cars">Cars</a></li>
+                        <li class="list-group-item"><a href="category">Category_0</a></li>
+                        <li class="list-group-item"><a href="category">Category_1</a></li>
+                        <li class="list-group-item"><a href="category">Category_2</a></li>
+                        <li class="list-group-item"><a href="category">Category_3</a></li>
+                        <li class="list-group-item"><a href="category">Category_4</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col">
                 <div class="row">
 
-                    <% if (items.length <= 6){  var iter_num = items.length; }else{var iter_num = 6;} %>
-                    <% for (var i = 0; i < iter_num; i++ ){  %>
+                    <% if (items.length <= 6){  var iter_num = items.length; }else{var iter_num = 6;} %>                 
+                    <% for (var i = 0; i < iter_num; i++ ){  %>    
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="card" id = <%= "item"+String(i) %> >
                             <% if(items[i].file_path == null){ %>
                                 <img class="card-img-top" src= "https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
                             <% }else{ %>
                                 <img class="card-img-top" src= <%= items[i].file_path %> alt="Card image cap">
-                            <% }%>
-
+                            <% }%>       
+                            
                             <div class="card-body">
                                 <h4 class="card-title"><a id = "<%= 'item_name' + String(i) %>" href="product" title="View Product"><%= items[i].item_name %></a></h4>
                                 <p class="card-text" id = "<%= "item_desc"+String(i) %>" </p> <%= items[i].description %></p>
@@ -173,6 +172,7 @@
         <p class="float-right"><a href="#">Back to top</a></p>
         <p>BuyNSell &copy; 2019 &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
       </footer>
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

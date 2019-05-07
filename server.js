@@ -9,15 +9,6 @@ var upload = multer({dest: 'public/uploads/'});
 var items_path = multer({dest: 'public/items/'});
 var fs = require('fs');
 
-var nodemailer = require('nodemailer')
-var transporter = nodemailer.createTransport({
- service: 'gmail',
- auth: {
-        user: 'ubbuynsell@gmail.com',
-        pass: 'buynsellgmail'
-    }
-});
-
 
 const PORT = 8080;
 const app = express();
@@ -98,7 +89,6 @@ app.get('/logout', function(req, res) {    //index.ejs
 app.get('/about', function(req, res) {    //index.ejs
 	res.render('about')
 })
-
 app.get('/category', function(req, res) {    //category.ejs
 	db.query('SELECT * FROM items where availability = true ORDER BY time_post DESC;', (err, {rows}) => {
 		var item_info = rows;
@@ -121,24 +111,8 @@ app.get('/category', function(req, res) {    //category.ejs
 		}
 	});
 
-
+	
 })
-app.get('/category_all', function(req, res) {    //category.ejs
-  res.render('category_all')
-})
-app.get('/category_clothing', function(req, res) {    //category.ejs
-  res.render('category_clothing')
-})
-app.get('/category_electronics', function(req, res) {    //category.ejs
-  res.render('category_electronics')
-})
-app.get('/category_furnitures', function(req, res) {    //category.ejs
-  res.render('category_furnitures')
-})
-app.get('/category_cars', function(req, res) {    //category.ejs
-  res.render('category_cars')
-})
-
 app.get('/product', function(req, res) {    //category.ejs
 	res.render('product')
 })
@@ -184,9 +158,6 @@ app.get('/signup', function(req, res) {    //signup.ejs
 	res.clearCookie('logses');
 	res.render('signup')
 })
-app.get('/forgot_password', function(req, res) {    //forgotPassword.ejs
-  res.render('forgot_password')
-})
 app.get('/modifyPassword', function(req, res) {    //modifyPassword.ejs
 	res.render('modifyPassword')
 })
@@ -226,47 +197,6 @@ app.get('/signup', (req,res) => {
 	res.render('signup');
 });
 
-app.post('/forgot_password',(req, res) => {                                                                   //forgot password
-                                                                                                              //need to access user's database with email
-  var email = String(req.body['inputEmail']);
-  var generator = require('generate-password');
-  var password = generator.generate({
-      length: 10,
-      numbers: true
-  });
-
-  console.log(password)
-  var hash_password = passwordHasher(password);
-  console.log("Password is Secure......................."+hash_password)
-  console.log(hash_password)
-  db.query('SELECT * FROM user_profile where available = true AND email=\''+email+'\'', function (err, rows, fields) {
-    // console.log(rows)
-    if (!err && rows.rowCount == 1) {
-        db.query('UPDATE user_profile SET password = \''+ hash_password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
-          // console.log(rows1)
-          const mailOptions = {
-            // from: 'sender@email.com', // sender address
-            from: 'ubbuynsell@gmail.com', // sender address
-
-            to: email, // list of receivers   //email recipient
-            subject: 'Subject of your email', // Subject listen
-            html: '<p>Stop Forgetting your password!</p> <p>Password:</p>'+password+'<img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'
-            };
-            transporter.sendMail(mailOptions, function (err, info) {
-               if(err)
-                 console.log(err)
-               else
-                 console.log(info);
-          });
-          res.render('login');
-        });
-    }else{
-      res.redirect('/wrongapproach');
-    }
-  });
-
-});
-
 app.post('/signup', upload.any(),(req,res) => {
   console.log(req.files.length != 0);  // checking image is inputted or not
   var fname = String(req.body['name']);
@@ -299,33 +229,17 @@ app.post('/signup', upload.any(),(req,res) => {
     password = passwordHasher(password);
     console.log("Password is Secure......................."+password)
     db.query('insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path, available) values(\''+fname+'\',\''+lname+'\',\''+ubid+'\',\''+ email +'\',\''+ password +'\',\''+ address1 +'\',\''+ address2 +'\',\''+ city +'\',\''+ zip +'\',\''+ state +'\',\''+ file+ '\',\'' + "1" + '\')', function (err, rows, fields) {
-      if (!err) {
-          console.log(rows)
-          res.cookie("logses", password,{ maxAge: 60*60*1000,
-            httpOnly: true,
-            path:'/'});
-          res.render('index',{ username : fname })
-          console.log('signin success'+fname);
-
-              //sign up email here                                                                                            //signup email here
-              const mailOptions = {
-                // from: 'sender@email.com', // sender address
-                from: 'ubbuynsell@gmail.com', // sender address
-
-                to: email, // list of receivers                            //email recipient
-                subject: 'Subject of your email', // Subject listen                     //subject
-                html: '<p>Thanks for signing up for BuyNSell!</p> <p>Now you can sell your stuff\n</p> <p>Make Some Money!!! \n</p> <img src="https://ci.memecdn.com/4341709.jpg" alt="Cheetah!" />'                      //html
-                };
-                transporter.sendMail(mailOptions, function (err, info) {
-                   if(err)
-                     console.log(err)
-                   else
-                     console.log(info);
-                });
-
-                  } else {
-                  res.send('err : ' + err);
-                }
+    	if (!err) {
+    		console.log(rows)
+    		res.cookie("logses", password,{ maxAge: 60*60*1000,
+    			httpOnly: true,
+    			path:'/'});
+    		res.render('index',{ username : fname })
+    		console.log('signin success'+ fname);
+    	} 
+    	else {
+    		res.send('err : ' + err);
+    	}
     });
 }else{
 	res.send('wrong approach');
@@ -399,8 +313,8 @@ app.post('/modifyPassword',(req, res) => {    //modifyPassword.ejs
 				if (!err && rows.rowCount == 1) {
 					var password = passwordHasher(newPassword);
 					db.query('UPDATE user_profile SET password = \''+ password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
-            console.log(rows1)
-						res.render('login');
+						console.log(rows1)
+						res.render('index',{ username : rows.rows[0].fname });
 					});
 				}else{
 					res.redirect('/wrongapproach');
@@ -423,78 +337,62 @@ app.get('/uploadForm', function(req, res) {    //uploadForm.ejs
 	res.render('uploadForm')
 })
 
-app.post('/modifyPassword',(req, res) => {    //modifyPassword.ejs
-  var oldPassword = String(req.body['oldPassword']);
-  var newPassword = String(req.body['newPassword']);
-  var newPassword2 = String(req.body['newPassword2']);
-
-  if (newPassword == newPassword2){
-    if (passwordHash.verify(oldPassword ,req.cookies.logses)) {
-      db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-        if (!err && rows.rowCount == 1) {
-            var password = passwordHasher(newPassword);
-
-            db.query('UPDATE user_profile SET password = \''+ password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
-              res.clearCookie('logses');
-              console.log(rows1)
-              res.render('login');
-            });
-        }else{
-			res.redirect('/wrongapproach');
+app.post('/uploadForm', items_path.any(),(req, res) => {
+	console.log('form connected')
+	var item_name = String(req.body['productName']);
+	var description = String(req.body['productDescription']);
+	var price = String(req.body['productPrice']);
+	var category = String(req.body['productCategory']);
+	var file = null;
+	console.log(req.files);
+	try{
+		if (req.files.length != 0){
+				file = "./items/"+req.files[0].filename;
+				// file = "./items/"+category+"/"+req.files[0].filename;
 		}
-	});
+    else{
+				file = null;
+				console.log("Please insert an image!")
+		}
+	}
+  catch(err){
+			file = null;
+	}
+	 console.log("Typed :", item_name, description, price);
+	 db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+		if (!err && rows.rowCount == 1) {
+			var user_id =rows.rows[0].user_id;
+			var user= rows.rows[0];
+			db.query('SELECT * FROM categories where category_name = \''+category +'\'', function (err, rows, fields) {
+				if (!err && rows.rowCount == 1) {
+					category = rows.rows[0].category_id;
+					db.query('insert into items(item_name,description,price,post_by,item_category,file_path) values(\''+item_name+'\',\''+description+'\', \''+ price + '\',\''+user_id+ '\',\''+ category + '\',\''+file +'\')', function (err, rows, fields){
+					if (!err) {
+						console.log(rows)
+						res.render('Dashboard', {user : user})
+						console.log('item upload success '+ item_name);
+					} 
+					else {
+						res.send('err : ' + err);
+				}
+					});
+				}
+		});
+
 		}else{
 			res.redirect('/wrongapproach');
 		}
-	}else{
-		res.redirect('/wrongapproach');
-	}
+	});
+
+
+ 	// // if (item_name != '' && item_name != ' ' && !item_name.includes(';') && !item_name.includes('.')&& !item_name.includes('=')){
+ 		
+	// // }
+	// // else{
+	// // 	res.send('wrong approach');
+	// // }
+	// res.send("Typed :", item_name, description, price);
 });
-
-app.get('/forgot_password', function(req, res) {    //forgotPassword.ejs
-  res.clearCookie('logses');
-  res.render('forgot_password')
-})
-app.post('/forgot_password',(req, res) => {                                                                   //forgot password
-  //need to access user's database with email
-  var email = String(req.body['inputEmail']);
-  var generator = require('generate-password');
-  var password = generator.generate({
-    length: 10,
-    numbers: true
-  });
-
-  console.log(password)
-  var hash_password = passwordHasher(password);
-  console.log("Password is Secure......................."+hash_password)
-  console.log(hash_password)
-  db.query('SELECT * FROM user_profile where available = true AND email=\''+email+'\'', function (err, rows, fields) {
-  // console.log(rows)
-  if (!err && rows.rowCount == 1) {
-  db.query('UPDATE user_profile SET password = \''+ hash_password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
-    // console.log(rows1)
-    const mailOptions = {
-      // from: 'sender@email.com', // sender address
-      from: 'ubbuynsell@gmail.com', // sender address
-
-      to: email, // list of receivers   //email recipient
-      subject: 'Subject of your email', // Subject listen
-      html: '<p>Stop Forgetting your password!</p> <p>Password:</p>'+password+'<img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'
-    };
-    transporter.sendMail(mailOptions, function (err, info) {
-      if(err)
-        console.log(err)
-      else
-        console.log(info);
-    });
-    res.render('login');
-    });
-    }else{
-      res.redirect('/wrongapproach');
-    }
-  });
-});
-
 
  function passwordHasher(unsecure_password) {
  	var secure_password = passwordHash.generate(unsecure_password);

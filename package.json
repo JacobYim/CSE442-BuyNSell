@@ -17,9 +17,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "fs": "0.0.1-security",
-    "generate-password": "^1.4.1",
     "multer": "^1.4.1",
-    "nodemailer": "^6.1.1",
     "nodemon": "^1.18.10",
     "password-hash": "^1.2.2",
     "pg": "^6.4.2"
