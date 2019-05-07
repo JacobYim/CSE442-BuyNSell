@@ -9,78 +9,77 @@
       <title>BuyNSell | Category</title>
 
       <!-- Bootstrap core CSS -->
-      <link rel="stylesheet" href="./css/bootstrap.min.css" >
+      <link rel="stylesheet" href="/css/bootstrap.min.css" >
 
       <!-- Custom styles for this page -->
-      <link rel="stylesheet" href="./css/products-grid-category.css">
+      <link rel="stylesheet" href="/css/products-grid-category.css">
 
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
-      <script src="../server.js"></script>
     </head>
-    
+
+
     <body>
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <a class="navbar-brand" href="/"><img src="./img/logo_62px.png"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                    <!-- when the login is valid-->
-                    <% if(username != null){ %>
-                    <li>
-                        <a class="nav-link font-weight-bold" href="./dashboard"> Hi, <%= username %></a>
-                    </li>
-                    <% } %>
-                    <!-- when the login is not valid-->
-                    <li class="nav-item">
-                        <% if(username == null){ %>
-                        <a class="nav-link" href="./login">Login/Sign Up</a>
-                        <% } %>
-                    </li>
-                <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Shop by Category
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/category">All</a>
-                    <a class="dropdown-item" href="/category">Clothing</a>
-                    <a class="dropdown-item" href="/category">Electronics</a>
-                    <a class="dropdown-item" href="/category">Furnitures</a>
-                    <a class="dropdown-item" href="/category">Cars</a>
-                </div>
+        <a class="navbar-brand" href="/"><img src="/img/logo_62px.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <!-- when the login is valid-->
+                <% if(username != null){ %>
+                <li>
+                    <a class="nav-link font-weight-bold" href="/dashboard"> Hi, <%= username %></a>
                 </li>
+                <% } %>
+                <!-- when the login is not valid-->
                 <li class="nav-item">
-                    <a class="nav-link" href="/about">Contact</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav mr-4">
-                    <li class="nav-item">
-                    <% if(username != null){ %>
-                    <a class="nav-link" href="./logout">Log out</a>
-                    <!-- when logged in-->
-                    <%} else {%>
-                    <p></p>
+                    <% if(username == null){ %>
+                    <a class="nav-link" href="/login">Login/Sign Up</a>
                     <% } %>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <div class="input-group input-group-sm">
-                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-secondary btn-number">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </div>
+                </li>
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Shop by Category
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item active" href="/category">All</a>
+                <a class="dropdown-item" href="/category_clothing">Clothing</a>
+                <a class="dropdown-item" href="/category_electronics">Electronics</a>
+                <a class="dropdown-item" href="/category_furnitures">Furnitures</a>
+                <a class="dropdown-item" href="/category_cars">Cars</a>
+              </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/about">Contact</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-4">
+                <li class="nav-item">
+                  <% if(username != null){ %>
+                  <a class="nav-link" href="/logout">Log out</a>
+                  <!-- when logged in-->
+                  <%} else {%>
+                  <p></p>
+                  <% } %>
+                </li>
+              </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-secondary btn-number">
+                            <i class="fa fa-search"></i>
+                        </button>
                     </div>
-                    <a class="btn btn-success btn-sm ml-3" href="cart.html">
-                    <i class="fa fa-shopping-cart"></i> Cart
-                    <span class="badge badge-light">3</span>
-                    </a>
-                </form>
-            </div>
+                </div>
+                <a class="btn btn-success btn-sm ml-3" href="cart.html">
+                <i class="fa fa-shopping-cart"></i> Cart
+                <span class="badge badge-light">3</span>
+                </a>
+            </form>
+        </div>
         </nav>
     </header>
 
@@ -97,7 +96,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index">Home</a></li>
                         <li class="breadcrumb-item"><a href="category">Category</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Sub-category</li>
+                        <li class="breadcrumb-item active" aria-current="page">All</li>
                     </ol>
                 </nav>
             </div>
@@ -109,29 +108,29 @@
                 <div class="card bg-light mb-3">
                     <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
                     <ul class="list-group category_block">
-                        <li class="list-group-item"><a href="category">Category_0</a></li>
-                        <li class="list-group-item"><a href="category">Category_1</a></li>
-                        <li class="list-group-item"><a href="category">Category_2</a></li>
-                        <li class="list-group-item"><a href="category">Category_3</a></li>
-                        <li class="list-group-item"><a href="category">Category_4</a></li>
+                        <li class="list-group-item active"><a href="/category">All</a></li>
+                        <li class="list-group-item"><a href="/category_clothing">Clothing</a></li>
+                        <li class="list-group-item"><a href="/category_electronics">Electronics</a></li>
+                        <li class="list-group-item"><a href="/category_furnitures">Furnitures</a></li>
+                        <li class="list-group-item"><a href="/category_cars">Cars</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col">
                 <div class="row">
 
-                    <% if (items.length <= 6){  var iter_num = items.length; }else{var iter_num = 6;} %>                 
-                    <% for (var i = 0; i < iter_num; i++ ){  %>    
+                    <% if (items.length <= 6){  var iter_num = items.length; }else{var iter_num = 6;} %>
+                    <% for (var i = 0; i < iter_num; i++ ){  %>
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="card" id = <%= "item"+String(i) %> >
                             <% if(items[i].file_path == null){ %>
                                 <img class="card-img-top" src= "https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
                             <% }else{ %>
                                 <img class="card-img-top" src= <%= items[i].file_path %> alt="Card image cap">
-                            <% }%>       
-                            
+                            <% }%>
+
                             <div class="card-body">
-                                <h4 class="card-title"><a id = "<%= 'item_name' + String(i) %>" href="product" title="View Product" onclick="clicked_prod=items[i].item_name"><%= items[i].item_name %></a></h4>
+                                <h4 class="card-title"><a id = "<%= 'item_name' + String(i) %>" href="<%= '/product/' + items[i].item_id %>" title="View Product"><%= items[i].item_name %></a></h4>
                                 <p class="card-text" id = "<%= "item_desc"+String(i) %>" </p> <%= items[i].description %></p>
                                 <div class="row">
                                     <div class="col">
@@ -149,17 +148,35 @@
                     <div class="col-12">
                         <nav aria-label="...">
                             <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <% if (page_info.current != page_info.startPage ){ %>
                                 <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
+                                    <a class="page-link" href="<%= '/category/' + page_info.startPage %>" tabindex="-1">First</a>
                                 </li>
+                                <% } %>
+                                <% if (page_info.current - 3 > 0 ){ %>
+                                <li class="page-item">
+                                    <a class="page-link" href="<%= '/category/' + (page_info.current - 3) %>" tabindex="-1">Previous</a>
+                                </li>
+                                <% } %>
+                                <% if (page_info.current != page_info.startPage ){ %>
+                                <li class="page-item"><a class="page-link" href="<%= '/category/' + (page_info.current - 1) %>"><%=(page_info.current - 1)%></a></li>
+                                <% } %>
+                                <li class="page-item active">
+                                    <a class="page-link active" href="<%= '/category/' + (page_info.current) %>"><%=(page_info.current)%></a>
+                                </li>
+                                <% if (page_info.current != page_info.endPage){ %>
+                                <li class="page-item"><a class="page-link" href="<%= '/category/' + (page_info.current + 1) %>"><%=(page_info.current + 1)%></a></li>
+                                <% } %>
+                                <% if (page_info.current + 3 < page_info.endPage){ %>
+                                <li class="page-item">
+                                    <a class="page-link" href="<%= '/category/' + (page_info.current + 3) %>">Next</a>
+                                </li>
+                                <% } %>
+                                <% if (page_info.current != page_info.endPage){ %>
+                                <li class="page-item">
+                                    <a class="page-link" href="<%= '/category/' + page_info.endPage %>" tabindex="-1">Last</a>
+                                </li>
+                                <% } %>
                             </ul>
                         </nav>
                     </div>
@@ -175,12 +192,11 @@
         <p>BuyNSell &copy; 2019 &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
       </footer>
 
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="./Javascript/bootstrap.min.js"></script>
+    <script src="/Javascript/bootstrap.min.js"></script>
     </body>
 </html>

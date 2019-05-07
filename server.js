@@ -9,8 +9,14 @@ var upload = multer({dest: 'public/uploads/'});
 var items_path = multer({dest: 'public/items/'});
 var fs = require('fs');
 
-// Check that user clicked a Product
-var clicked_prod = null;
+var nodemailer = require('nodemailer')
+var transporter = nodemailer.createTransport({
+ service: 'gmail',
+ auth: {
+        user: 'ubbuynsell@gmail.com',
+        pass: 'buynsellgmail'
+    }
+});
 
 
 const PORT = 8080;
@@ -90,39 +96,93 @@ app.get('/logout', function(req, res) {    //index.ejs
 	res.render('index',{ username : null })
 })
 app.get('/about', function(req, res) {    //index.ejs
-	res.render('about')
+	console.log(req.cookies.logses);
+	if (req.cookies.logses != null) {
+		console.log("cookie");
+		db.query('SELECT fname FROM user_profile where available = true AND password=\'' + req.cookies.logses + '\'', function (err, rows, fields) {
+			if (!err) {
+				console.log(rows.rows[0].fname)
+				res.render('about', { username: rows.rows[0].fname })
+			} else {
+				res.render('about', { username: null })
+			}
+		});
+	} else {
+		res.render('about', { username: null })
+	}
 })
+
 app.get('/category', function(req, res) {    //category.ejs
-	db.query('SELECT * FROM items where availability = true ORDER BY time_post DESC;', (err, {rows}) => {
-		var item_info = rows;
-		if (!err){
+	res.redirect('/category/1');
+});
+
+app.get('/category/:page', function(req, res) {    //category.ejs
+	// getting the page parameter from the address
+	var page = req.params.page;
+	page = parseInt(page, 10);
+	var size = 6;
+	var begin = (page - 1 )*size;
+	// res.send(page)
+
+	// getiing posting numbers from database
+	db.query('SELECT COUNT (*) FROM items where availability = true;', function (err, rows, fields) {
+		var cnt = rows.rows[0].count	// total number of item
+		var totalPage = Math.ceil(cnt/size); // total page numbers
+		var pageSize = 6;
+		var startPage = Math.floor((page-1)/pageSize)*pageSize +1;
+		var endPage = startPage + (pageSize - 1);
+		if (endPage > totalPage){
+			endPage = totalPage
+		}
+		
+		db.query('SELECT item_id, item_name, price, description, file_path FROM items where availability = true ORDER BY time_post DESC LIMIT 6 OFFSET \''+begin +'\';', function (err, rows, fields) {
+			console.log(rows.rows)
+			var data_item = rows.rows;
+			var datas = {
+				pageSize : pageSize,
+				startPage : startPage,
+				endPage : endPage,
+				totalPage : totalPage,
+				current : page
+			};
+			console.log(datas);
 			if (req.cookies.logses != null){
 				console.log("cookie");
 				db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
 					if (!err) {
 						console.log(rows.rows[0].fname)
-						res.render('category', {items : item_info, username : rows.rows[0].fname})
+						res.render('category', {items : data_item, username : rows.rows[0].fname, page_info : datas})
 					} else {
-						res.render('category',{ items : item_info, username : null })
+						res.render('category',{ items : data_item, username : null , page_info : datas})
 					}
 				});
 			} else {
-				res.render('category',{ items : item_info, username : null })
+				res.render('category',{ items : rows.rows, username : null , page_info : datas})
 			}
-		}else{
-			res.send('please try next time');
-		}
+		});
 	});
 
-	
+});
+
+
+app.get('/category_all', function(req, res) {    //category.ejs
+  res.render('category_all')
+})
+app.get('/category_clothing', function(req, res) {    //category.ejs
+  res.render('category_clothing')
+})
+app.get('/category_electronics', function(req, res) {    //category.ejs
+  res.render('category_electronics')
+})
+app.get('/category_furnitures', function(req, res) {    //category.ejs
+  res.render('category_furnitures')
+})
+app.get('/category_cars', function(req, res) {    //category.ejs
+  res.render('category_cars')
 })
 
-if (document.getElementsByClassName('click_item').clicked == true) {
-	clicked_prod = this.id;
-};
-
-app.get('/product', function(req, res) {    //product.ejs
-	res.render('product', {clicked_prod : clicked_prod})
+app.get('/product', function(req, res) {    //category.ejs
+	res.render('product')
 })
 app.get('/login', function(req, res) {    //login.ejs
 	res.clearCookie('logses');
@@ -166,6 +226,10 @@ app.get('/signup', function(req, res) {    //signup.ejs
 	res.clearCookie('logses');
 	res.render('signup')
 })
+app.get('/forgot_password', function(req, res) {    //forgotPassword.ejs
+  res.clearCookie('logses');
+  res.render('forgot_password')
+})
 app.get('/modifyPassword', function(req, res) {    //modifyPassword.ejs
 	res.render('modifyPassword')
 })
@@ -205,6 +269,63 @@ app.get('/signup', (req,res) => {
 	res.render('signup');
 });
 
+app.post('/forgot_password',(req, res) => {                                                                   //forgot password
+                                                                                                              //need to access user's database with email
+  var email = String(req.body['email']);
+  console.log(email)
+
+  var generator = require('generate-password');
+  var password = generator.generate({
+      length: 10,
+      numbers: true
+  });
+
+  const mailOptions = {
+    // from: 'sender@email.com', // sender address
+    from: 'ubbuynsell@gmail.com', // sender address
+
+    to: email.toString(), // list of receivers   //email recipient
+    subject: 'Forgot Your Password :D', // Subject listen
+    html: '<p>Stop Forgetting your password!\n</p></p> \npassword <img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'
+    };
+    transporter.sendMail(mailOptions, function (err, info) {
+       if(err)
+         console.log(err)
+       else
+         console.log(info);
+  });
+  console.log(password)
+  var hash_password = passwordHasher(password);
+  console.log("Password is Secure......................."+hash_password)
+  console.log(hash_password)
+  db.query('SELECT * FROM user_profile where available = true AND email=\''+email+'\'', function (err, rows, fields) {
+    // console.log(rows)
+    if (!err && rows.rowCount == 1) {
+        db.query('UPDATE user_profile SET password = \''+ hash_password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
+          // console.log(rows1)
+          const mailOptions = {
+            // from: 'sender@email.com', // sender address
+            from: 'ubbuynsell@gmail.com', // sender address
+
+            to: email, // list of receivers   //email recipient
+            subject: 'Subject of your email', // Subject listen
+            html: '<p>Stop Forgetting your password!</p> <p>Password:</p>'+password+'<img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'
+            };
+            transporter.sendMail(mailOptions, function (err, info) {
+               if(err)
+                 console.log(err)
+               else
+                 console.log(info);
+          });
+          res.render('login');
+        });
+    }else{
+      res.redirect('/wrongapproach');
+    }
+  });
+
+});
+
 app.post('/signup', upload.any(),(req,res) => {
   console.log(req.files.length != 0);  // checking image is inputted or not
   var fname = String(req.body['name']);
@@ -220,7 +341,7 @@ app.post('/signup', upload.any(),(req,res) => {
 
   var file;
   if (req.files.length != 0){
-  	file = "./uploads/"+req.files[0].filename;
+  	file = "/uploads/"+req.files[0].filename;
   }else{
   	file = null;
   }
@@ -237,17 +358,33 @@ app.post('/signup', upload.any(),(req,res) => {
     password = passwordHasher(password);
     console.log("Password is Secure......................."+password)
     db.query('insert into user_profile(fname, lname, ubid, email, password, address1, address2, city, zip, states, file_path, available) values(\''+fname+'\',\''+lname+'\',\''+ubid+'\',\''+ email +'\',\''+ password +'\',\''+ address1 +'\',\''+ address2 +'\',\''+ city +'\',\''+ zip +'\',\''+ state +'\',\''+ file+ '\',\'' + "1" + '\')', function (err, rows, fields) {
-    	if (!err) {
-    		console.log(rows)
-    		res.cookie("logses", password,{ maxAge: 60*60*1000,
-    			httpOnly: true,
-    			path:'/'});
-    		res.render('index',{ username : fname })
-    		console.log('signin success'+ fname);
-    	} 
-    	else {
-    		res.send('err : ' + err);
-    	}
+      if (!err) {
+          console.log(rows)
+          res.cookie("logses", password,{ maxAge: 60*60*1000,
+            httpOnly: true,
+            path:'/'});
+          res.render('index',{ username : fname })
+          console.log('signin success'+fname);
+
+              //sign up email here                                                                                            //signup email here
+              const mailOptions = {
+                // from: 'sender@email.com', // sender address
+                from: 'ubbuynsell@gmail.com', // sender address
+
+                to: email, // list of receivers                            //email recipient
+                subject: 'Subject of your email', // Subject listen                     //subject
+                html: '<p>Thanks for signing up for BuyNSell!</p> <p>Now you can sell your stuff\n</p> <p>Make Some Money!!! \n</p> <img src="https://ci.memecdn.com/4341709.jpg" alt="Cheetah!" />'                      //html
+                };
+                transporter.sendMail(mailOptions, function (err, info) {
+                   if(err)
+                     console.log(err)
+                   else
+                     console.log(info);
+                });
+
+                  } else {
+                  res.send('err : ' + err);
+                }
     });
 }else{
 	res.send('wrong approach');
@@ -266,7 +403,7 @@ app.post('/change', upload.any(), (req,res) => {
 	var zip = String(req.body['inputZip']);
 	var file;
 	if (req.files.length != 0){
-		file = "./uploads/"+req.files[0].filename;
+		file = "/uploads/"+req.files[0].filename;
 	}else{
 		file = null;
 	}
@@ -321,8 +458,8 @@ app.post('/modifyPassword',(req, res) => {    //modifyPassword.ejs
 				if (!err && rows.rowCount == 1) {
 					var password = passwordHasher(newPassword);
 					db.query('UPDATE user_profile SET password = \''+ password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
-						console.log(rows1)
-						res.render('index',{ username : rows.rows[0].fname });
+            console.log(rows1)
+						res.render('login');
 					});
 				}else{
 					res.redirect('/wrongapproach');
@@ -345,6 +482,77 @@ app.get('/uploadForm', function(req, res) {    //uploadForm.ejs
 	res.render('uploadForm')
 })
 
+app.post('/modifyPassword',(req, res) => {    //modifyPassword.ejs
+  var oldPassword = String(req.body['oldPassword']);
+  var newPassword = String(req.body['newPassword']);
+  var newPassword2 = String(req.body['newPassword2']);
+
+  if (newPassword == newPassword2){
+    if (passwordHash.verify(oldPassword ,req.cookies.logses)) {
+      db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+        if (!err && rows.rowCount == 1) {
+            var password = passwordHasher(newPassword);
+
+            db.query('UPDATE user_profile SET password = \''+ password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
+              res.clearCookie('logses');
+              console.log(rows1)
+              res.render('login');
+            });
+        }else{
+			res.redirect('/wrongapproach');
+		}
+	});
+		}else{
+			res.redirect('/wrongapproach');
+		}
+	}else{
+		res.redirect('/wrongapproach');
+	}
+});
+
+app.get('/forgot_password', (req, res) => {    //forgotPassword.ejs
+  res.clearCookie('logses');
+  res.render('forgot_password')
+});
+
+app.post('/forgot_password', (req, res) => {                                                                   //forgot password
+  //need to access user's database with email
+  var email = String(req.body['email']);
+  var generator = require('generate-password');
+  var password = generator.generate({
+    length: 10,
+    numbers: true});
+	console.log(email)
+  console.log(password)
+  var hash_password = passwordHasher(password);
+  console.log("Password is Secure......................."+hash_password)
+  console.log(hash_password)
+  db.query('SELECT * FROM user_profile where available = true AND email=\''+email+'\'', function (err, rows, fields) {
+  // console.log(rows)
+  if (!err && rows.rowCount == 1) {
+  	db.query('UPDATE user_profile SET password = \''+ hash_password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
+			const mailOptions = {
+				// from: 'sender@email.com', // sender address
+				from: 'ubbuynsell@gmail.com', // sender address
+				to: email, // list of receivers   //email recipient
+				subject: 'Subject of your email', // Subject listen
+				html: '<p>Stop Forgetting your password!</p> <p>Password:</p>'+password+'<img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'
+			};
+			transporter.sendMail(mailOptions, function (err, info) {
+				if(err){
+					console.log(err)
+				}else{
+					console.log(info);
+				}
+			});
+    	res.render('login');
+    });
+    }else{
+      res.redirect('/wrongapproach');
+    }
+  });
+});
+
 app.post('/uploadForm', items_path.any(),(req, res) => {
 	console.log('form connected')
 	var item_name = String(req.body['productName']);
@@ -355,7 +563,7 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 	console.log(req.files);
 	try{
 		if (req.files.length != 0){
-				file = "./items/"+req.files[0].filename;
+				file = "/items/"+req.files[0].filename;
 				// file = "./items/"+category+"/"+req.files[0].filename;
 		}
     else{
@@ -391,16 +599,9 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 			res.redirect('/wrongapproach');
 		}
 	});
-
-
- 	// // if (item_name != '' && item_name != ' ' && !item_name.includes(';') && !item_name.includes('.')&& !item_name.includes('=')){
- 		
-	// // }
-	// // else{
-	// // 	res.send('wrong approach');
-	// // }
-	// res.send("Typed :", item_name, description, price);
 });
+
+
 
  function passwordHasher(unsecure_password) {
  	var secure_password = passwordHash.generate(unsecure_password);

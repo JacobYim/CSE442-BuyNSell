@@ -1,106 +1,66 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang = "en" dir = "ltr">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        
-        <title>BuyNSell | Product</title>
-        
-        <style>
-            .bd-placeholder-img {
-                font-size: 1.125rem;
-                text-anchor: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
-        
-            @media (min-width: 768px) {
-                .bd-placeholder-img-lg {
-                    font-size: 3.5rem;
-                }
-            }
-        </style>
-        
-        <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="./css/bootstrap.min.css">
-        
-        <!-- Custom styles for this page -->
-        <link href="./css/carousel.css" rel="stylesheet">
-        
-        <!-- Custom user panel and product recommendation blocks styles for this page -->
-        <link href="./css/user-panel-product-recommend.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>BuyNSell | Produck</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <!--
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
     <body>
         <!--Header-->
     	<header>
-            <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-                <a class="navbar-brand" href="/"><img src="./img/logo_62px.png"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                Shop by Category
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="category">All</a>
-                                <a class="dropdown-item" href="category">Clothing</a>
-                                <a class="dropdown-item" href="category">Electronics</a>
-                                <a class="dropdown-item" href="category">Furnitures</a>
-                                <a class="dropdown-item" href="category">Cars</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about">Contact</a>
-                        </li>
+    		<div class="container">
+                <span id="main-logo">
+                    <a href="/">BuyNSell</a>
+                </span>
+                <nav class="navbar">
+                    <ul>
+                        <li><a href="./category">Category</a></li>
+                        <li><a href="./login">Login</a></li>
+                        <li><a href="./signup">Sign Up</a></li>
+                        <li><a href="./about">About</a></li>
                     </ul>
-                    <ul class="navbar-nav" id="logOut">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Log Out</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        
-        <div style="margin-top: 100px"></div>
+                </nav>
+			</div>
+    	</header>
 
         <div class="container-fluid text-center">
             <div class="row content">
-                <div class="col-sm-6 text-left">
-                    <div class="container">
-                        <img src="img/confused_travolta.jpg" class="img-thumbnail">
-                    </div>
-                    
-                </div>
-                <div class="col-sm-6 text-left">
-                    <div class="container">
-                        <h3><% clicked_prod %></h3>
-                        <p>Seller's Name Here</p>
-                        <hr>
-                        <p>Price: <span style="color: darkred; font-size: 30px">$cost</span></p>
+                <div class="col-sm-9 text-left">
+                    <div class="col-sm-7">
                         <div class="container">
-                            <button type="button" class="btn btn-warning">Dip!</button>
-                            <button type="button" class="btn btn-primary">Contact Seller</button>
-                            <button type="button" class="btn btn-danger">Like</button>
+                            <img src="img/confused_travolta.jpg" class="img-thumbnail">
                         </div>
-                        <p>Product Description:
-                            <li>list0</li>
-                            <li>list1</li>
-                            <li>list2</li>
-                            <li>list3</li>
-                        </p>
+                    </div>
+                    <div class="col-sm-4 text-left">
+                        <div class="container">
+                            <h3>Product Name Here</h3>
+                            <p>Seller's Name Here</p>
+                            <hr>
+                            <p>Price: <span style="color: darkred; font-size: 30px">$cost</span></p>
+                            <div class="container">
+                                <button type="button" class="btn btn-warning">Dip!</button>
+                                <button type="button" class="btn btn-primary">Contact Seller</button>
+                                <button type="button" class="btn btn-danger">Like</button>
+                            </div>
+                            <p>Product Description:
+                                <li>list0</li>
+                                <li>list1</li>
+                                <li>list2</li>
+                                <li>list3</li>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -138,9 +98,8 @@
 
 
         <!--Footer-->
-        <footer class="container">
-            <p class="float-right"><a href="#">Back to top</a></p>
-            <p>BuyNSell &copy; 2019 &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <footer class="container-fluid text-center">
+            <h2>Copyright &copy; reserved by BuyNSell, 2019.</h2>
         </footer>
 
         <!-- Optional JavaScript -->
