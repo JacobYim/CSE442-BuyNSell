@@ -139,7 +139,7 @@ app.get('/category/:category/:page', function(req, res) {    //category.ejs
 	}else{
 		cate_num = 5
 	}
-	
+
 	if (cate_num >= 5){
 		res.send('error')
 	}else{
@@ -172,13 +172,13 @@ app.get('/category/:category/:page', function(req, res) {    //category.ejs
 						db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
 							if (!err) {
 								console.log(rows.rows[0].fname)
-								res.render('category', {items : data_item, username : rows.rows[0].fname, page_info : datas})
+								res.render('category', {items : data_item, username : rows.rows[0].fname, page_info : datas, category : cate_num})
 							} else {
-								res.render('category',{ items : data_item, username : null , page_info : datas})
+								res.render('category',{ items : data_item, username : null , page_info : datas , category : cate_num})
 							}
 						});
 					} else {
-						res.render('category',{ items : data_item, username : null , page_info : datas})
+						res.render('category',{ items : data_item, username : null , page_info : datas, category : cate_num})
 					}
 				});
 			});
@@ -211,13 +211,13 @@ app.get('/category/:category/:page', function(req, res) {    //category.ejs
 						db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
 							if (!err) {
 								console.log(rows.rows[0].fname)
-								res.render('category', {items : data_item, username : rows.rows[0].fname, page_info : datas})
+								res.render('category', {items : data_item, username : rows.rows[0].fname, page_info : datas, category : cate_num})
 							} else {
-								res.render('category',{ items : data_item, username : null , page_info : datas})
+								res.render('category',{ items : data_item, username : null , page_info : datas, category : cate_num})
 							}
 						});
 					} else {
-						res.render('category',{ items : data_item, username : null , page_info : datas})
+						res.render('category',{ items : data_item, username : null , page_info : datas, category : cate_num})
 					}
 				});
 		
