@@ -111,7 +111,7 @@ app.get('/category', function(req, res) {    //category.ejs
 		}
 	});
 
-	
+
 })
 app.get('/product', function(req, res) {    //category.ejs
 	res.render('product')
@@ -158,6 +158,10 @@ app.get('/signup', function(req, res) {    //signup.ejs
 	res.clearCookie('logses');
 	res.render('signup')
 })
+app.get('/forgot_password', function(req, res) {    //forgotPassword.ejs
+  res.clearCookie('logses');
+  res.render('forgot_password')
+})
 app.get('/modifyPassword', function(req, res) {    //modifyPassword.ejs
 	res.render('modifyPassword')
 })
@@ -195,6 +199,63 @@ app.post('/login', (req,res) => {
 });
 app.get('/signup', (req,res) => {
 	res.render('signup');
+});
+
+app.post('/forgot_password',(req, res) => {                                                                   //forgot password
+                                                                                                              //need to access user's database with email
+  var email = String(req.body['email']);
+  console.log(email)
+
+  var generator = require('generate-password');
+  var password = generator.generate({
+      length: 10,
+      numbers: true
+  });
+
+  const mailOptions = {
+    // from: 'sender@email.com', // sender address
+    from: 'ubbuynsell@gmail.com', // sender address
+
+    to: email.toString(), // list of receivers   //email recipient
+    subject: 'Forgot Your Password :D', // Subject listen
+    html: '<p>Stop Forgetting your password!\n</p></p> \npassword <img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'
+    };
+    transporter.sendMail(mailOptions, function (err, info) {
+       if(err)
+         console.log(err)
+       else
+         console.log(info);
+  });
+  console.log(password)
+  var hash_password = passwordHasher(password);
+  console.log("Password is Secure......................."+hash_password)
+  console.log(hash_password)
+  db.query('SELECT * FROM user_profile where available = true AND email=\''+email+'\'', function (err, rows, fields) {
+    // console.log(rows)
+    if (!err && rows.rowCount == 1) {
+        db.query('UPDATE user_profile SET password = \''+ hash_password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
+          // console.log(rows1)
+          const mailOptions = {
+            // from: 'sender@email.com', // sender address
+            from: 'ubbuynsell@gmail.com', // sender address
+
+            to: email, // list of receivers   //email recipient
+            subject: 'Subject of your email', // Subject listen
+            html: '<p>Stop Forgetting your password!</p> <p>Password:</p>'+password+'<img src="https://pbs.twimg.com/media/ClbAuJFUsAAV_s2.jpg" alt="Cheetah!" />'
+            };
+            transporter.sendMail(mailOptions, function (err, info) {
+               if(err)
+                 console.log(err)
+               else
+                 console.log(info);
+          });
+          res.render('login');
+        });
+    }else{
+      res.redirect('/wrongapproach');
+    }
+  });
+
 });
 
 app.post('/signup', upload.any(),(req,res) => {
@@ -236,7 +297,7 @@ app.post('/signup', upload.any(),(req,res) => {
     			path:'/'});
     		res.render('index',{ username : fname })
     		console.log('signin success'+ fname);
-    	} 
+    	}
     	else {
     		res.send('err : ' + err);
     	}
@@ -371,7 +432,7 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 						console.log(rows)
 						res.render('Dashboard', {user : user})
 						console.log('item upload success '+ item_name);
-					} 
+					}
 					else {
 						res.send('err : ' + err);
 				}
@@ -386,7 +447,7 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 
 
  	// // if (item_name != '' && item_name != ' ' && !item_name.includes(';') && !item_name.includes('.')&& !item_name.includes('=')){
- 		
+
 	// // }
 	// // else{
 	// // 	res.send('wrong approach');
