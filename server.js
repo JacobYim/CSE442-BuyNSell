@@ -96,7 +96,20 @@ app.get('/logout', function(req, res) {    //index.ejs
 	res.render('index',{ username : null })
 })
 app.get('/about', function(req, res) {    //index.ejs
-	res.render('about')
+	console.log(req.cookies.logses);
+	if (req.cookies.logses != null) {
+		console.log("cookie");
+		db.query('SELECT fname FROM user_profile where available = true AND password=\'' + req.cookies.logses + '\'', function (err, rows, fields) {
+			if (!err) {
+				console.log(rows.rows[0].fname)
+				res.render('about', { username: rows.rows[0].fname })
+			} else {
+				res.render('about', { username: null })
+			}
+		});
+	} else {
+		res.render('about', { username: null })
+	}
 })
 
 app.get('/category', function(req, res) {    //category.ejs
