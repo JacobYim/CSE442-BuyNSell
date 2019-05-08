@@ -1,66 +1,136 @@
 <!DOCTYPE html>
-<html lang = "en" dir = "ltr">
+<html lang = "en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>BuyNSell | Produck</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <!--
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        -->
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-        <!-- jQuery library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-        <!-- Latest compiled JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    
+        <title>BuyNSell | Product</title>
+    
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+    
+        <!-- Custom styles for this page -->
+        <link rel="stylesheet" href="/css/products-grid-category.css">
+    
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+            integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     </head>
     <body>
         <!--Header-->
     	<header>
-    		<div class="container">
-                <span id="main-logo">
-                    <a href="/">BuyNSell</a>
-                </span>
-                <nav class="navbar">
-                    <ul>
-                        <li><a href="./category">Category</a></li>
-                        <li><a href="./login">Login</a></li>
-                        <li><a href="./signup">Sign Up</a></li>
-                        <li><a href="./about">About</a></li>
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <a class="navbar-brand" href="/"><img src="/img/logo_62px.png"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <!-- when the login is valid-->
+                        <% if(username != null){ %>
+                        <li>
+                            <a class="nav-link font-weight-bold" href="/dashboard"> Hi, <%= username %></a>
+                        </li>
+                        <% } %>
+                        <!-- when the login is not valid-->
+                        <li class="nav-item">
+                            <% if(username == null){ %>
+                            <a class="nav-link" href="/login">Login/Sign Up</a>
+                            <% } %>
+                        </li>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Shop by Category
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item active" href="/category">All</a>
+                                <a class="dropdown-item" href="/category_clothing">Clothing</a>
+                                <a class="dropdown-item" href="/category_electronics">Electronics</a>
+                                <a class="dropdown-item" href="/category_furnitures">Furnitures</a>
+                                <a class="dropdown-item" href="/category_cars">Cars</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">Contact</a>
+                        </li>
                     </ul>
-                </nav>
-			</div>
+                    <ul class="navbar-nav mr-4">
+                        <li class="nav-item">
+                            <% if(username != null){ %>
+                            <a class="nav-link" href="/logout">Log out</a>
+                            <!-- when logged in-->
+                            <%} else {%>
+                            <p></p>
+                            <% } %>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                                placeholder="Search...">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-secondary btn-number">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <a class="btn btn-success btn-sm ml-3" href="cart.html">
+                            <i class="fa fa-shopping-cart"></i> Cart
+                            <span class="badge badge-light">3</span>
+                        </a>
+                    </form>
+                </div>
+            </nav>
     	</header>
 
-        <div class="container-fluid text-center">
+        <div class="container-fluid text-center" style="margin-top: 50px;">
             <div class="row content">
-                <div class="col-sm-9 text-left">
-                    <div class="col-sm-7">
-                        <div class="container">
-                            <img src="img/confused_travolta.jpg" class="img-thumbnail">
-                        </div>
+                <div class="col-sm-5">
+                    <div class="container">
+                        <!-- When product image exist -->
+                        <% if(item.file_path != null) { %>
+                        <img src= <%= item.file_path %> class="img-thumbnail">
+                        <% } else {%>
+                        <img src="/img/confused_travolta.jpg" class="img-thumbnail">
+                        <% } %>
                     </div>
-                    <div class="col-sm-4 text-left">
+                </div>
+                <div class="col-sm-7 text-left">
+                    <div class="container">
+                        <!--item_name-->
+                        <% if(item.item_name != null) { %>
+                        <h3><%= item.item_name %></h3>
+                        <% } else{ %>
+                        <h3>Product Name is Null</h3>
+                        <% } %>
+                        <!--post_by (seller information)-->
+                        <% if(item.post_by != null) { %>
+                        <p><%= item.post_by %></p>
+                        <% } else { %>
+                        <p>Seller's Name is Null</p>
+                        <% } %>
+                        <hr>
+                        <!--price-->
+                        <% if(item.price != null) { %>
+                        <p>Price: <span style="color: darkred; font-size: 30px">$<%= item.price %></span></p>
+                        <% } else{ %>
+                        <p>Price: <span style="color: darkred; font-size: 30px">$Null</span></p>
+                        <% } %>
                         <div class="container">
-                            <h3>Product Name Here</h3>
-                            <p>Seller's Name Here</p>
-                            <hr>
-                            <p>Price: <span style="color: darkred; font-size: 30px">$cost</span></p>
-                            <div class="container">
-                                <button type="button" class="btn btn-warning">Dip!</button>
-                                <button type="button" class="btn btn-primary">Contact Seller</button>
-                                <button type="button" class="btn btn-danger">Like</button>
-                            </div>
-                            <p>Product Description:
-                                <li>list0</li>
-                                <li>list1</li>
-                                <li>list2</li>
-                                <li>list3</li>
-                            </p>
+                            <button type="button" class="btn btn-warning">Dip!</button>
+                            <button type="button" class="btn btn-primary">Contact Seller</button>
+                            <button type="button" class="btn btn-danger">Like</button>
                         </div>
+                        <p>Product Description:
+                            <% if(item.description != null) { %>
+                            <li><%= item.description %></li>
+                            <% } else{ %>
+                            <li>No description</li>
+                            <% } %>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -92,14 +162,14 @@
                 </div>
             </div>
             <hr>
-            <p>Uh.... What other contents should we put under here...?</p>
 
         </div>
 
 
-        <!--Footer-->
-        <footer class="container-fluid text-center">
-            <h2>Copyright &copy; reserved by BuyNSell, 2019.</h2>
+        <!-- FOOTER -->
+        <footer class="container">
+            <p class="float-right"><a href="#">Back to top</a></p>
+            <p>BuyNSell &copy; 2019 &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
         </footer>
 
         <!-- Optional JavaScript -->

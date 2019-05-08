@@ -227,6 +227,44 @@ app.get('/category/:category/:page', function(req, res) {    //category.ejs
 	});
 
 
+app.get('/product/:id', function(req, res) {    //product.ejs
+	var item_id = req.params.id;
+	var item_name = null;
+	var price = null;
+	var description = null;
+	var file_path = null;
+	var post_by = null;
+	var time_post = null;
+	db.query('SELECT item_id, item_name, price, description, file_path, post_by, time_post FROM items where availability = true AND item_id = '+item_id+';', function (err, item, fields) {
+		var data_item = item.rows;
+		console.log("data_item[0] is: "+data_item[0].item_name)
+		console.log("item.command is: "+item.command)
+		var datas = {
+			item_id: data_item[0].item_id,
+			item_name: data_item[0].item_name,
+			price: data_item[0].price,
+			description: data_item[0].description,
+			file_path: data_item[0].file_path,
+			post_by: data_item[0].post_by,
+			time_post: data_item[0].time_post
+		};
+		console.log(datas);
+		if (req.cookies.logses != null) {
+			console.log("cookie");
+			db.query('SELECT fname FROM user_profile where available = true AND password=\'' + req.cookies.logses + '\'', function (err, rows, fields) {
+				if (!err) {
+					console.log(rows.rows[0].fname)
+					res.render('product', { item: datas, username: rows.rows[0].fname })
+				} else {
+					res.render('product', { item: datas, username: null })
+				}
+			});
+		} else {
+			res.render('product', { item: datas, username: null })
+		}
+	});
+})
+
 app.get('/login', function(req, res) {    //login.ejs
 	res.clearCookie('logses');
 	res.render('login')
