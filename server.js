@@ -226,6 +226,7 @@ app.get('/category/:category/:page', function(req, res) {    //category.ejs
 	}
 	});
 
+
 app.get('/product/:id', function(req, res) {    //product.ejs
 	var item_id = req.params.id;
 	var item_name = null;
