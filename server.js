@@ -226,7 +226,7 @@ app.get('/category/:category/:page', function(req, res) {    //category.ejs
 	}
 	});
 
-app.get('/product/:id', function(req, res) {    //category.ejs
+app.get('/product/:id', function(req, res) {    //product.ejs
 	var item_id = req.params.id;
 	var item_name = null;
 	var price = null;
@@ -262,9 +262,8 @@ app.get('/product/:id', function(req, res) {    //category.ejs
 			res.render('product', { item: datas, username: null })
 		}
 	});
-
-	// res.render('product')
 })
+
 app.get('/login', function(req, res) {    //login.ejs
 	res.clearCookie('logses');
 	res.render('login')
