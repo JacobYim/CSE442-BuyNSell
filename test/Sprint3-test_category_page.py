@@ -10,7 +10,7 @@ import time
 driver_path = './chromedriver'
 browser = webdriver.Chrome(driver_path)
 
-browser.get('https://www.bufbuynsell.net/login')
+browser.get('http://localhost:8080/login')
 element = WebDriverWait(browser, 2).until(
         EC.presence_of_element_located((By.NAME, 'email'))
     )
@@ -36,7 +36,7 @@ product_price = ['100','20','10','200000','200','10000','5']
 product_category = ['Electronics','Furnitures','Clothing','Cars','Electronics','Cars','Furnitures']
 
 for i in range(7) :
-    browser.get('https://www.bufbuynsell.net/uploadForm')
+    browser.get('http://localhost:8080/uploadForm')
 
     element = WebDriverWait(browser, 2).until(
             EC.presence_of_element_located((By.NAME, 'productName'))
@@ -55,7 +55,7 @@ for i in range(7) :
     login_attempt.submit()
     # time.sleep(2)
 
-browser.get('https://www.bufbuynsell.net/category')
+browser.get('http://localhost:8080/category')
 
 item1 = browser.find_element_by_id('item_name0').text
 item2 = browser.find_element_by_id('item_name1').text
@@ -64,7 +64,7 @@ item4 = browser.find_element_by_id('item_name3').text
 item5 = browser.find_element_by_id('item_name4').text
 item6 = browser.find_element_by_id('item_name5').text
 
-browser.get('https://www.bufbuynsell.net/category/all/2')
+browser.get('http://localhost:8080/category/all/2')
 
 item7 = browser.find_element_by_id('item_name0').text
 
@@ -84,18 +84,18 @@ else :
     print (out_item)
     print (product_name[::-1])
 
-browser.get('https://www.bufbuynsell.net/category/clothing/1')
+browser.get('http://localhost:8080/category/clothing/1')
 item1 = browser.find_element_by_id('item_name0').text
 if (item1 == 'Levis Pants') :
-    browser.get('https://www.bufbuynsell.net/category/electronics/1')
+    browser.get('http://localhost:8080/category/electronics/1')
     item1 = browser.find_element_by_id('item_name0').text
     item2 = browser.find_element_by_id('item_name1').text
     if (item1 == 'Speaker' and item2 == 'OLED TV') : 
-        browser.get('https://www.bufbuynsell.net/category/furnitures/1')
+        browser.get('http://localhost:8080/category/furnitures/1')
         item1 = browser.find_element_by_id('item_name0').text
         item2 = browser.find_element_by_id('item_name1').text
         if (item1 == 'Pot' and item2 == 'Desk') :  
-            browser.get('https://www.bufbuynsell.net/category/cars/1')
+            browser.get('http://localhost:8080/category/cars/1')
             item1 = browser.find_element_by_id('item_name0').text
             item2 = browser.find_element_by_id('item_name1').text
             if (item1 == 'Elantra' and item2 == 'Lambo') :  
@@ -108,3 +108,14 @@ if (item1 == 'Levis Pants') :
         print ('category pages fail')
 else :
     print ('category pages fail')
+
+browser.get('http://localhost:8080/category')
+item1 = browser.find_element_by_id('item_name0').text
+browser.find_element_by_id('item_name0').click()
+
+result1 = browser.find_element_by_tag_name('h3').text
+
+if (item1 == result1) :
+    print('item category success')
+else :
+    print('item category fail')
