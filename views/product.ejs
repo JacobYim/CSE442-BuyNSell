@@ -86,7 +86,7 @@
             </nav>
     	</header>
 
-        <div class="container-fluid text-center">
+        <div class="container-fluid text-center" style="margin-top: 50px;">
             <div class="row content">
                 <div class="col-sm-5">
                     <div class="container">
@@ -100,23 +100,36 @@
                 </div>
                 <div class="col-sm-7 text-left">
                     <div class="container">
+                        <!--item_name-->
                         <% if(item.item_name != null) { %>
-                        <h3>Product Name Here</h3>
+                        <h3><%= item.item_name %></h3>
                         <% } else{ %>
+                        <h3>Product Name is Null</h3>
                         <% } %>
-                        <p>Seller's Name Here</p>
+                        <!--post_by (seller information)-->
+                        <% if(item.post_by != null) { %>
+                        <p><%= item.post_by %></p>
+                        <% } else { %>
+                        <p>Seller's Name is Null</p>
+                        <% } %>
                         <hr>
-                        <p>Price: <span style="color: darkred; font-size: 30px">$cost</span></p>
+                        <!--price-->
+                        <% if(item.price != null) { %>
+                        <p>Price: <span style="color: darkred; font-size: 30px">$<%= item.price %></span></p>
+                        <% } else{ %>
+                        <p>Price: <span style="color: darkred; font-size: 30px">$Null</span></p>
+                        <% } %>
                         <div class="container">
                             <button type="button" class="btn btn-warning">Dip!</button>
                             <button type="button" class="btn btn-primary">Contact Seller</button>
                             <button type="button" class="btn btn-danger">Like</button>
                         </div>
                         <p>Product Description:
-                            <li>list0</li>
-                            <li>list1</li>
-                            <li>list2</li>
-                            <li>list3</li>
+                            <% if(item.description != null) { %>
+                            <li><%= item.description %></li>
+                            <% } else{ %>
+                            <li>No description</li>
+                            <% } %>
                         </p>
                     </div>
                 </div>
@@ -149,14 +162,14 @@
                 </div>
             </div>
             <hr>
-            <p>Uh.... What other contents should we put under here...?</p>
 
         </div>
 
 
-        <!--Footer-->
-        <footer class="container-fluid text-center">
-            <h2>Copyright &copy; reserved by BuyNSell, 2019.</h2>
+        <!-- FOOTER -->
+        <footer class="container">
+            <p class="float-right"><a href="#">Back to top</a></p>
+            <p>BuyNSell &copy; 2019 &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
         </footer>
 
         <!-- Optional JavaScript -->
