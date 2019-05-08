@@ -9,18 +9,19 @@
       <title>BuyNSell | Category</title>
 
       <!-- Bootstrap core CSS -->
-      <link rel="stylesheet" href="./css/bootstrap.min.css" >
+      <link rel="stylesheet" href="/css/bootstrap.min.css" >
 
       <!-- Custom styles for this page -->
-      <link rel="stylesheet" href="./css/products-grid-category.css">
+      <link rel="stylesheet" href="/css/products-grid-category.css">
 
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     </head>
-    
+
+
     <body>
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="/"><img src="./img/logo_62px.png"></a>
+        <a class="navbar-brand" href="/"><img src="/img/logo_62px.png"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,13 +30,13 @@
                 <!-- when the login is valid-->
                 <% if(username != null){ %>
                 <li>
-                    <a class="nav-link font-weight-bold" href="./dashboard"> Hi, <%= username %></a>
+                    <a class="nav-link font-weight-bold" href="/dashboard"> Hi, <%= username %></a>
                 </li>
                 <% } %>
                 <!-- when the login is not valid-->
                 <li class="nav-item">
                     <% if(username == null){ %>
-                    <a class="nav-link" href="./login">Login/Sign Up</a>
+                    <a class="nav-link" href="/login">Login/Sign Up</a>
                     <% } %>
                 </li>
             <li class="nav-item dropdown active">
@@ -44,10 +45,10 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/category">All</a>
-                <a class="dropdown-item" href="/category">Clothing</a>
-                <a class="dropdown-item" href="/category">Electronics</a>
-                <a class="dropdown-item" href="/category">Furnitures</a>
-                <a class="dropdown-item" href="/category">Cars</a>
+                <a class="dropdown-item" href="/category/clothing/1">Clothing</a>
+                <a class="dropdown-item" href="/category/electronics/1">Electronics</a>
+                <a class="dropdown-item" href="/category/furnitures/1">Furnitures</a>
+                <a class="dropdown-item" href="/category/cars/1">Cars</a>
               </div>
             </li>
             <li class="nav-item">
@@ -57,7 +58,7 @@
           <ul class="navbar-nav mr-4">
                 <li class="nav-item">
                   <% if(username != null){ %>
-                  <a class="nav-link" href="./logout">Log out</a>
+                  <a class="nav-link" href="/logout">Log out</a>
                   <!-- when logged in-->
                   <%} else {%>
                   <p></p>
@@ -73,7 +74,7 @@
                         </button>
                     </div>
                 </div>
-                <a class="btn btn-success btn-sm ml-3" href="cart.html">
+                <a class="btn btn-success btn-sm ml-3" href="/cart">
                 <i class="fa fa-shopping-cart"></i> Cart
                 <span class="badge badge-light">3</span>
                 </a>
@@ -93,9 +94,20 @@
             <div class="col">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index">Home</a></li>
-                        <li class="breadcrumb-item"><a href="category">Category</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Sub-category</li>
+                        <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/category">Category</a></li>
+                        <% var current_cate; %>
+                        <% if (category == 0) { current_cate = "all"%>
+                            <li class="breadcrumb-item active" aria-current="page">All</li>
+                        <% }else if (category == 1){ current_cate = "clothing" %>
+                            <li class="breadcrumb-item active" aria-current="page">Clothing</li>
+                        <% }else if (category == 2){ current_cate = "electronics" %>
+                            <li class="breadcrumb-item active" aria-current="page">Electronics</li>
+                        <% }else if (category == 3){ current_cate = "furnitures" %>
+                            <li class="breadcrumb-item active" aria-current="page">Furnitures</li>
+                        <% }else if (category == 4){ current_cate = "cars" %>
+                            <li class="breadcrumb-item active" aria-current="page">Cars</li>
+                        <% } %>
                     </ol>
                 </nav>
             </div>
@@ -107,29 +119,55 @@
                 <div class="card bg-light mb-3">
                     <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
                     <ul class="list-group category_block">
-                        <li class="list-group-item"><a href="category">Category_0</a></li>
-                        <li class="list-group-item"><a href="category">Category_1</a></li>
-                        <li class="list-group-item"><a href="category">Category_2</a></li>
-                        <li class="list-group-item"><a href="category">Category_3</a></li>
-                        <li class="list-group-item"><a href="category">Category_4</a></li>
+                        <% if (category == 0) {%>
+                        <li class="list-group-item active"><a href="/category/all/1">All</a></li>
+                        <li class="list-group-item"><a href="/category/clothing/1">Clothing</a></li>
+                        <li class="list-group-item"><a href="/category/electronics/1">Electronics</a></li>
+                        <li class="list-group-item"><a href="/category/furnitures/1">Furnitures</a></li>
+                        <li class="list-group-item"><a href="/category/cars/1">Cars</a></li>
+                        <% }else if (category == 1){ %>
+                        <li class="list-group-item"><a href="/category/all/1">All</a></li>
+                        <li class="list-group-item active"><a href="/category/clothing/1">Clothing</a></li>
+                        <li class="list-group-item"><a href="/category/electronics/1">Electronics</a></li>
+                        <li class="list-group-item"><a href="/category/furnitures/1">Furnitures</a></li>
+                        <li class="list-group-item"><a href="/category/cars/1">Cars</a></li>
+                        <% }else if (category == 2){ %>
+                        <li class="list-group-item"><a href="/category/all/1">All</a></li>
+                        <li class="list-group-item"><a href="/category/clothing/1">Clothing</a></li>
+                        <li class="list-group-item active"><a href="/category/electronics/1">Electronics</a></li>
+                        <li class="list-group-item"><a href="/category/furnitures/1">Furnitures</a></li>
+                        <li class="list-group-item"><a href="/category/cars/1">Cars</a></li>
+                        <% }else if (category == 3){ %>
+                        <li class="list-group-item"><a href="/category/all/1">All</a></li>
+                        <li class="list-group-item"><a href="/category/clothing/1">Clothing</a></li>
+                        <li class="list-group-item"><a href="/category/electronics/1">Electronics</a></li>
+                        <li class="list-group-item active"><a href="/category/furnitures/1">Furnitures</a></li>
+                        <li class="list-group-item"><a href="/category/cars/1">Cars</a></li>
+                        <% }else if (category == 4){ %>
+                        <li class="list-group-item"><a href="/category/all/1">All</a></li>
+                        <li class="list-group-item"><a href="/category/clothing/1">Clothing</a></li>
+                        <li class="list-group-item"><a href="/category/electronics/1">Electronics</a></li>
+                        <li class="list-group-item"><a href="/category/furnitures/1">Furnitures</a></li>
+                        <li class="list-group-item active"><a href="/category/cars/1">Cars</a></li>
+                        <% } %>
                     </ul>
                 </div>
             </div>
             <div class="col">
                 <div class="row">
-
-                    <% if (items.length <= 6){  var iter_num = items.length; }else{var iter_num = 6;} %>                 
-                    <% for (var i = 0; i < iter_num; i++ ){  %>    
+                    
+                    <% if (items.length <= 6){  var iter_num = items.length; }else{var iter_num = 6;} %>
+                    <% for (var i = 0; i < iter_num; i++ ){  %>
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="card" id = <%= "item"+String(i) %> >
                             <% if(items[i].file_path == null){ %>
                                 <img class="card-img-top" src= "https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
                             <% }else{ %>
                                 <img class="card-img-top" src= <%= items[i].file_path %> alt="Card image cap">
-                            <% }%>       
-                            
+                            <% }%>
+
                             <div class="card-body">
-                                <h4 class="card-title"><a id = "<%= 'item_name' + String(i) %>" href="product" title="View Product"><%= items[i].item_name %></a></h4>
+                                <h4 class="card-title"><a id = "<%= 'item_name' + String(i) %>" href="<%= '/product/' + items[i].item_id %>" title="View Product"><%= items[i].item_name %></a></h4>
                                 <p class="card-text" id = "<%= "item_desc"+String(i) %>" </p> <%= items[i].description %></p>
                                 <div class="row">
                                     <div class="col">
@@ -147,17 +185,35 @@
                     <div class="col-12">
                         <nav aria-label="...">
                             <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <% if (page_info.current != page_info.startPage ){ %>
                                 <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
+                                    <a class="page-link" href="<%= '/category/'+ current_cate + '/' + page_info.startPage %>" tabindex="-1">First</a>
                                 </li>
+                                <% } %>
+                                <% if (page_info.current - 3 > 0 ){ %>
+                                <li class="page-item">
+                                    <a class="page-link" href="<%= '/category/'+ current_cate + '/' + (page_info.current - 3) %>" tabindex="-1">Previous</a>
+                                </li>
+                                <% } %>
+                                <% if (page_info.current != page_info.startPage ){ %>
+                                <li class="page-item"><a class="page-link" href="<%= '/category/'+ current_cate + '/' + (page_info.current - 1) %>"><%=(page_info.current - 1)%></a></li>
+                                <% } %>
+                                <li class="page-item active">
+                                    <a class="page-link active" href="<%= '/category/'+ current_cate + '/' + (page_info.current) %>"><%=(page_info.current)%></a>
+                                </li>
+                                <% if (page_info.current != page_info.endPage){ %>
+                                <li class="page-item"><a class="page-link" href="<%= '/category/'+ current_cate + '/' + (page_info.current + 1) %>"><%=(page_info.current + 1)%></a></li>
+                                <% } %>
+                                <% if (page_info.current + 3 < page_info.endPage){ %>
+                                <li class="page-item">
+                                    <a class="page-link" href="<%= '/category/' + current_cate + '/' + (page_info.current + 3) %>">Next</a>
+                                </li>
+                                <% } %>
+                                <% if (page_info.current != page_info.endPage){ %>
+                                <li class="page-item">
+                                    <a class="page-link" href="<%= '/category/' + current_cate + '/' + page_info.endPage %>" tabindex="-1">Last</a>
+                                </li>
+                                <% } %>
                             </ul>
                         </nav>
                     </div>
@@ -173,12 +229,11 @@
         <p>BuyNSell &copy; 2019 &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
       </footer>
 
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="./Javascript/bootstrap.min.js"></script>
+    <script src="/Javascript/bootstrap.min.js"></script>
     </body>
 </html>

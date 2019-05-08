@@ -50,11 +50,11 @@
                 Shop by Category
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="category">All</a>
-                <a class="dropdown-item" href="category">Clothing</a>
-                <a class="dropdown-item" href="category">Electronics</a>
-                <a class="dropdown-item" href="category">Furnitures</a>
-                <a class="dropdown-item" href="category">Cars</a>
+                  <a class="dropdown-item" href="/category">All</a>
+                  <a class="dropdown-item" href="/category/clothing/1">Clothing</a>
+                  <a class="dropdown-item" href="/category/electronics/1">Electronics</a>
+                  <a class="dropdown-item" href="/category/furnitures/1">Furnitures</a>
+                  <a class="dropdown-item" href="/category/cars/1">Cars</a>
               </div>
             </li>
             <li class="nav-item">
@@ -160,11 +160,8 @@
               <div class="col-md-6">
                 <div class="row no-gutters">
                   <div class="col-md-8">
-                    <h2 class="h5">UBID: 1234 5678</h2>
+                    <h2 class="h5">UBID: <%= user.ubid %></h2>
                   </div>
-                  <div class="col-md-4">
-                    <a href="/changeUBIT"><button type="button" class="btn-sm btn-primary">Change</button></a>
-                  </div><!-- /.col-md-4 -->
                 </div><!-- /.row -->
               </div><!-- /.col-md-6 -->
 
