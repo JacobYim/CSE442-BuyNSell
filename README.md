@@ -25,11 +25,7 @@ Before running our codes, we need to setup the below components.
 > docker version            // to check that you have the latest release installed
 > docker run hello-world    // to verify that Docker is pulling images and running as expected
 >```  
-> 5. Enjoy it.
-
-> # Heroku (not now)#
-> 1. Please signup for the Heroku.
-> 2. install heroku from [heroku website](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) with following the instruction. 
+> 5. Enjoy it. https://www.bufbuynsell.net
 
 # How to Run the Server #
 
@@ -78,8 +74,8 @@ psql
 
 # Acceptance Test
 Acceptance test file for the feature listed below :
-- login
-- singin
+- Sign In
+- Log In
 - add item
 - show item in category
 - add user image
@@ -87,18 +83,11 @@ Acceptance test file for the feature listed below :
 - change password
 - user-session
 - logout
+- category page paging
+- category pages redirecting
 
 are in the test directory. Please read the README.md file in test directory to run acceptance test.
 
 # Website:
 The webapp is deployed on aws.
-Web link: http://ec2-18-217-95-10.us-east-2.compute.amazonaws.com:8080/category/all/1?fbclid=IwAR0B4uCyg--wEj2Az4SZmvdFbFcijTtStzYa5s6cnujB8E7MS63-YlV8mEA
-
-When stop the app,
-> 
-> `heroku ps:scale web=0`
-> 
-Restart,
-> 
-> `heroku ps:scale web=1`
-> 
+Web link: https://www.bufbuynsell.net
