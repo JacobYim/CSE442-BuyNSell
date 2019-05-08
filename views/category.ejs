@@ -44,11 +44,11 @@
                 Shop by Category
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item active" href="/category">All</a>
-                <a class="dropdown-item" href="/category_clothing">Clothing</a>
-                <a class="dropdown-item" href="/category_electronics">Electronics</a>
-                <a class="dropdown-item" href="/category_furnitures">Furnitures</a>
-                <a class="dropdown-item" href="/category_cars">Cars</a>
+                <a class="dropdown-item" href="/category">All</a>
+                <a class="dropdown-item" href="/category/clothing/1">Clothing</a>
+                <a class="dropdown-item" href="/category/electronics/1">Electronics</a>
+                <a class="dropdown-item" href="/category/furnitures/1">Furnitures</a>
+                <a class="dropdown-item" href="/category/cars/1">Cars</a>
               </div>
             </li>
             <li class="nav-item">
@@ -94,9 +94,20 @@
             <div class="col">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index">Home</a></li>
-                        <li class="breadcrumb-item"><a href="category">Category</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">All</li>
+                        <li class="breadcrumb-item"><a href="/index">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/category">Category</a></li>
+                        <% var current_cate; %>
+                        <% if (category == 0) { current_cate = "all"%>
+                            <li class="breadcrumb-item active" aria-current="page">All</li>
+                        <% }else if (category == 1){ current_cate = "clothing" %>
+                            <li class="breadcrumb-item active" aria-current="page">Clothing</li>
+                        <% }else if (category == 2){ current_cate = "electronics" %>
+                            <li class="breadcrumb-item active" aria-current="page">Electronics</li>
+                        <% }else if (category == 3){ current_cate = "furnitures" %>
+                            <li class="breadcrumb-item active" aria-current="page">Furnitures</li>
+                        <% }else if (category == 4){ current_cate = "cars" %>
+                            <li class="breadcrumb-item active" aria-current="page">Cars</li>
+                        <% } %>
                     </ol>
                 </nav>
             </div>
@@ -108,17 +119,43 @@
                 <div class="card bg-light mb-3">
                     <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
                     <ul class="list-group category_block">
-                        <li class="list-group-item active"><a href="/category">All</a></li>
-                        <li class="list-group-item"><a href="/category_clothing">Clothing</a></li>
-                        <li class="list-group-item"><a href="/category_electronics">Electronics</a></li>
-                        <li class="list-group-item"><a href="/category_furnitures">Furnitures</a></li>
-                        <li class="list-group-item"><a href="/category_cars">Cars</a></li>
+                        <% if (category == 0) {%>
+                        <li class="list-group-item active"><a href="/category/all/1">All</a></li>
+                        <li class="list-group-item"><a href="/category/clothing/1">Clothing</a></li>
+                        <li class="list-group-item"><a href="/category/electronics/1">Electronics</a></li>
+                        <li class="list-group-item"><a href="/category/furnitures/1">Furnitures</a></li>
+                        <li class="list-group-item"><a href="/category/cars/1">Cars</a></li>
+                        <% }else if (category == 1){ %>
+                        <li class="list-group-item"><a href="/category/all/1">All</a></li>
+                        <li class="list-group-item active"><a href="/category/clothing/1">Clothing</a></li>
+                        <li class="list-group-item"><a href="/category/electronics/1">Electronics</a></li>
+                        <li class="list-group-item"><a href="/category/furnitures/1">Furnitures</a></li>
+                        <li class="list-group-item"><a href="/category/cars/1">Cars</a></li>
+                        <% }else if (category == 2){ %>
+                        <li class="list-group-item"><a href="/category/all/1">All</a></li>
+                        <li class="list-group-item"><a href="/category/clothing/1">Clothing</a></li>
+                        <li class="list-group-item active"><a href="/category/electronics/1">Electronics</a></li>
+                        <li class="list-group-item"><a href="/category/furnitures/1">Furnitures</a></li>
+                        <li class="list-group-item"><a href="/category/cars/1">Cars</a></li>
+                        <% }else if (category == 3){ %>
+                        <li class="list-group-item"><a href="/category/all/1">All</a></li>
+                        <li class="list-group-item"><a href="/category/clothing/1">Clothing</a></li>
+                        <li class="list-group-item"><a href="/category/electronics/1">Electronics</a></li>
+                        <li class="list-group-item active"><a href="/category/furnitures/1">Furnitures</a></li>
+                        <li class="list-group-item"><a href="/category/cars/1">Cars</a></li>
+                        <% }else if (category == 4){ %>
+                        <li class="list-group-item"><a href="/category/all/1">All</a></li>
+                        <li class="list-group-item"><a href="/category/clothing/1">Clothing</a></li>
+                        <li class="list-group-item"><a href="/category/electronics/1">Electronics</a></li>
+                        <li class="list-group-item"><a href="/category/furnitures/1">Furnitures</a></li>
+                        <li class="list-group-item active"><a href="/category/cars/1">Cars</a></li>
+                        <% } %>
                     </ul>
                 </div>
             </div>
             <div class="col">
                 <div class="row">
-
+                    
                     <% if (items.length <= 6){  var iter_num = items.length; }else{var iter_num = 6;} %>
                     <% for (var i = 0; i < iter_num; i++ ){  %>
                     <div class="col-12 col-md-6 col-lg-4">
@@ -150,31 +187,31 @@
                             <ul class="pagination">
                                 <% if (page_info.current != page_info.startPage ){ %>
                                 <li class="page-item">
-                                    <a class="page-link" href="<%= '/category/' + page_info.startPage %>" tabindex="-1">First</a>
+                                    <a class="page-link" href="<%= '/category/'+ current_cate + '/' + page_info.startPage %>" tabindex="-1">First</a>
                                 </li>
                                 <% } %>
                                 <% if (page_info.current - 3 > 0 ){ %>
                                 <li class="page-item">
-                                    <a class="page-link" href="<%= '/category/' + (page_info.current - 3) %>" tabindex="-1">Previous</a>
+                                    <a class="page-link" href="<%= '/category/'+ current_cate + '/' + (page_info.current - 3) %>" tabindex="-1">Previous</a>
                                 </li>
                                 <% } %>
                                 <% if (page_info.current != page_info.startPage ){ %>
-                                <li class="page-item"><a class="page-link" href="<%= '/category/' + (page_info.current - 1) %>"><%=(page_info.current - 1)%></a></li>
+                                <li class="page-item"><a class="page-link" href="<%= '/category/'+ current_cate + '/' + (page_info.current - 1) %>"><%=(page_info.current - 1)%></a></li>
                                 <% } %>
                                 <li class="page-item active">
-                                    <a class="page-link active" href="<%= '/category/' + (page_info.current) %>"><%=(page_info.current)%></a>
+                                    <a class="page-link active" href="<%= '/category/'+ current_cate + '/' + (page_info.current) %>"><%=(page_info.current)%></a>
                                 </li>
                                 <% if (page_info.current != page_info.endPage){ %>
-                                <li class="page-item"><a class="page-link" href="<%= '/category/' + (page_info.current + 1) %>"><%=(page_info.current + 1)%></a></li>
+                                <li class="page-item"><a class="page-link" href="<%= '/category/'+ current_cate + '/' + (page_info.current + 1) %>"><%=(page_info.current + 1)%></a></li>
                                 <% } %>
                                 <% if (page_info.current + 3 < page_info.endPage){ %>
                                 <li class="page-item">
-                                    <a class="page-link" href="<%= '/category/' + (page_info.current + 3) %>">Next</a>
+                                    <a class="page-link" href="<%= '/category/' + current_cate + '/' + (page_info.current + 3) %>">Next</a>
                                 </li>
                                 <% } %>
                                 <% if (page_info.current != page_info.endPage){ %>
                                 <li class="page-item">
-                                    <a class="page-link" href="<%= '/category/' + page_info.endPage %>" tabindex="-1">Last</a>
+                                    <a class="page-link" href="<%= '/category/' + current_cate + '/' + page_info.endPage %>" tabindex="-1">Last</a>
                                 </li>
                                 <% } %>
                             </ul>

@@ -100,7 +100,10 @@
                 </div>
                 <div class="col-sm-7 text-left">
                     <div class="container">
+                        <% if(item.item_name != null) { %>
                         <h3>Product Name Here</h3>
+                        <% } else{ %>
+                        <% } %>
                         <p>Seller's Name Here</p>
                         <hr>
                         <p>Price: <span style="color: darkred; font-size: 30px">$cost</span></p>

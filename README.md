@@ -90,17 +90,9 @@ Acceptance test file for the feature listed below :
 
 are in the test directory. Please read the README.md file in test directory to run acceptance test.
 
-# How to connect with Heroku
- To connect with Heroku,
-> 
-> `heroku login`  
-> `heroku container:login`  
-> `heroku create`  
-> `docker build -t registry.heroku.com/<your-app-number>/web .`  
-> `docker push registry.heroku.com/<your-app-number>/web`  
-> `heroku container:release web -a <your-app-number>`  
-> `heroku open -a <your-app-number>`  
-> 
+# Website:
+The webapp is deployed on aws.
+Web link: http://ec2-18-217-95-10.us-east-2.compute.amazonaws.com:8080/category/all/1?fbclid=IwAR0B4uCyg--wEj2Az4SZmvdFbFcijTtStzYa5s6cnujB8E7MS63-YlV8mEA
 
 When stop the app,
 > 

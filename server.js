@@ -113,116 +113,122 @@ app.get('/about', function(req, res) {    //index.ejs
 })
 
 app.get('/category', function(req, res) {    //category.ejs
-	res.redirect('/category/1');
+	res.redirect('/category/all/1');
 });
 
-app.get('/category/:page', function(req, res) {    //category.ejs
+app.get('/category/:category/:page', function(req, res) {    //category.ejs
 	// getting the page parameter from the address
 	var page = req.params.page;
+	var cate = req.params.category;
+
 	page = parseInt(page, 10);
 	var size = 6;
 	var begin = (page - 1 )*size;
-	// res.send(page)
 
-	// getiing posting numbers from database
-	db.query('SELECT COUNT (*) FROM items where availability = true;', function (err, rows, fields) {
-		var cnt = rows.rows[0].count	// total number of item
-		var totalPage = Math.ceil(cnt/size); // total page numbers
-		var pageSize = 6;
-		var startPage = Math.floor((page-1)/pageSize)*pageSize +1;
-		var endPage = startPage + (pageSize - 1);
-		if (endPage > totalPage){
-			endPage = totalPage
-		}
+	var cate_num;
+	if (cate == 'all') {
+		cate_num = 0
+	}else if (cate == 'clothing'){
+		cate_num = 1
+	}else if (cate == 'electronics'){
+		cate_num = 2
+	}else if (cate == 'furnitures'){
+		cate_num = 3
+	}else if (cate == 'cars'){
+		cate_num = 4
+	}else{
+		cate_num = 5
+	}
+
+	if (cate_num >= 5){
+		res.send('error')
+	}else{
 		
-		db.query('SELECT item_id, item_name, price, description, file_path FROM items where availability = true ORDER BY time_post DESC LIMIT 6 OFFSET \''+begin +'\';', function (err, rows, fields) {
-			console.log(rows.rows)
-			var data_item = rows.rows;
-			var datas = {
-				pageSize : pageSize,
-				startPage : startPage,
-				endPage : endPage,
-				totalPage : totalPage,
-				current : page
-			};
-			console.log(datas);
-			if (req.cookies.logses != null){
-				console.log("cookie");
-				db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-					if (!err) {
-						console.log(rows.rows[0].fname)
-						res.render('category', {items : data_item, username : rows.rows[0].fname, page_info : datas})
+	// getiing posting numbers from database
+	if (cate_num == 0){
+			db.query('SELECT COUNT (*) FROM items where availability = true;', function (err, row, fields) {
+				var cnt = row.rows[0].count	// total number of item
+				var totalPage = Math.ceil(cnt/size); // total page numbers
+				var pageSize = 6;
+				var startPage = Math.floor((page-1)/pageSize)*pageSize +1;
+				var endPage = startPage + (pageSize - 1);
+				if (endPage > totalPage){
+					endPage = totalPage
+				}
+				
+				db.query('SELECT item_id, item_name, price, description, file_path FROM items where availability = true ORDER BY time_post DESC LIMIT 6 OFFSET \''+begin +'\';', function (err, item, fields) {
+					var data_item = item.rows;
+					console.log(item.command)
+					var datas = {
+						pageSize : pageSize,
+						startPage : startPage,
+						endPage : endPage,
+						totalPage : totalPage,
+						current : page
+					};
+					console.log(datas);
+					if (req.cookies.logses != null){
+						console.log("cookie");
+						db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+							if (!err) {
+								console.log(rows.rows[0].fname)
+								res.render('category', {items : data_item, username : rows.rows[0].fname, page_info : datas, category : cate_num})
+							} else {
+								res.render('category',{ items : data_item, username : null , page_info : datas , category : cate_num})
+							}
+						});
 					} else {
-						res.render('category',{ items : data_item, username : null , page_info : datas})
+						res.render('category',{ items : data_item, username : null , page_info : datas, category : cate_num})
 					}
 				});
-			} else {
-				res.render('category',{ items : rows.rows, username : null , page_info : datas})
-			}
-		});
+			});
+		}else{
+			db.query('SELECT COUNT (*) FROM items where availability = true AND item_category = \''+cate_num +'\';', function (err, row, fields) {
+				var cnt = row.rows[0].count	// total number of item
+				var totalPage = Math.ceil(cnt/size); // total page numbers
+				var pageSize = 6;
+				var startPage = Math.floor((page-1)/pageSize)*pageSize +1;
+				var endPage = startPage + (pageSize - 1);
+				console.log(row)
+				// res.send(row)
+				if (endPage > totalPage){
+					endPage = totalPage
+				}
+				
+				db.query('SELECT item_id, item_name, price, description, file_path FROM items where availability = true AND item_category = \''+cate_num +'\' ORDER BY time_post DESC LIMIT 6 OFFSET \''+begin +'\';', function (err, item, fields) {
+					var data_item = item.rows;
+					console.log(item.command)
+					var datas = {
+						pageSize : pageSize,
+						startPage : startPage,
+						endPage : endPage,
+						totalPage : totalPage,
+						current : page
+					};
+					console.log(datas);
+					if (req.cookies.logses != null){
+						console.log("cookie");
+						db.query('SELECT fname FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
+							if (!err) {
+								console.log(rows.rows[0].fname)
+								res.render('category', {items : data_item, username : rows.rows[0].fname, page_info : datas, category : cate_num})
+							} else {
+								res.render('category',{ items : data_item, username : null , page_info : datas, category : cate_num})
+							}
+						});
+					} else {
+						res.render('category',{ items : data_item, username : null , page_info : datas, category : cate_num})
+					}
+				});
+		
+			});
+		}
+	}
 	});
 
-});
-
-
-app.get('/category_all', function(req, res) {    //category.ejs
-  res.render('category_all')
-})
-app.get('/category_clothing', function(req, res) {    //category.ejs
-  res.render('category_clothing')
-})
-app.get('/category_electronics', function(req, res) {    //category.ejs
-  res.render('category_electronics')
-})
-app.get('/category_furnitures', function(req, res) {    //category.ejs
-  res.render('category_furnitures')
-})
-app.get('/category_cars', function(req, res) {    //category.ejs
-  res.render('category_cars')
-})
-
-app.get('/product', function(req, res) {    //product.ejs
+app.get('/product', function(req, res) {    //category.ejs
 	res.render('product')
 })
-app.get('/product/:item_id', function (req, res) {    //product.ejs
-	// getting the item_name parameter from the address
-	var item_id = req.params.item_id;
-	console.log("item_id is: "+req.params);
-	db.query('SELECT item_name, price, description, file_path, post_by, time_post FROM items where item_id = \'' + item_id + '\'', function (err, rows, fields) {
-		console.log(rows)
-		var data_item = rows;
-		var item_name = "item_name";
-		var price = 0;
-		var	description = "description";
-		var	file_path = "file_path";
-		var	post_by = "post_by";
-		var	time_post = "time_post";
-		var datas = {
-			item_name : item_name,
-			price : price,
-			description : description,
-			file_path : file_path,
-			post_by : post_by,
-			time_post : time_post
-		};
-		console.log(datas);
-		if (req.cookies.logses != null) {
-			console.log("cookie");
-			db.query('SELECT fname FROM user_profile where available = true AND password=\'' + req.cookies.logses + '\'', function (err, rows, fields) {
-				if (!err) {
-					console.log(data_item)
-					res.render('product', { item: datas, username: rows.rows[0].fname, page_info: datas })
-				} else {
-					res.render('product', { item: datas, username: null, page_info: datas })
-				}
-			});
-		} else {
-			res.render('product', { item: rows.rows, username: null, page_info: datas })
-		}
-	});
-	// res.render('product')
-})
-
 app.get('/login', function(req, res) {    //login.ejs
 	res.clearCookie('logses');
 	res.render('login')
@@ -486,33 +492,6 @@ app.post('/help',(req,res) => {
 	}
 });
 
-app.post('/modifyPassword',(req, res) => {    //modifyPassword.ejs
-	var oldPassword = String(req.body['oldPassword']);
-	var newPassword = String(req.body['newPassword']);
-	var newPassword2 = String(req.body['newPassword2']);
-
-	if (newPassword == newPassword2){
-		if (passwordHash.verify(oldPassword ,req.cookies.logses)) {
-			db.query('SELECT * FROM user_profile where available = true AND password=\''+req.cookies.logses +'\'', function (err, rows, fields) {
-				if (!err && rows.rowCount == 1) {
-					var password = passwordHasher(newPassword);
-					db.query('UPDATE user_profile SET password = \''+ password +'\' WHERE user_id = \''+ rows.rows[0].user_id +'\'AND available = true;', function (err1, rows1, fields1) {
-            console.log(rows1)
-						res.render('login');
-					});
-				}else{
-					res.redirect('/wrongapproach');
-				}
-			});
-		}else{
-
-		}
-	}else{
-		res.redirect('/wrongapproach');
-	}
-
-});
-
 app.get('/wrongapproach',(req, res) => {    //modifyPassword.ejs
 	res.send('<script type="text/javascript">alert("오류발생");</script>');
 });
@@ -621,6 +600,7 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 			db.query('SELECT * FROM categories where category_name = \''+category +'\'', function (err, rows, fields) {
 				if (!err && rows.rowCount == 1) {
 					category = rows.rows[0].category_id;
+					if (file != null){ 
 					db.query('insert into items(item_name,description,price,post_by,item_category,file_path) values(\''+item_name+'\',\''+description+'\', \''+ price + '\',\''+user_id+ '\',\''+ category + '\',\''+file +'\')', function (err, rows, fields){
 					if (!err) {
 						console.log(rows)
@@ -631,6 +611,18 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 						res.send('err : ' + err);
 				}
 					});
+				}else{
+					db.query('insert into items(item_name,description,price,post_by,item_category) values(\''+item_name+'\',\''+description+'\', \''+ price + '\',\''+user_id+ '\',\''+ category + '\')', function (err, rows, fields){
+						if (!err) {
+							console.log(rows)
+							res.render('Dashboard', {user : user})
+							console.log('item upload success '+ item_name);
+						} 
+						else {
+							res.send('err : ' + err);
+					}
+						});
+				}
 				}
 		});
 
