@@ -226,9 +226,7 @@ app.get('/category/:category/:page', function(req, res) {    //category.ejs
 	}
 	});
 
-app.get('/product', function(req, res) {    //category.ejs
-	res.render('product')
-})
+
 app.get('/login', function(req, res) {    //login.ejs
 	res.clearCookie('logses');
 	res.render('login')
