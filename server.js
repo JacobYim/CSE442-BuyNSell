@@ -669,6 +669,13 @@ app.post('/uploadForm', items_path.any(),(req, res) => {
 });
 
 
+app.get('/cart', (req, res) => {    
+  res.render('cart');
+});
+
+app.get('/message_to_seller', (req, res) => {
+  res.render('message_to_seller');
+});
 
  function passwordHasher(unsecure_password) {
  	var secure_password = passwordHash.generate(unsecure_password);
