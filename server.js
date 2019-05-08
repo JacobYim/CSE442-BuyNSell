@@ -181,9 +181,48 @@ app.get('/category_cars', function(req, res) {    //category.ejs
   res.render('category_cars')
 })
 
-app.get('/product', function(req, res) {    //category.ejs
+app.get('/product', function(req, res) {    //product.ejs
 	res.render('product')
 })
+app.get('/product/:item_id', function (req, res) {    //product.ejs
+	// getting the item_name parameter from the address
+	var item_id = req.params.item_id;
+	console.log("item_id is: "+req.params);
+	db.query('SELECT item_name, price, description, file_path, post_by, time_post FROM items where item_id = \'' + item_id + '\'', function (err, rows, fields) {
+		console.log(rows)
+		var data_item = rows;
+		var item_name = "item_name";
+		var price = 0;
+		var	description = "description";
+		var	file_path = "file_path";
+		var	post_by = "post_by";
+		var	time_post = "time_post";
+		var datas = {
+			item_name : item_name,
+			price : price,
+			description : description,
+			file_path : file_path,
+			post_by : post_by,
+			time_post : time_post
+		};
+		console.log(datas);
+		if (req.cookies.logses != null) {
+			console.log("cookie");
+			db.query('SELECT fname FROM user_profile where available = true AND password=\'' + req.cookies.logses + '\'', function (err, rows, fields) {
+				if (!err) {
+					console.log(data_item)
+					res.render('product', { item: datas, username: rows.rows[0].fname, page_info: datas })
+				} else {
+					res.render('product', { item: datas, username: null, page_info: datas })
+				}
+			});
+		} else {
+			res.render('product', { item: rows.rows, username: null, page_info: datas })
+		}
+	});
+	// res.render('product')
+})
+
 app.get('/login', function(req, res) {    //login.ejs
 	res.clearCookie('logses');
 	res.render('login')
